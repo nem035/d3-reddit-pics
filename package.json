@@ -1,0 +1,15 @@
+{
+  "name": "d3-playground",
+  "version": "1.0.0",
+  "description": "My own playground for d3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nemanja Stojanovic",
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^3.5.17",
+    "jquery": "^3.0.0"
+  }
+}

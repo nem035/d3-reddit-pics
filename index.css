@@ -1,0 +1,17 @@
+body {
+  background: #eceff1;
+  padding: 50px;
+}
+
+body.content {
+  text-align: center;
+}
+
+svg {
+  background: white;
+  width: 960px;
+  height: 600px;
+  border: 1px solid #455a64;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 2px #263238;
+}
