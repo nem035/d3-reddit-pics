@@ -3,12 +3,15 @@ function visualize({ data }) {
 
   const svg = d3.select('svg');
 
-  const g = svg.append('g');
+  const minHeight = 50;
+  const maxHeight = 450;
+  const g = svg.append('g')
+    .attr('transform', `translate(${minHeight}, 0)`);
 
   const maxScore = d3.max(reditData, (d) => d.data.score);
   const yScale = d3.scale.linear()
     .domain([0, maxScore])
-    .range([0, 500]);
+    .range([minHeight, maxHeight]);
 
   const circles = g.selectAll('circle').data(reditData);
   const circleAttrs = {
