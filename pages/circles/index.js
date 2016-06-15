@@ -15,12 +15,8 @@ function visualize({ data }) {
 
   const circles = g.selectAll('circle').data(reditData);
   const circleAttrs = {
-    cx(d, i) {
-      return i * 15;
-    },
-    cy(d, i) {
-      return yScale(d.data.score);
-    },
+    cx: (d, i) => i * 15,
+    cy: (d, i) => yScale(d.data.score),
     r: 6
   };
   circles.enter()
