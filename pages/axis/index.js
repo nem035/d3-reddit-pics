@@ -32,7 +32,7 @@ function visualize({ data }) {
     .attr('transform', `translate(${xPadding}, ${yPadding})`)
     .style({ fill: 'none', 'stroke': window.fillColor });
 const gX = svg.append('g')
-    .attr('transform', `translate(${xPadding}, ${maxHeight + yPadding})`)
+    .attr('transform', `translate(${xPadding + 2}, ${maxHeight + yPadding})`)
     .style({ fill: 'none', 'stroke': '#b0bec5' });
 
   yAxis(gY);
