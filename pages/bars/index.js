@@ -1,5 +1,5 @@
 function visualize({ data }) {
-  const reditData = data.children.sort((a, b) => a.data.score - b.data.score);
+  const redditData = data.children.sort((a, b) => a.data.score - b.data.score);
 
   const svg = d3.select('svg');
 
@@ -8,17 +8,17 @@ function visualize({ data }) {
   const g = svg.append('g')
     .attr('transform', `translate(${minHeight}, 100)`);
 
-  const maxScore = d3.max(reditData, (d) => d.data.score);
+  const maxScore = d3.max(redditData, (d) => d.data.score);
 
   const yScale = d3.scale.linear()
     .domain([0, maxScore])
     .range([minHeight, maxHeight]);
 
   const xScale = d3.scale.ordinal()
-    .domain(d3.range(reditData.length))
+    .domain(d3.range(redditData.length))
     .rangeBands([0, maxHeight], 0.5)
 
-  const bars = g.selectAll('rect').data(reditData);
+  const bars = g.selectAll('rect').data(redditData);
   const rectAttrs = {
     x: (d, i) => xScale(i),
     y: (d, i) => maxHeight - yScale(d.data.score),
