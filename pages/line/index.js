@@ -23,13 +23,20 @@ function visualize({ data }) {
     .y(yScale)
     .interpolate('cardinal');
 
-  g.append('path')
-    .transition()
-    .duration(window.transitionTime)
+  const path = g.append('path')
+
     .attr('d', line(redditData))
     .style({
       fill: 'none',
       stroke: window.fillColor,
       'stroke-width': '5px'
     });
+
+  const totalLength = path.node().getTotalLength();
+
+  path.attr('stroke-dasharray', `${totalLength} ${totalLength}`)
+    .attr('stroke-dashoffset', totalLength)
+    .transition()
+    .duration(window.transitionTime)
+    .attr('stroke-dashoffset', 0);
 }
