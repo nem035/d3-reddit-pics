@@ -48,3 +48,7 @@ svg {
   box-shadow: 1px 1px 5px 2px black;
   font-family: monospace;
 }
+
+svg .event {
+  pointer-events: none;;
+}
