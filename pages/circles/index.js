@@ -18,7 +18,7 @@ function visualize({ data }) {
   const circles = g.selectAll('circle').data(redditData);
   const circleAttrs = {
     cx: (score, i) => i * 15,
-    cy: (score, i) => yScale(score),
+    cy: yScale,
     r: 6
   };
   circles.enter()

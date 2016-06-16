@@ -1,5 +1,7 @@
 function visualize({ data }) {
-  const redditData = data.children.sort((a, b) => a.data.score - b.data.score);
+  const redditData = data.children
+    .map(d => d.data.score)
+    .sort((a, b) => a - b);
 
   const svg = d3.select('svg');
 
@@ -9,7 +11,7 @@ function visualize({ data }) {
     .attr('transform', `translate(${minHeight}, 0)`);
 
   const yScale = d3.scale.linear()
-    .domain(d3.extent(redditData, d => d.data.score))
+    .domain(d3.extent(redditData))
     .range([minHeight, maxHeight]);
 
   const xScale = d3.scale.ordinal()
@@ -17,10 +19,8 @@ function visualize({ data }) {
     .rangeBands([0, maxHeight]);
 
   const line = d3.svg.line()
-    .x((d, i) => xScale(i))
-    .y(d => {
-      return yScale(d.data.score)
-    })
+    .x((score, idx) => xScale(idx))
+    .y(yScale)
     .interpolate('cardinal');
 
   g.append('path')

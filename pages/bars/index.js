@@ -25,7 +25,7 @@ function visualize({ data }) {
     x: (score, i) => xScale(i),
     y: (score, i) => maxHeight - yScale(score),
     width: xScale.rangeBand(),
-    height: (score, i) => yScale(score)
+    height: yScale
   };
   bars.enter()
     .append('rect')

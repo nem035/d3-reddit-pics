@@ -41,7 +41,7 @@ function visualize({ data }) {
     .classed('event', true);
 
   rects.attr({
-    x: (d) => xScale(d.created),
+    x: ({ created }) => xScale(created),
     y: 0,
     width: 2,
     height: brushHeight
