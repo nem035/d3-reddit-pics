@@ -21,5 +21,6 @@ function visualize({ data }) {
   };
   circles.enter()
     .append('circle')
+    .attr('fill', window.fillColor)
     .attr(circleAttrs);
 }

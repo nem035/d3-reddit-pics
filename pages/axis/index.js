@@ -11,7 +11,7 @@ function visualize({ data }) {
   const maxScore = d3.max(reditData, (d) => d.data.score);
   const yScale = d3.scale.linear()
     .domain([0, maxScore])
-    .range([minHeight, maxHeight]);
+    .range([maxHeight, minHeight]);
   const xScale = d3.scale.linear()
     .domain([0, maxWidth])
     .range([minWidth, maxWidth]);
@@ -29,8 +29,9 @@ function visualize({ data }) {
   const xPadding = 60;
 
   const gY = svg.append('g')
-    .attr('transform', `translate(${xPadding}, ${yPadding})`);
-  const gX = svg.append('g')
+    .attr('transform', `translate(${xPadding}, ${yPadding})`)
+    .attr('fill', window.fillColor);
+const gX = svg.append('g')
     .attr('transform', `translate(${xPadding}, ${maxHeight + yPadding})`);
 
   yAxis(gY);

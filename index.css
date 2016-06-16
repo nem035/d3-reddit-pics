@@ -7,10 +7,15 @@ body {
   text-align: center;
 }
 
+h2 {
+  margin: 10px;
+}
+
 svg {
   background: white;
   width: 960px;
   height: 600px;
   border-radius: 5px;
   box-shadow: 1px 1px 5px 2px #263238;
+  font-family: monospace;
 }

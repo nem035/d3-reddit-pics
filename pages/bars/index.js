@@ -27,5 +27,6 @@ function visualize({ data }) {
   };
   bars.enter()
     .append('rect')
+    .attr('fill', window.fillColor)
     .attr(rectAttrs);
 }
