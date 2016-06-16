@@ -30,9 +30,10 @@ function visualize({ data }) {
 
   const gY = svg.append('g')
     .attr('transform', `translate(${xPadding}, ${yPadding})`)
-    .attr('fill', window.fillColor);
+    .style({ fill: 'none', 'stroke': window.fillColor });
 const gX = svg.append('g')
-    .attr('transform', `translate(${xPadding}, ${maxHeight + yPadding})`);
+    .attr('transform', `translate(${xPadding}, ${maxHeight + yPadding})`)
+    .style({ fill: 'none', 'stroke': '#b0bec5' });
 
   yAxis(gY);
   xAxis(gX);
