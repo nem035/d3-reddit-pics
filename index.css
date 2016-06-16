@@ -1,5 +1,6 @@
 body {
-  background: #eceff1;
+  background: #263238;
+  color: #fafafa;
   padding: 50px;
 }
 
@@ -7,15 +8,24 @@ body {
   text-align: center;
 }
 
+a {
+	color: #00b0ff;
+}
+
+a:visited,
+a:active {
+	color: #0091ea;
+}
+
 h2 {
   margin: 10px;
 }
 
 svg {
-  background: white;
+  background: #37474f;
   width: 960px;
   height: 600px;
   border-radius: 5px;
-  box-shadow: 1px 1px 5px 2px #263238;
+  box-shadow: 1px 1px 5px 2px black;
   font-family: monospace;
 }
