@@ -24,6 +24,8 @@ function visualize({ data }) {
     .interpolate('cardinal');
 
   g.append('path')
+    .transition()
+    .duration(window.transitionTime)
     .attr('d', line(redditData))
     .style({
       fill: 'none',
