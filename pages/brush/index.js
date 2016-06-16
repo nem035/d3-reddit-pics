@@ -1,11 +1,12 @@
 function visualize({ data }) {
   const redditData = data.children
-    .sort((a, b) => a.data.created - b.data.created)
-    .map(d => {
-      d.data.created *= 1000; // * 1000 because reddit dates are in seconds
-      console.log(new Date(d.data.created));
-      return d;
-    });
+    .map(({ data }) => {
+      return {
+        id: data.id,
+        created: data.created * 1000 // * 1000 because reddit dates are in seconds
+      };
+    })
+    .sort((a, b) => a.created - b.created)
 
   const minWidth = 10;
   const maxWidth = 850;
@@ -14,7 +15,7 @@ function visualize({ data }) {
   const g = svg.append('g')
     .attr('transform', `translate(${minWidth}, 250)`);
 
-  const domain = d3.extent(redditData, d => d.data.created);
+  const domain = d3.extent(redditData, d => d.created);
   const xScale = d3.time.scale()
     .domain(domain)
     .range([minWidth, maxWidth]);
@@ -40,7 +41,7 @@ function visualize({ data }) {
     .classed('event', true);
 
   rects.attr({
-    x: (d) => xScale(d.data.created),
+    x: (d) => xScale(d.created),
     y: 0,
     width: 2,
     height: brushHeight
@@ -49,14 +50,23 @@ function visualize({ data }) {
 
   brush.on('brushend', function() {
     const [minCreated, maxCreated] = brush.extent();
-    const filtered = redditData.filter(({ data }) => {
-      const { created } = data;
+    const filtered = redditData.filter(({ created }) => {
       return created > minCreated && created < maxCreated;
     });
 
-    g.selectAll('rect.event')
-      .style({ fill: '#ff9100' }) // resets the style from previous brushend
-      .data(filtered, d => d.data.id)
+    const rects = g.selectAll('rect.event');
+
+    // resets the style from previous brushend
+    rects.transition()
+      .duration(window.transitionTime)
+      .delay((d, i) => i)
+      .style({ fill: '#ff9100' });
+
+    // update new style
+    rects.data(filtered, d => d.id)
+      .transition()
+      .duration(window.transitionTime)
+      .delay((d, i) => i)
       .style({
         fill: '#eeff41'
       });

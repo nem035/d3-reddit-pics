@@ -1,5 +1,7 @@
 function visualize({ data }) {
-  const redditData = data.children.sort((a, b) => a.data.score - b.data.score);
+  const redditData = data.children
+    .map(d => d.data.score)
+    .sort((a, b) => a - b);
 
   const svg = d3.select('svg');
 
@@ -8,19 +10,22 @@ function visualize({ data }) {
   const g = svg.append('g')
     .attr('transform', `translate(${minHeight}, 0)`);
 
-  const maxScore = d3.max(redditData, (d) => d.data.score);
+  const maxScore = d3.max(redditData);
   const yScale = d3.scale.linear()
     .domain([0, maxScore])
     .range([minHeight, maxHeight]);
 
   const circles = g.selectAll('circle').data(redditData);
   const circleAttrs = {
-    cx: (d, i) => i * 15,
-    cy: (d, i) => yScale(d.data.score),
+    cx: (score, i) => i * 15,
+    cy: (score, i) => yScale(score),
     r: 6
   };
   circles.enter()
     .append('circle')
+    .transition()
+    .duration(window.transitionTime)
+    .delay((d, i) => i * 5)
     .attr('fill', window.fillColor)
     .attr(circleAttrs);
 }

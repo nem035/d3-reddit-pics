@@ -1,5 +1,7 @@
 function visualize({ data }) {
-  const redditData = data.children.sort((a, b) => a.data.score - b.data.score);
+  const redditScores = data.children
+    .map(d => d.data.score)
+    .sort((a, b) => a - b);
 
   const svg = d3.select('svg');
 
@@ -8,7 +10,7 @@ function visualize({ data }) {
   const minWidth = 0;
   const maxWidth = 850;
 
-  const maxScore = d3.max(redditData, (d) => d.data.score);
+  const maxScore = d3.max(redditScores);
   const yScale = d3.scale.linear()
     .domain([0, maxScore])
     .range([maxHeight, minHeight]);
@@ -19,7 +21,7 @@ function visualize({ data }) {
   const yAxis = d3.svg.axis()
     .scale(yScale)
     .orient('left')
-    .ticks((maxHeight - minHeight) / redditData.length); // best guess
+    .ticks((maxHeight - minHeight) / redditScores.length); // best guess
     // .tickValues([20, 30, 90]) // exact tick points
   const xAxis = d3.svg.axis()
     .scale(xScale)
@@ -30,6 +32,8 @@ function visualize({ data }) {
 
   const gY = svg.append('g')
     .attr('transform', `translate(${xPadding}, ${yPadding})`)
+    .transition()
+    .duration(window.transitionTime)
     .style({ fill: 'none', 'stroke': window.fillColor });
   const gX = svg.append('g')
     .attr('transform', `translate(${xPadding + 2}, ${maxHeight + yPadding})`)
