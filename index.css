@@ -8,6 +8,15 @@ body {
   text-align: center;
 }
 
+.components {
+  margin: 0;
+}
+
+.components li {
+  font-size: 20px;
+  padding: 10px;
+}
+
 a {
 	color: #00b0ff;
 }
