@@ -8,6 +8,11 @@ body {
   text-align: center;
 }
 
+.content .title {
+  position: relative;
+  float: left;
+}
+
 .components {
   margin: 0;
 }
