@@ -24,11 +24,16 @@ body {
 
 a {
 	color: #00b0ff;
+  text-decoration: none;
 }
 
 a:visited,
 a:active {
 	color: #0091ea;
+}
+
+a:hover {
+  opacity: 0.8;
 }
 
 h2 {

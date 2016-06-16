@@ -20,7 +20,8 @@ function visualize({ data }) {
     .x((d, i) => xScale(i))
     .y(d => {
       return yScale(d.data.score)
-    });
+    })
+    .interpolate('cardinal');
 
   g.append('path')
     .attr('d', line(redditData))
