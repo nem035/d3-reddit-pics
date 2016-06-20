@@ -8,26 +8,27 @@ body {
 .loading-slider {
     position: absolute;
     width: 100%;
-    height: 2px;
+    height: 4px;
     right: 0;
     top: 0;
 }
 
 .loading-slider .line {
-    position: absolute;
-    background: #00e676;
-    width: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 3px;
+    position: relative;
+    background: #00bfa5;
+    width: 102%;
+    left: -10px;
+    top: -9px;
+    height: 4px;
+    animation: fade-in .3s;
 }
 
 .loading-slider .break {
     position: absolute;
-    background: #263238;
+    background: #00695c;
     width: 6px;
-    height: 2px;
+    height: 4px;
+    top: -8px;
 }
 
 .loading-slider .dot1 {
@@ -35,11 +36,11 @@ body {
 }
 
 .loading-slider .dot2 {
-    animation: loading 2s 0.5s infinite;
+    animation: loading 2s 0.25s infinite;
 }
 
 .loading-slider .dot3 {
-    animation: loading 2s 1s infinite;
+    animation: loading 2s 0.5s infinite;
 }
 
 @keyframes loading {
@@ -48,6 +49,15 @@ body {
     }
     to {
         left: 100%;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1.0;
     }
 }
 
@@ -61,6 +71,7 @@ body {
 }
 
 .components {
+  animation: fade-in .3s;
   margin: 0;
 }
 
@@ -89,6 +100,7 @@ h2 {
 
 svg,
 .display {
+  animation: fade-in .3s;
   background: #37474f;
   width: 100%;
   height: 600px;
