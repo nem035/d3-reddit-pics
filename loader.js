@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-  window.fillColor = '#00e676';
-  window.transitionTime = 300;
   updateAndVisualize();
 });
 
