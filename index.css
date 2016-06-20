@@ -70,6 +70,10 @@ body {
   float: left;
 }
 
+hr {
+  border-color: #b0bec5;
+}
+
 .components {
   animation: fade-in .3s;
   margin: 0;
