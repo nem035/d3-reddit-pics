@@ -1,7 +1,7 @@
 {
-  "name": "d3-playground",
+  "name": "d3-reddit-pics",
   "version": "1.0.0",
-  "description": "My own playground for d3",
+  "description": "Messing around with D3 and Reddit data",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
