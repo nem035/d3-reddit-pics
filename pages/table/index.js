@@ -11,11 +11,20 @@ d3.chart.table = function() {
 
   function chart(config) {
     const {
-      container
+      container,
+      sort = false
     } = config;
 
-    const redditData = data.children
-      .sort((a, b) => b.data.score - a.data.score);
+    if (sort) {
+      data = data.sort((a, b) => a.score - b.score);
+    }
+
+    const {
+      minWidth,
+      maxWidth,
+      minHeight,
+      maxHeight
+    } = getContainerDim(container);
 
     const table = container.append('table');
     const tHead = table.append('thead');
@@ -36,17 +45,11 @@ d3.chart.table = function() {
       .text('Downvotes');
 
     const dataRows = tBody.selectAll('tr.data-row')
-      .data(redditData);
+      .data(data);
 
     const dataRowsEnter = dataRows.enter()
       .append('tr')
       .classed('data-row', true);
-
-    dataRowsEnter.style('opacity', 0.0)
-      .transition()
-      .delay((d, idx) => idx * 50)
-      .duration(window.transitionTime)
-      .style('opacity', 1.0);
 
     // build the dataRows
 
@@ -54,32 +57,32 @@ d3.chart.table = function() {
     dataRowsEnter.append('td')
       .append('a')
       .attr({
-        href: (d) => d.data.url
+        href: (d) => d.url
       })
       .append('img')
       .attr({
-        src: (d) => d.data.thumbnail
+        src: (d) => d.thumbnail
       });
 
     // next column is the title linking to the post
     dataRowsEnter.append('td')
       .append('a')
       .attr({
-        href: (d) => `https://reddit.com${d.data.permalink}`
+        href: (d) => `https://reddit.com${d.permalink}`
       })
-      .text(d => d.data.title);
+      .text(d => d.title);
 
     // next column is the score
     dataRowsEnter.append('td')
-      .text(d => d.data.score);
+      .text(d => d.score);
 
     // next column is the upvotes
     dataRowsEnter.append('td')
-      .text(d => d.data.ups);
+      .text(d => d.ups);
 
     // next column is the downvotes
     dataRowsEnter.append('td')
-      .text(d => d.data.downs);
+      .text(d => d.downs);
 
     dataRows.exit().remove();
   }

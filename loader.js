@@ -12,12 +12,18 @@ function updateAndVisualize() {
       createErrorBox(error);
       return console.error(error);
     }
-    if (!json || !json.data) {
+    if (!json || !json.data || !json.data.children) {
       createErrorBox({ message: 'Missing Reddit Data'});
       return console.error(error);
     }
 
-    const { data } = json;
+    // extract data props and
+    // convert dates because reddit uses seconds
+    const data = json.data.children
+      .map(({ data }) => {
+        data.created = data.created * 1000;
+        return data;
+      });
 
     const route = window.location.pathname;
     if (route === '/project/') {

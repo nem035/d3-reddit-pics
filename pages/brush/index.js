@@ -2,12 +2,6 @@ window.codeScope = 'Brush';
 window.Brush = {
   visualize({ data }) {
     const redditData = data.children
-      .map(({ data }) => {
-        return {
-          id: data.id,
-          created: data.created * 1000 // * 1000 because reddit dates are in seconds
-        };
-      })
       .sort((a, b) => a.created - b.created)
 
     const minWidth = 10;

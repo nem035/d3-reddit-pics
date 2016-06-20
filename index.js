@@ -1,3 +1,29 @@
+window.fillColor = '#00e676';
+window.transitionTime = 300;
+
+if (!d3.chart) {
+  d3.chart = {};
+}
+
+function getContainerDim(container) {
+  const containerHeight = parseInt(container.style('height'));
+  const minHeight = containerHeight / 12;
+  const maxHeight = containerHeight - minHeight;
+
+  const containerWidth = parseInt(container.style('width'));
+  const minWidth = containerWidth / 12;
+  const maxWidth = containerWidth - minWidth;
+
+  return {
+    containerHeight,
+    minHeight,
+    maxHeight,
+    containerWidth,
+    minWidth,
+    maxWidth
+  };
+}
+
 function animateElemCreation(elem) {
   elem.style('opacity', 0)
     .transition()

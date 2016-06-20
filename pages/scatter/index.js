@@ -11,30 +11,46 @@ d3.chart.scatter = function() {
 
   function chart(config) {
     const {
-      container
+      container,
+      sort = false,
+      radius = 6
     } = config;
 
-    const redditData = data.children
-      .map(d => d.data.score)
-      .sort((a, b) => a - b);
+    if (sort) {
+      data = data.sort((a, b) => a.score - b.score);
+    }
 
-    const containerHeight = parseInt(container.style('height'));
-    const minHeight = containerHeight / 12;
-    const maxHeight = containerHeight - minHeight;
-    
+    const {
+      minWidth,
+      maxWidth,
+      minHeight,
+      maxHeight
+    } = getContainerDim(container);
+
     const g = container.append('g')
       .attr('transform', `translate(${minHeight}, 0)`);
 
-    const maxScore = d3.max(redditData);
+    const xDomain = d3.extent(data, d => d.created);
+    const xScale = d3.time.scale()
+      .domain(xDomain)
+      .range([minWidth, maxWidth]);
+
+    const yDomain = [0, d3.max(data, d => d.score)];
     const yScale = d3.scale.linear()
-      .domain([0, maxScore])
+      .domain(yDomain)
       .range([minHeight, maxHeight]);
 
-    const circles = g.selectAll('circle').data(redditData);
+    const circles = g.selectAll('circle')
+      .data(data);
+
     const circleAttrs = {
-      cx: (score, i) => i * 15,
-      cy: yScale,
-      r: 6
+      cx: d => {
+        return xScale(d.created);
+      },
+      cy: d => {
+        return yScale(d.score);
+      },
+      r: radius
     };
     circles.enter()
       .append('circle')
