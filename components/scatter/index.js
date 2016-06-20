@@ -59,6 +59,8 @@ d3.chart.scatter = function() {
       .delay((d, i) => i * 5)
       .attr('fill', window.fillColor)
       .attr(circleAttrs);
+
+    circles.exit().remove();
   }
 
   return chart;

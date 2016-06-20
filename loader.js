@@ -17,16 +17,18 @@ function updateAndVisualize() {
       return console.error(error);
     }
 
-    // extract data props and
+    // extract data props
+    // filter out self linked data item
     // convert dates because reddit uses seconds
     const data = json.data.children
+      .filter(({ data }) => data.thumbnail !== 'self')
       .map(({ data }) => {
         data.created = data.created * 1000;
         return data;
       });
 
     const route = window.location.pathname;
-    if (route === '/project/') {
+    if (route === '/app/') {
         window.D3Reddit.visualize(data);
     } else {
       // create specific chart using the reusable chart pattern
