@@ -1,11 +1,33 @@
-window.codeScope = 'Table';
-window.Table = {
-  visualize({ data }) {
+window.codeScope = 'table';
+window.table = {
+  visualize: ({ data }) => {
+    const table = d3.chart.table();
+    const container = d3.select('div.display');
+    table.data(data);
+    table({
+      container
+    });
+  }
+};
+
+d3.chart.table = function() {
+  let data;
+
+  chart.data = function(val) {
+    if (!arguments.length) return data;
+    data = val;
+    return chart;
+  };
+
+  function chart(config) {
+    const {
+      container
+    } = config;
+
     const redditData = data.children
       .sort((a, b) => b.data.score - a.data.score);
 
-    const display = d3.select('.display');
-    const table = display.append('table');
+    const table = container.append('table');
     const tHead = table.append('thead');
     const tBody = table.append('tbody');
 
@@ -69,4 +91,6 @@ window.Table = {
     dataRowsEnter.append('td')
       .text(d => d.data.downs);
   }
-};
+
+  return chart;
+}
