@@ -1,14 +1,4 @@
 window.codeScope = 'scatter';
-window.scatter = {
-  visualize: ({ data }) => {
-    const table = d3.chart.scatter();
-    const container = d3.select('.viz-container');
-    table.data(data);
-    table({
-      container
-    });
-  }
-};
 
 d3.chart.scatter = function() {
   let data;
@@ -28,9 +18,10 @@ d3.chart.scatter = function() {
       .map(d => d.data.score)
       .sort((a, b) => a - b);
 
-    // container height is 600
-    const minHeight = 50;
-    const maxHeight = 550;
+    const containerHeight = parseInt(container.style('height'));
+    const minHeight = containerHeight / 12;
+    const maxHeight = containerHeight - minHeight;
+    
     const g = container.append('g')
       .attr('transform', `translate(${minHeight}, 0)`);
 
