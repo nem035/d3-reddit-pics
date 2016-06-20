@@ -51,7 +51,7 @@ function visualize({ data }) {
   dataRowsEnter.append('td')
     .append('a')
     .attr({
-      href: (d) => d.data.url
+      href: (d) => `https://reddit.com${d.data.permalink}`
     })
     .text(d => d.data.title);
 
