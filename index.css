@@ -1,7 +1,7 @@
 body {
   background: #263238;
   color: #fafafa;
-  padding: 50px;
+  padding: 15px;
   position: relative;
 }
 
@@ -20,7 +20,6 @@ body {
     left: -10px;
     top: -9px;
     height: 4px;
-    animation: fade-in .3s;
 }
 
 .loading-slider .break {
@@ -61,6 +60,15 @@ body {
     }
 }
 
+.error-box {
+	position: absolute;
+	right: 20px;
+	background: #f50057;
+	padding: 20px;
+	border-radius: 3px;
+	border: 1px solid #c51162;
+}
+
 .content {
   text-align: center;
 }
@@ -72,16 +80,6 @@ body {
 
 hr {
   border-color: #b0bec5;
-}
-
-.components {
-  animation: fade-in .3s;
-  margin: 0;
-}
-
-.components li {
-  font-size: 20px;
-  padding: 10px;
 }
 
 a {
@@ -120,12 +118,4 @@ svg .event {
 .display {
   overflow: scroll;
   padding: 10px;
-}
-
-.display table {
-  width: inherit;
-}
-
-.display table .title-row {
-	font-size: 20px;
 }
