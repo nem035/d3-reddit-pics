@@ -1,14 +1,4 @@
 window.codeScope = 'table';
-window.table = {
-  visualize: ({ data }) => {
-    const table = d3.chart.table();
-    const container = d3.select('div.display');
-    table.data(data);
-    table({
-      container
-    });
-  }
-};
 
 d3.chart.table = function() {
   let data;
@@ -90,7 +80,9 @@ d3.chart.table = function() {
     // next column is the downvotes
     dataRowsEnter.append('td')
       .text(d => d.data.downs);
+
+    dataRows.exit().remove();
   }
 
   return chart;
-}
+};

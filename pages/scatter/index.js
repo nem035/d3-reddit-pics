@@ -1,15 +1,37 @@
-window.codeScope = 'Circles';
-window.Circles = {
-  visualize({ data }) {
+window.codeScope = 'scatter';
+window.scatter = {
+  visualize: ({ data }) => {
+    const table = d3.chart.scatter();
+    const container = d3.select('.viz-container');
+    table.data(data);
+    table({
+      container
+    });
+  }
+};
+
+d3.chart.scatter = function() {
+  let data;
+
+  chart.data = function(val) {
+    if (!arguments.length) return data;
+    data = val;
+    return chart;
+  };
+
+  function chart(config) {
+    const {
+      container
+    } = config;
+
     const redditData = data.children
       .map(d => d.data.score)
       .sort((a, b) => a - b);
 
-    const svg = d3.select('svg');
-
+    // container height is 600
     const minHeight = 50;
-    const maxHeight = 450;
-    const g = svg.append('g')
+    const maxHeight = 550;
+    const g = container.append('g')
       .attr('transform', `translate(${minHeight}, 0)`);
 
     const maxScore = d3.max(redditData);
@@ -31,4 +53,6 @@ window.Circles = {
       .attr('fill', window.fillColor)
       .attr(circleAttrs);
   }
+
+  return chart;
 };

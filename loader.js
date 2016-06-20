@@ -16,6 +16,20 @@ function updateAndVisualize() {
       createErrorBox({ message: 'Missing Reddit Data'});
       return console.error(error);
     }
-    window[window.codeScope].visualize(json); // defined per individual page
+
+    const { data } = json;
+
+    const route = window.location.pathname;
+    if (route === '/project/') {
+        window.D3Reddit.visualize(data);
+    } else {
+      // create specific chart using the reusable chart pattern
+      const container = d3.select('.viz-container');
+      const chart = d3.chart[window.codeScope]();
+      chart.data(data);
+      chart({
+        container
+      });
+    }
   });
 }

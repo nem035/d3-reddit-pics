@@ -100,8 +100,7 @@ h2 {
   margin: 10px;
 }
 
-svg,
-.display {
+.viz-container {
   animation: fade-in .3s;
   background: #37474f;
   width: 100%;
@@ -111,11 +110,11 @@ svg,
   font-family: monospace;
 }
 
-svg .event {
+.viz-container .no-event {
   pointer-events: none;;
 }
 
-.display {
+div.viz-container {
   overflow: scroll;
   padding: 10px;
 }
