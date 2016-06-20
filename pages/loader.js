@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function updateAndVisualize() {
-  d3.selectAll('svg > *').remove();
-  d3.selectAll('.display > *').remove();
+  clearContent();
   createLoadingSlider();
   window.d3.json('https://www.reddit.com/r/pics.json', (error, json) => {
     if (error) {
