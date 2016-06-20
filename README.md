@@ -1,3 +1,5 @@
-# My D3 playground
+# D3 Reddit Pics
 
-### Just a place for me to mess around with D3
+Learning D3 by making various visualizations of D3 [Reddit Pics](https://www.reddit.com/r/pics.json)
+
+[Live Page](http://nem035.github.io/d3-reddit-pics)
