@@ -2,6 +2,53 @@ body {
   background: #263238;
   color: #fafafa;
   padding: 50px;
+  position: relative;
+}
+
+.loading-slider {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    right: 0;
+    top: 0;
+}
+
+.loading-slider .line {
+    position: absolute;
+    background: #00e676;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+}
+
+.loading-slider .break {
+    position: absolute;
+    background: #263238;
+    width: 6px;
+    height: 2px;
+}
+
+.loading-slider .dot1 {
+    animation: loading 2s infinite;
+}
+
+.loading-slider .dot2 {
+    animation: loading 2s 0.5s infinite;
+}
+
+.loading-slider .dot3 {
+    animation: loading 2s 1s infinite;
+}
+
+@keyframes loading {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
 }
 
 .content {
