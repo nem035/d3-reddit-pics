@@ -51,6 +51,9 @@ d3.chart.bar = function() {
       .delay((d, i) => i * 5)
       .attr('fill', window.fillColor)
       .attr(rectAttrs);
+
+    bars.exit()
+      .remove();
   }
 
   chart.data = function(val) {

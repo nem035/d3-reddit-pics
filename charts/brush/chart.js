@@ -96,6 +96,8 @@ d3.chart.brush = function() {
           fill: '#eeff41'
         });
     });
+
+    rects.exit().remove();
   }
 
   chart.data = function(val) {
