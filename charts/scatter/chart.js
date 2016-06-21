@@ -39,7 +39,7 @@ d3.chart.scatter = function() {
 
     const circleAttrs = {
       cx: (d) => xScale(d.created),
-      cy: (d) => yScale(d.score),
+      cy: (d) => maxHeight - yScale(d.score),
       r: radius
     };
     circles.enter()

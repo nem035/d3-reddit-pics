@@ -79,3 +79,14 @@ function destroyErrorBox() {
 function clearContent() {
   d3.selectAll('.viz-container > *').remove();
 }
+
+// create specific chart using the reusable chart pattern
+function loadChart(name, data, container = d3.select('.viz-container')) {
+
+  const chart = d3.chart[name]()
+    .data(data);
+
+  chart({
+    container
+  });
+}

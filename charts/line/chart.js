@@ -15,7 +15,8 @@ d3.chart.line = function() {
       maxHeight
     } = getContainerDim(container);
 
-    const g = container.append('svg')
+    const g = container
+      .append('svg')
       .append('g')
       .attr('transform', `translate(${minHeight}, 0)`);
 
@@ -35,7 +36,7 @@ d3.chart.line = function() {
 
     const line = d3.svg.line()
       .x(d => xScale(d.created))
-      .y(d => yScale(d.score))
+      .y(d => maxHeight - yScale(d.score))
       .interpolate('cardinal');
 
     const path = g.append('path')

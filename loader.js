@@ -31,13 +31,8 @@ function updateAndVisualize() {
     if (codeScope === 'D3Reddit') {
         window.D3Reddit.visualize(data);
     } else {
-      // create specific chart using the reusable chart pattern
-      const container = d3.select('.viz-container');
-      const chart = d3.chart[window.codeScope]();
-      chart.data(data.sort((a, b) => a.created - b.created));
-      chart({
-        container
-      });
+      // load a specific chart using the reusable chart pattern
+      loadChart(window.codeScope, data.sort((a, b) => a.created - b.created));
     }
   });
 }
