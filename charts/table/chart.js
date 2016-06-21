@@ -1,6 +1,6 @@
 window.codeScope = 'table';
 
-d3.chart.table = function() {
+d3.redditChart.table = function() {
   let data;
 
   function chart(config) {

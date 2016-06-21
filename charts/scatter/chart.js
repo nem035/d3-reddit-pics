@@ -1,6 +1,6 @@
 window.codeScope = 'scatter';
 
-d3.chart.scatter = function() {
+d3.redditChart.scatter = function() {
   let data;
 
   function chart(config) {

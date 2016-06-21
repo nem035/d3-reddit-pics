@@ -1,8 +1,8 @@
 window.fillColor = '#00e676';
 window.transitionTime = 300;
 
-if (!d3.chart) {
-  d3.chart = {};
+if (!d3.redditChart) {
+  d3.redditChart = {};
 }
 
 function getContainerDim(container) {
@@ -82,7 +82,7 @@ function clearContent() {
 // create specific chart using the reusable chart pattern
 function loadChart({ name, data, container }) {
 
-  const chart = d3.chart[name]()
+  const chart = d3.redditChart[name]()
     .data(data);
 
   chart({

@@ -1,6 +1,6 @@
 window.codeScope = 'line';
 
-d3.chart.line = function() {
+d3.redditChart.line = function() {
   let data;
 
   function chart(config) {

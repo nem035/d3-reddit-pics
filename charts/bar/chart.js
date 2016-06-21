@@ -1,6 +1,6 @@
 window.codeScope = 'bar';
 
-d3.chart.bar = function() {
+d3.redditChart.bar = function() {
   let data;
 
   function chart(config) {

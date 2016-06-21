@@ -1,6 +1,6 @@
 window.codeScope = 'brush';
 
-d3.chart.brush = function() {
+d3.redditChart.brush = function() {
   let data;
 
   function chart(config) {

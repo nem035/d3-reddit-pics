@@ -1,6 +1,6 @@
 window.codeScope = 'axis';
 
-d3.chart.axis = function() {
+d3.redditChart.axis = function() {
   let data;
 
   function chart(config) {
