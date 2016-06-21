@@ -1,28 +1,14 @@
-window.codeScope = 'brush';
-
 d3.redditChart.brush = function() {
+  let g;
   let data;
+  let xRange = [ 0, 600 ];
+  let width = 600;
+  let height = 30;
 
-  function chart(config) {
-    const {
-      container,
-      brushHeight = 30,
-    } = config;
-
-    const {
-      minWidth,
-      maxWidth,
-      height,
-    } = getContainerDim(container);
-
-    const halfHeight = height / 2;
-    const brushHalfHeight = brushHeight / 2;
-
-    const g = container.append('g')
-      .attr('transform', `translate(5, ${halfHeight - brushHalfHeight})`);
+  function chart(container) {
+    g = container;
 
     const xDomain = d3.extent(data, d => d.created);
-    const xRange = [ minWidth, maxWidth ];
     const xScale = d3.time
       .scale()
       .domain(xDomain)
@@ -35,23 +21,23 @@ d3.redditChart.brush = function() {
     brush(g);
 
     g.selectAll('rect')
-      .attr('height', brushHeight);
+      .attr('height', height);
 
     g.selectAll('rect.background')
       .style({
-        fill: '#f50057',
+        fill: window.color.pink,
         visibility: 'visible',
       });
 
     g.selectAll('rect.extent')
       .style({
-        fill: window.fillColor,
+        fill: window.color.green,
         visibility: 'visible'
       });
 
     g.selectAll('.resize rect')
       .style({
-        fill: '#00bfa5',
+        fill: window.color.yellow,
         visibility: 'visible',
       });
 
@@ -65,10 +51,10 @@ d3.redditChart.brush = function() {
     rects.attr({
       x: ({ created }) => xScale(created),
       y: 0,
-      width: 2,
-      height: brushHeight
+      width,
+      height
     }).style({
-      fill: '#ff9100',
+      fill: window.color.orange,
     });
 
     brush.on('brush', function() {
@@ -83,7 +69,7 @@ d3.redditChart.brush = function() {
       rects.transition()
         .duration(window.transitionTime / 3)
         .style({
-          fill: '#ff9100'
+          fill: window.color.orange
         });
 
       // update new style
@@ -91,7 +77,7 @@ d3.redditChart.brush = function() {
         .transition()
         .duration(window.transitionTime / 3)
         .style({
-          fill: '#eeff41'
+          fill: window.color.teal
         });
     });
 
@@ -106,5 +92,49 @@ d3.redditChart.brush = function() {
     return chart;
   }
 
+  chart.width = function(val) {
+    if (!arguments.length) {
+      return width;
+    }
+    width = val;
+    return chart;
+  }
+
+  chart.height = function(val) {
+    if (!arguments.length) {
+      return height;
+    }
+    height = val;
+    return chart;
+  }
+
+  chart.xRange = function(val) {
+    if (!arguments.length) {
+      return xRange;
+    }
+    xRange = val;
+    return chart;
+  }
+
   return chart;
 };
+
+function loadExample(data) {
+
+  const container = d3.select('.viz-container')
+    .append(`svg`);
+
+  const {
+    minWidth,
+    maxWidth
+  } = getContainerDim(container);
+
+  const chart = d3.redditChart
+    .brush()
+    .data(data)
+    .xRange([ minWidth, maxWidth ])
+    .width(5)
+    .height(30);
+
+  chart(container);
+}

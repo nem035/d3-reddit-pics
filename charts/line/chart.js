@@ -1,32 +1,20 @@
-window.codeScope = 'line';
-
 d3.redditChart.line = function() {
+  let g;
   let data;
+  let xRange = [ 0, 600 ];
+  let yRange = [ 0, 300 ];
+  let width = 5;
 
-  function chart(config) {
-    const {
-      container
-    } = config;
-
-    const {
-      minWidth,
-      maxWidth,
-      minHeight,
-      maxHeight
-    } = getContainerDim(container);
-
-    const g = container.append('g')
-      .attr('transform', `translate(${minHeight}, 0)`);
+  function chart(container) {
+    g = container;
 
     const xDomain = d3.extent(data, d => d.created);
-    const xRange = [ minWidth, maxWidth ];
     const xScale = d3.time
       .scale()
       .domain(xDomain)
       .range(xRange);
 
     const yDomain = [0, d3.max(data, d => d.score)];
-    const yRange = [ minHeight, maxHeight ];
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
@@ -34,15 +22,15 @@ d3.redditChart.line = function() {
 
     const line = d3.svg.line()
       .x(d => xScale(d.created))
-      .y(d => maxHeight - yScale(d.score))
+      .y(d => yRange[1] - yScale(d.score))
       .interpolate('cardinal');
 
     const path = g.append('path')
       .attr('d', line(data))
       .style({
         fill: 'none',
-        stroke: window.fillColor,
-        'stroke-width': '5px'
+        stroke: window.color.green,
+        'stroke-width': `${width}px`
       });
 
     const totalLength = path.node().getTotalLength();
@@ -62,5 +50,51 @@ d3.redditChart.line = function() {
     return chart;
   }
 
+  chart.xRange = function(val) {
+    if (!arguments.length) {
+      return xRange;
+    }
+    xRange = val;
+    return chart;
+  }
+
+  chart.yRange = function(val) {
+    if (!arguments.length) {
+      return yRange;
+    }
+    yRange = val;
+    return chart;
+  }
+
+  chart.width = function(val) {
+    if (!arguments.length) {
+      return width;
+    }
+    width = val;
+    return chart;
+  }
+
   return chart;
+}
+
+function loadExample(data) {
+
+  const container = d3.select('.viz-container')
+    .append(`svg`);
+
+  const {
+    minWidth,
+    maxWidth,
+    minHeight,
+    maxHeight
+  } = getContainerDim(container);
+
+  const chart = d3.redditChart
+    .line()
+    .data(data)
+    .xRange([ minWidth, maxWidth ])
+    .yRange([ minHeight, maxHeight ])
+    .width(5);
+
+  chart(container);
 }

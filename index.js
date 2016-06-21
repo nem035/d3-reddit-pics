@@ -1,12 +1,24 @@
-window.fillColor = '#00e676';
 window.transitionTime = 300;
+window.color = {
+  green: '#00e676',
+  gray: '#b0bec5',
+  orange: '#ff9100',
+  pink: '#f50057',
+  yellow: '#00bfa5',
+  teal: '#eeff41',
+};
 
 if (!d3.redditChart) {
   d3.redditChart = {};
 }
 
 function getContainerDim(container) {
-  let ref = container instanceof SVGElement ? container.parentElement : container;
+  const ref = (() => {
+    while (!container.style) {
+      container = container.parentElement;
+    }
+    return container;
+  })();
 
   const height = parseInt(ref.style('height'));
   const minHeight = height / 12;
@@ -77,15 +89,4 @@ function destroyErrorBox() {
 
 function clearContent() {
   d3.selectAll('.viz-container > *').remove();
-}
-
-// create specific chart using the reusable chart pattern
-function loadChart({ name, data, container }) {
-
-  const chart = d3.redditChart[name]()
-    .data(data);
-
-  chart({
-    container
-  });
 }

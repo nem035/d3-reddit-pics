@@ -18,12 +18,19 @@ function updateAndVisualize() {
     }
 
     // extract data props
-    // filter out self linked data item
+    // add placeholder thumbnails when missing
     // convert dates because reddit uses seconds
+    const {
+      hostname,
+      origin
+    } = window.location;
+    const baseURL = hostname === 'localhost' ? origin : 'https://nem035.github.io/d3-reddit-pics';
     const cleanData = json.data.children
-      .filter(({ data }) => data.thumbnail !== 'self')
       .map(({ data }) => {
         data.created = data.created * 1000;
+        if (data.thumbnail.indexOf('://') === -1) {
+          data.thumbnail = `${baseURL}/placeholder-140x140.png`;
+        }
         return data;
       });
 
@@ -31,24 +38,14 @@ function updateAndVisualize() {
     if (codeScope === 'D3Reddit') {
         window.D3Reddit.visualize(cleanData);
     } else {
-      const name = window.codeScope;
+      // individual chart examples
       const data = cleanData.sort((a, b) => a.created - b.created);
-
-      let container;
-      if (name === 'table') {
-        container = d3.select('.viz-container');
+      // loads the example from the active script
+      if (typeof loadExample === 'function') {
+        loadExample(data);
       } else {
-        container = d3.select('.viz-container')
-          .append(`svg`)
-          .classed(`${name}-container`, true);
+        createErrorBox('Missing loadExample()');
       }
-
-      // load a specific chart using the reusable chart pattern
-      loadChart({
-        name,
-        data,
-        container,
-      });
     }
   });
 }

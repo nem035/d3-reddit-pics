@@ -1,33 +1,20 @@
-window.codeScope = 'bar';
-
 d3.redditChart.bar = function() {
+  let g;
   let data;
+  let xRange = [ 0, 600 ];
+  let yRange = [ 0, 300 ];
+  let width = 5;
 
-  function chart(config) {
-    const {
-      container,
-      barWidth = 5
-    } = config;
-
-    const {
-      minWidth,
-      maxWidth,
-      minHeight,
-      maxHeight
-    } = getContainerDim(container);
-
-    const g = container.append('g')
-      .attr('transform', `translate(${minHeight}, 0)`);
+  function chart(container) {
+    g = container;
 
     const xDomain = d3.extent(data, d => d.created);
-    const xRange = [ minWidth, maxWidth ];
     const xScale = d3.time
       .scale()
       .domain(xDomain)
       .range(xRange);
 
     const yDomain = [0, d3.max(data, d => d.score)];
-    const yRange = [ minHeight, maxHeight ];
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
@@ -38,8 +25,8 @@ d3.redditChart.bar = function() {
 
     const rectAttrs = {
       x: (d) => xScale(d.created),
-      y: (d) => maxHeight - yScale(d.score),
-      width: barWidth,
+      y: (d) => yRange[1] - yScale(d.score),
+      width,
       height: (d) => yScale(d.score)
     };
 
@@ -48,7 +35,7 @@ d3.redditChart.bar = function() {
       .transition()
       .duration(window.transitionTime)
       .delay((d, i) => i * 5)
-      .attr('fill', window.fillColor)
+      .attr('fill', window.color.green)
       .attr(rectAttrs);
 
     bars.exit()
@@ -63,5 +50,51 @@ d3.redditChart.bar = function() {
     return chart;
   }
 
+  chart.xRange = function(val) {
+    if (!arguments.length) {
+      return xRange;
+    }
+    xRange = val;
+    return chart;
+  }
+
+  chart.yRange = function(val) {
+    if (!arguments.length) {
+      return yRange;
+    }
+    yRange = val;
+    return chart;
+  }
+
+  chart.width = function(val) {
+    if (!arguments.length) {
+      return width;
+    }
+    width = val;
+    return chart;
+  }
+
   return chart;
+}
+
+function loadExample(data) {
+
+  const container = d3.select('.viz-container')
+    .append(`svg`);
+
+  const {
+     minWidth,
+     maxWidth,
+     minHeight,
+     maxHeight
+  } = getContainerDim(container);
+
+  const chart = d3.redditChart
+    .bar()
+    .data(data)
+    .xRange([ minWidth, maxWidth ])
+    .yRange([ minHeight, maxHeight ])
+    .width(5);
+
+  chart(container);
 }

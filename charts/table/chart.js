@@ -1,24 +1,11 @@
 window.codeScope = 'table';
 
 d3.redditChart.table = function() {
+  let c;
   let data;
 
-  function chart(config) {
-    const {
-      container,
-      sort = false
-    } = config;
-
-    if (sort) {
-      data = data.sort((a, b) => a.score - b.score);
-    }
-
-    const {
-      minWidth,
-      maxWidth,
-      minHeight,
-      maxHeight
-    } = getContainerDim(container);
+  function chart(container) {
+    c = container;
 
     const table = container.append('table');
     const tHead = table.append('thead');
@@ -90,3 +77,23 @@ d3.redditChart.table = function() {
 
   return chart;
 };
+
+
+function loadExample(data) {
+
+  const container = d3.select('.viz-container')
+    .append(`div`);
+
+  const {
+    minWidth,
+    maxWidth,
+    minHeight,
+    maxHeight
+  } = getContainerDim(container);
+
+  const chart = d3.redditChart
+    .table()
+    .data(data);
+
+  chart(container);
+}
