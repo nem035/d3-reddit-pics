@@ -3,12 +3,6 @@ window.codeScope = 'table';
 d3.chart.table = function() {
   let data;
 
-  chart.data = function(val) {
-    if (!arguments.length) return data;
-    data = val;
-    return chart;
-  };
-
   function chart(config) {
     const {
       container,
@@ -30,8 +24,7 @@ d3.chart.table = function() {
     const tHead = table.append('thead');
     const tBody = table.append('tbody');
 
-    const titleRow = tHead.append('tr')
-      .classed('title-row', true);
+    const titleRow = tHead.append('tr');
 
     titleRow.append('td')
       .text('Thumbnail');
@@ -86,6 +79,14 @@ d3.chart.table = function() {
 
     dataRows.exit().remove();
   }
+
+  chart.data = function(val) {
+    if (!arguments.length) {
+      return data;
+    }
+    data = val;
+    return chart;
+  };
 
   return chart;
 };

@@ -3,13 +3,23 @@
 <html>
   <head>
     <title>Table</title>
-    <link rel="stylesheet" href="../../index.css"/>
+    <link rel="stylesheet" href="../../app.css"/>
     <style>
-      .display table {
+
+      .viz-container {
+        overflow: scroll;
+        padding: 10px;
+      }
+
+      .viz-container table {
         width: inherit;
       }
 
-      .display table .title-row {
+      .viz-container table tr {
+        animation: fade-in .3s;
+      }
+
+      .viz-container table thead {
       	font-size: 20px;
       }
     </style>
@@ -25,17 +35,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
 
     <!-- app -->
-    <script src="../../index.js"></script>
+    <script src="../../app.js"></script>
 
-    <!-- page -->
-    <script src="index.js"></script>
+    <!-- chart -->
+    <script src="chart.js"></script>
 
     <!-- loader -->
-    <script>
-      function clearContent() {
-        d3.selectAll('.display > *').remove();
-      }
-    </script>
     <script src="../../loader.js"></script>
   </body>
 </html>

@@ -108,13 +108,14 @@ h2 {
   border-radius: 5px;
   box-shadow: 1px 1px 5px 2px black;
   font-family: monospace;
+  margin-top: 10px;
 }
 
 .viz-container .no-event {
-  pointer-events: none;;
+  pointer-events: none;
 }
 
-div.viz-container {
-  overflow: scroll;
-  padding: 10px;
+.viz-container svg {
+	width: inherit;
+	height: inherit;
 }

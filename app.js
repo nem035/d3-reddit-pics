@@ -14,13 +14,16 @@ function getContainerDim(container) {
   const minWidth = containerWidth / 12;
   const maxWidth = containerWidth - minWidth;
 
+  const containerPadding = parseInt(container.style('padding'));
+
   return {
     containerHeight,
     minHeight,
     maxHeight,
     containerWidth,
     minWidth,
-    maxWidth
+    maxWidth,
+    containerPadding,
   };
 }
 
@@ -71,4 +74,8 @@ function createErrorBox(error) {
 
 function destroyErrorBox() {
   animateElemDestruction(d3.select('.error-box'));
+}
+
+function clearContent() {
+  d3.selectAll('.viz-container > *').remove();
 }

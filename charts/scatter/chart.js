@@ -3,12 +3,6 @@ window.codeScope = 'scatter';
 d3.chart.scatter = function() {
   let data;
 
-  chart.data = function(val) {
-    if (!arguments.length) return data;
-    data = val;
-    return chart;
-  };
-
   function chart(config) {
     const {
       container,
@@ -27,7 +21,8 @@ d3.chart.scatter = function() {
       maxHeight
     } = getContainerDim(container);
 
-    const g = container.append('g')
+    const g = container.append('svg')
+      .append('g')
       .attr('transform', `translate(${minHeight}, 0)`);
 
     const xDomain = d3.extent(data, d => d.created);
@@ -62,6 +57,12 @@ d3.chart.scatter = function() {
 
     circles.exit().remove();
   }
+
+  chart.data = function(val) {
+    if (!arguments.length) return data;
+    data = val;
+    return chart;
+  };
 
   return chart;
 };
