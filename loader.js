@@ -27,8 +27,8 @@ function updateAndVisualize() {
         return data;
       });
 
-    const route = window.location.pathname;
-    if (route === '/app/') {
+    const { codeScope } = window;
+    if (codeScope === 'D3Reddit') {
         window.D3Reddit.visualize(data);
     } else {
       // create specific chart using the reusable chart pattern
