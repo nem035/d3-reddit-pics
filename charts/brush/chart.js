@@ -12,16 +12,14 @@ d3.chart.brush = function() {
     const {
       minWidth,
       maxWidth,
-      containerHeight,
-      containerPadding,
+      height,
     } = getContainerDim(container);
 
-    const halfHeight = containerHeight / 2;
+    const halfHeight = height / 2;
     const brushHalfHeight = brushHeight / 2;
 
-    const g = container.append('svg')
-      .append('g')
-      .attr('transform', `translate(${containerPadding}, ${halfHeight - brushHalfHeight})`);
+    const g = container.append('g')
+      .attr('transform', `translate(5, ${halfHeight - brushHalfHeight})`);
 
     const xDomain = d3.extent(data, d => d.created);
     const xRange = [ minWidth, maxWidth ];

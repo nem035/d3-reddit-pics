@@ -20,7 +20,7 @@ function updateAndVisualize() {
     // extract data props
     // filter out self linked data item
     // convert dates because reddit uses seconds
-    const data = json.data.children
+    const cleanData = json.data.children
       .filter(({ data }) => data.thumbnail !== 'self')
       .map(({ data }) => {
         data.created = data.created * 1000;
@@ -29,10 +29,26 @@ function updateAndVisualize() {
 
     const { codeScope } = window;
     if (codeScope === 'D3Reddit') {
-        window.D3Reddit.visualize(data);
+        window.D3Reddit.visualize(cleanData);
     } else {
+      const name = window.codeScope;
+      const data = cleanData.sort((a, b) => a.created - b.created);
+
+      let container;
+      if (name === 'table') {
+        container = d3.select('.viz-container');
+      } else {
+        container = d3.select('.viz-container')
+          .append(`svg`)
+          .classed(`.${name}-container`, true);
+      }
+
       // load a specific chart using the reusable chart pattern
-      loadChart(window.codeScope, data.sort((a, b) => a.created - b.created));
+      loadChart({
+        name,
+        data,
+        container,
+      });
     }
   });
 }

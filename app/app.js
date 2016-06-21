@@ -1,13 +1,19 @@
 window.codeScope = 'D3Reddit';
 window.D3Reddit = {
 
-  visualize(data) {
-    const sortedByCreationDate = data.sort((a, b) => a.created - b.created);
-    loadChart('axis', sortedByCreationDate);
-    loadChart('bar', sortedByCreationDate);
-    loadChart('brush', sortedByCreationDate);
-    loadChart('line', sortedByCreationDate);
-    loadChart('scatter', sortedByCreationDate);
-    loadChart('table', sortedByCreationDate);
+  visualize(redditData) {
+    const data = redditData.sort((a, b) => a.created - b.created);
+    const vizContainer = d3.select('.viz-container');
+    [ 'axis', 'bar', 'brush', 'line', 'scatter' ].forEach(name => {
+      const container = vizContainer.append('div')
+        .classed(`container ${name}-container`, true)
+        .append('svg');
+
+      loadChart({
+        name,
+        data,
+        container
+      })
+    });
   },
 };

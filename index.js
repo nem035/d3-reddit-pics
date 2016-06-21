@@ -6,24 +6,23 @@ if (!d3.chart) {
 }
 
 function getContainerDim(container) {
-  const containerHeight = parseInt(container.style('height'));
-  const minHeight = containerHeight / 12;
-  const maxHeight = containerHeight - minHeight;
+  let ref = container instanceof SVGElement ? container.parentElement : container;
 
-  const containerWidth = parseInt(container.style('width'));
-  const minWidth = containerWidth / 12;
-  const maxWidth = containerWidth - minWidth;
+  const height = parseInt(ref.style('height'));
+  const minHeight = height / 12;
+  const maxHeight = height - minHeight;
 
-  const containerPadding = parseInt(container.style('padding'));
+  const width = parseInt(ref.style('width'));
+  const minWidth = width / 12;
+  const maxWidth = width - minWidth;
 
   return {
-    containerHeight,
+    height,
     minHeight,
     maxHeight,
-    containerWidth,
+    width,
     minWidth,
     maxWidth,
-    containerPadding,
   };
 }
 
@@ -81,7 +80,7 @@ function clearContent() {
 }
 
 // create specific chart using the reusable chart pattern
-function loadChart(name, data, container = d3.select('.viz-container')) {
+function loadChart({ name, data, container }) {
 
   const chart = d3.chart[name]()
     .data(data);

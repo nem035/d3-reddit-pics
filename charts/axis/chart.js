@@ -39,12 +39,10 @@ d3.chart.axis = function() {
       .scale(xScale)
       .orient('bottom');
 
-    const svg = container.append('svg');
-
     const xPadding = 20;
     const yPadding = 0;
 
-    const gX = svg.append('g')
+    const gX = container.append('g')
       .classed('g-x-axis', true)
       .attr('transform', `translate(-40, ${maxHeight + yPadding})`)
       .style({
@@ -52,7 +50,7 @@ d3.chart.axis = function() {
         'stroke': '#b0bec5'
       });
 
-    const gY = svg.append('g')
+    const gY = container.append('g')
       .classed('g-y-axis', true)
       .attr('transform', `translate(60, ${yPadding})`)
       .transition()

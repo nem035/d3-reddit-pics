@@ -16,8 +16,7 @@ d3.chart.bar = function() {
       maxHeight
     } = getContainerDim(container);
 
-    const g = container.append('svg')
-      .append('g')
+    const g = container.append('g')
       .attr('transform', `translate(${minHeight}, 0)`);
 
     const xDomain = d3.extent(data, d => d.created);
