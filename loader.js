@@ -34,7 +34,7 @@ function updateAndVisualize() {
       // create specific chart using the reusable chart pattern
       const container = d3.select('.viz-container');
       const chart = d3.chart[window.codeScope]();
-      chart.data(data);
+      chart.data(data.sort((a, b) => a.created - b.created));
       chart({
         container
       });
