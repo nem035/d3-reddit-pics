@@ -1,12 +1,12 @@
-window.codeScope = 'scatter';
+window.codeScope = 'bar';
 
-d3.chart.scatter = function() {
+d3.chart.bar = function() {
   let data;
 
   function chart(config) {
     const {
       container,
-      radius = 6
+      barWidth = 5
     } = config;
 
     const {
@@ -30,30 +30,32 @@ d3.chart.scatter = function() {
       .domain(yDomain)
       .range([minHeight, maxHeight]);
 
-    const circles = g.selectAll('circle')
+    const bars = g.selectAll('rect')
       .data(data);
 
-    const circleAttrs = {
-      cx: (d) => xScale(d.created),
-      cy: (d) => yScale(d.score),
-      r: radius
+    const rectAttrs = {
+      x: (d) => xScale(d.created),
+      y: (d) => maxHeight - yScale(d.score),
+      width: barWidth,
+      height: (d) => yScale(d.score)
     };
-    circles.enter()
-      .append('circle')
+
+    bars.enter()
+      .append('rect')
       .transition()
       .duration(window.transitionTime)
       .delay((d, i) => i * 5)
       .attr('fill', window.fillColor)
-      .attr(circleAttrs);
-
-    circles.exit().remove();
+      .attr(rectAttrs);
   }
 
   chart.data = function(val) {
-    if (!arguments.length) return data;
+    if (!arguments.length) {
+      return data;
+    }
     data = val;
     return chart;
-  };
+  }
 
   return chart;
-};
+}
