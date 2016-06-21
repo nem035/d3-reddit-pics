@@ -21,14 +21,18 @@ d3.chart.bar = function() {
       .attr('transform', `translate(${minHeight}, 0)`);
 
     const xDomain = d3.extent(data, d => d.created);
-    const xScale = d3.time.scale()
+    const xRange = [ minWidth, maxWidth ];
+    const xScale = d3.time
+      .scale()
       .domain(xDomain)
-      .range([minWidth, maxWidth]);
+      .range(xRange);
 
     const yDomain = [0, d3.max(data, d => d.score)];
-    const yScale = d3.scale.linear()
+    const yRange = [ minHeight, maxHeight ];
+    const yScale = d3.scale
+      .linear()
       .domain(yDomain)
-      .range([minHeight, maxHeight]);
+      .range(yRange);
 
     const bars = g.selectAll('rect')
       .data(data);

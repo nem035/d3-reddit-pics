@@ -23,11 +23,12 @@ d3.chart.brush = function() {
       .append('g')
       .attr('transform', `translate(${containerPadding}, ${halfHeight - brushHalfHeight})`);
 
-    const domain = d3.extent(data, d => d.created);
+    const xDomain = d3.extent(data, d => d.created);
+    const xRange = [ minWidth, maxWidth ];
     const xScale = d3.time
       .scale()
-      .domain(domain)
-      .range([minWidth, maxWidth]);
+      .domain(xDomain)
+      .range(xRange);
 
     const brush = d3.svg
       .brush()

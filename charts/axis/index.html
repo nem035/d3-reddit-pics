@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>Axis</title>
-    <link rel="stylesheet" href="../../index.css"/>
+    <link rel="stylesheet" href="../../app.css"/>
   </head>
   <body class="content">
     <h1 class="title"><a href="../../index.html">D3 Reddit</a></h1>
@@ -11,16 +11,16 @@
       Y-axis based on <a href="https://www.reddit.com/r/pics.json" target="_blank">Reddit Pics</a> scores, arbitrary X-axis
     </h2>
     <button type="button" onclick="updateAndVisualize()">Update</button>
-    <svg></svg>
+    <div class="viz-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
-    
-    <script src="index.js"></script>
-    <script src="../../index.js"></script>
-    <script>
-      function clearContent() {
-        d3.selectAll('svg > *').remove();
-      }
-    </script>
+
+    <!-- app -->
+    <script src="../../app.js"></script>
+
+    <!-- chart -->
+    <script src="chart.js"></script>
+
+    <!-- loader -->
     <script src="../../loader.js"></script>
   </body>
 </html>

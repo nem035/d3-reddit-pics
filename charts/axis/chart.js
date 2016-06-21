@@ -1,6 +1,6 @@
-window.codeScope = 'line';
+window.codeScope = 'axis';
 
-d3.chart.line = function() {
+d3.chart.axis = function() {
   let data;
 
   function chart(config) {
@@ -15,10 +15,6 @@ d3.chart.line = function() {
       maxHeight
     } = getContainerDim(container);
 
-    const g = container.append('svg')
-      .append('g')
-      .attr('transform', `translate(${minHeight}, 0)`);
-
     const xDomain = d3.extent(data, d => d.created);
     const xRange = [ minWidth, maxWidth ];
     const xScale = d3.time
@@ -26,33 +22,48 @@ d3.chart.line = function() {
       .domain(xDomain)
       .range(xRange);
 
-    const yDomain = [0, d3.max(data, d => d.score)];
+    const yDomain = [d3.max(data, d => d.score), 0];
     const yRange = [ minHeight, maxHeight ];
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
       .range(yRange);
 
-    const line = d3.svg.line()
-      .x(d => xScale(d.created))
-      .y(d => yScale(d.score))
-      .interpolate('cardinal');
+    const yAxis = d3.svg
+      .axis()
+      .scale(yScale)
+      .orient('left');
 
-    const path = g.append('path')
-      .attr('d', line(data))
+    const xAxis = d3.svg
+      .axis()
+      .scale(xScale)
+      .orient('bottom');
+
+    const svg = container.append('svg');
+
+    const xPadding = 20;
+    const yPadding = 0;
+
+    const gX = svg.append('g')
+      .classed('g-x-axis', true)
+      .attr('transform', `translate(-40, ${maxHeight + yPadding})`)
       .style({
         fill: 'none',
-        stroke: window.fillColor,
-        'stroke-width': '5px'
+        'stroke': '#b0bec5'
       });
 
-    const totalLength = path.node().getTotalLength();
-
-    path.attr('stroke-dasharray', `${totalLength} ${totalLength}`)
-      .attr('stroke-dashoffset', totalLength)
+    const gY = svg.append('g')
+      .classed('g-y-axis', true)
+      .attr('transform', `translate(60, ${yPadding})`)
       .transition()
       .duration(window.transitionTime)
-      .attr('stroke-dashoffset', 0);
+      .style({
+        fill: 'none',
+        'stroke': window.fillColor
+      });
+
+    yAxis(gY);
+    xAxis(gX);
   }
 
   chart.data = function(val) {
