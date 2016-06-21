@@ -39,12 +39,9 @@ d3.redditChart.axis = function() {
       .scale(xScale)
       .orient('bottom');
 
-    const xPadding = 20;
-    const yPadding = 0;
-
     const gX = container.append('g')
       .classed('g-x-axis', true)
-      .attr('transform', `translate(-40, ${maxHeight + yPadding})`)
+      .attr('transform', `translate(-40, ${maxHeight})`)
       .style({
         fill: 'none',
         'stroke': '#b0bec5'
@@ -52,7 +49,7 @@ d3.redditChart.axis = function() {
 
     const gY = container.append('g')
       .classed('g-y-axis', true)
-      .attr('transform', `translate(60, ${yPadding})`)
+      .attr('transform', `translate(60, 0)`)
       .transition()
       .duration(window.transitionTime)
       .style({

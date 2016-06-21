@@ -40,7 +40,7 @@ function updateAndVisualize() {
       } else {
         container = d3.select('.viz-container')
           .append(`svg`)
-          .classed(`.${name}-container`, true);
+          .classed(`${name}-container`, true);
       }
 
       // load a specific chart using the reusable chart pattern
