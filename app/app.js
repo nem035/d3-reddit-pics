@@ -9,101 +9,35 @@ window.D3Reddit = {
     const data = redditData.sort((a, b) => a.created - b.created);
     const vizContainer = d3.select('.viz-container');
 
-    // dimensions
     const {
-      minWidth,
-      maxWidth,
-      minHeight,
-      maxHeight
+      xRange,
+      yRange,
     } = getContainerDim(vizContainer);
 
-    this.xRange = [ minWidth, maxWidth ];
-    this.yRange = [ minHeight, maxHeight ];
+    this.vizContainer = vizContainer;
+    this.xRange = xRange;
+    this.yRange = yRange;
 
     // visualizations
-    this.showAxis(data, vizContainer);
-    this.showBar(data, vizContainer);
-    this.showBrush(data, vizContainer);
-    this.showLine(data, vizContainer);
-    this.showScatter(data, vizContainer);
+    this.showViz('axis', data);
+    this.showViz('bar', data);
+    // this.showViz('brush', data);
+    this.showViz('line', data);
+    this.showViz('scatter', data);
   },
 
-  showAxis(data, parent) {
-    const container = parent.append('div')
-      .classed(`viz axis`, true)
+  showViz(vizName, data) {
+     const container = this.vizContainer
+      .append('div')
+      .classed(`viz ${vizName}`, true)
       .append('svg')
       .append('g');
 
-    const axis = d3.redditChart
-      .axis()
+    const viz = d3.redditChart[vizName]()
       .data(data)
       .xRange(this.xRange)
       .yRange(this.yRange);
 
-    axis(container);
+    viz(container);
   },
-
-  showBar(data, parent) {
-    const container = parent.append('div')
-      .classed(`viz bar`, true)
-      .append('svg')
-      .append('g');
-
-    const bar = d3.redditChart
-      .bar()
-      .data(data)
-      .xRange(this.xRange)
-      .yRange(this.yRange)
-      .width(5);
-
-    bar(container);
-  },
-
-  showBrush(data, parent) {
-    const container = parent.append('div')
-      .classed(`viz brush`, true)
-      .append('svg')
-      .append('g');
-
-    const brush = d3.redditChart
-      .brush()
-      .data(data)
-      .xRange(this.xRange)
-      .width(5)
-      .height(30);
-
-    brush(container);
-  },
-
-  showLine(data, parent) {
-    const container = parent.append('div')
-      .classed(`viz line`, true)
-      .append('svg')
-      .append('g');
-
-    const line = d3.redditChart
-      .line()
-      .data(data)
-      .xRange(this.xRange)
-      .yRange(this.yRange)
-      .width(5);
-
-    line(container);
-  },
-
-  showScatter(data, parent) {
-    const container = parent.append('div')
-      .classed(`viz scatter`, true)
-      .append('svg')
-      .append('g');
-
-    const scatter = d3.redditChart
-      .scatter()
-      .data(data)
-      .xRange(this.xRange)
-      .yRange(this.yRange)
-      .radius(5);
-
-    scatter(container);
-  }
 };

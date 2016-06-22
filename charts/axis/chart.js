@@ -7,6 +7,8 @@ d3.redditChart.axis = function() {
   function chart(container) {
     g = container;
 
+    g.classed('g-axis', true);
+
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
       .scale()
@@ -29,23 +31,27 @@ d3.redditChart.axis = function() {
       .scale(xScale)
       .orient('bottom');
 
-    const gX = container.append('g')
-      .classed('g-x-axis', true)
-      .attr('transform', `translate(-40, ${yRange[1]})`)
-      .style({
-        fill: 'none',
-        'stroke': window.color.gray
-      });
+    const gX = container.append('g');
 
-    const gY = container.append('g')
-      .classed('g-y-axis', true)
-      .attr('transform', `translate(60, 0)`)
-      .transition()
-      .duration(window.transitionTime)
-      .style({
-        fill: 'none',
-        'stroke': window.color.green
-      });
+    gX.classed('axis x-axis', true)
+      .attr('transform', `translate(0, ${yRange[1]})`);
+
+    gX.append('text')
+      .classed('axis-text', true)
+      .attr('y', -10)
+      .attr('x', xRange[1] - 40)
+      .text('Time');
+
+    const gY = container.append('g');
+
+    gY.classed('axis y-axis', true)
+      .attr('transform', `translate(${xRange[0]}, 0)`);
+
+    gY.append('text')
+      .classed('axis-text', true)
+      .attr('y', 20)
+      .attr('x', 10)
+      .text('Score');
 
     yAxis(gY);
     xAxis(gX);
@@ -81,20 +87,18 @@ d3.redditChart.axis = function() {
 function loadExample(data) {
 
   const container = d3.select('.viz-container')
-    .append(`svg`);
+    .append('svg');
 
   const {
-    minWidth,
-    maxWidth,
-    minHeight,
-    maxHeight
+    xRange,
+    yRange,
   } = getContainerDim(container);
 
   const chart = d3.redditChart
     .axis()
     .data(data)
-    .xRange([ minWidth, maxWidth ])
-    .yRange([ minHeight, maxHeight ]);
+    .xRange(xRange)
+    .yRange(yRange);
 
   chart(container);
 }

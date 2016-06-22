@@ -1,9 +1,10 @@
 window.transitionTime = 300;
 window.color = {
+  black: '#263238',
   green: '#00e676',
   gray: '#b0bec5',
+  lightgray: '#eceff1',
   orange: '#ff9100',
-  pink: '#f50057',
   yellow: '#00bfa5',
   teal: '#eeff41',
 };
@@ -20,6 +21,8 @@ function getContainerDim(container) {
     return container;
   })();
 
+  const padding = 10;
+
   const height = parseInt(ref.style('height'));
   const minHeight = height / 12;
   const maxHeight = height - minHeight;
@@ -28,13 +31,19 @@ function getContainerDim(container) {
   const minWidth = width / 12;
   const maxWidth = width - minWidth;
 
+  const xRange = [ 50, width - padding ];
+  const yRange = [ padding, height - 30 ];
+
   return {
+    padding,
     height,
     minHeight,
     maxHeight,
     width,
     minWidth,
     maxWidth,
+    xRange,
+    yRange,
   };
 }
 

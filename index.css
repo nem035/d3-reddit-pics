@@ -1,63 +1,64 @@
 body {
-  background: #263238;
-  color: #fafafa;
+  background: #CEE3F8;
+  color: #888;
   padding: 15px;
   position: relative;
+  font-family: verdana, arial, helvetica, sans-serif;
 }
 
 .loading-slider {
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    right: 0;
-    top: 0;
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  right: 0;
+  top: 0;
 }
 
 .loading-slider .line {
-    position: relative;
-    background: #00bfa5;
-    width: 102%;
-    left: -10px;
-    top: -9px;
-    height: 4px;
+  position: relative;
+  background: #42a5f5;
+  width: 102%;
+  left: -10px;
+  top: -9px;
+  height: 4px;
 }
 
 .loading-slider .break {
-    position: absolute;
-    background: #00695c;
-    width: 6px;
-    height: 4px;
-    top: -8px;
+  position: absolute;
+  background: #2196f3;
+  width: 6px;
+  height: 4px;
+  top: -8px;
 }
 
 .loading-slider .dot1 {
-    animation: loading 2s infinite;
+  animation: loading 2s infinite;
 }
 
 .loading-slider .dot2 {
-    animation: loading 2s 0.25s infinite;
+  animation: loading 2s 0.25s infinite;
 }
 
 .loading-slider .dot3 {
-    animation: loading 2s 0.5s infinite;
+  animation: loading 2s 0.5s infinite;
 }
 
 @keyframes loading {
-    from {
-        left: 0;
-    }
-    to {
-        left: 100%;
-    }
+  from {
+      left: 0;
+  }
+  to {
+      left: 100%;
+  }
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1.0;
-    }
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1.0;
+  }
 }
 
 .error-box {
@@ -83,13 +84,13 @@ hr {
 }
 
 a {
-	color: #00b0ff;
+	color: #369;
   text-decoration: none;
 }
 
 a:visited,
 a:active {
-	color: #0091ea;
+	color: #369;
 }
 
 a:hover {
@@ -102,12 +103,11 @@ h2 {
 
 .viz-container {
   animation: fade-in .3s;
-  background: #37474f;
-  width: 100%;
+  background: white;
+  width: 1200px;
   height: 600px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 5px 2px black;
-  font-family: monospace;
+  border: 1px solid #5F99CF;
+  border-radius: 3px;
   margin-top: 10px;
 }
 
@@ -118,4 +118,82 @@ h2 {
 .viz-container svg {
 	width: inherit;
 	height: inherit;
+}
+
+.viz-container text {
+  font-size: 12px;
+}
+
+/* Axis */
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis path {
+  stroke: #263238;
+  fill: none;
+}
+
+.axis g.tick {
+	fill: #263238;
+}
+
+text.axis-text {
+  text-anchor: 'end';
+  fill: #263238;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Bar */
+.g-bar rect {
+  fill: #CCCCCC;
+  width: 1px;
+}
+
+/* Brush */
+.g-brush rect {
+  fill: #B3CCE6;
+  height: 30px;
+}
+
+.g-brush rect.data {
+  width: 1px;
+}
+
+.g-brush rect.brushed {
+  fill: #FFAE1A;
+}
+
+.g-brush rect.background {
+  fill: #F7F7F7;
+  stroke: #CCCCCC;
+  visibility: visible !important;
+}
+
+.g-brush rect.extent {
+  fill: #F8ECB6;
+  stroke: #FFAE1A;
+  visibility: visible !important;
+}
+
+.g-brush .resize rect {
+  fill: #808080;
+  visibility: visible !important;
+  width: 5px;
+}
+
+/* Line */
+.g-line path {
+  fill: none;
+  stroke: #CCCCCC;
+  stroke-width: 1px;
+}
+
+/* Scatter */
+.g-scatter circle {
+  fill: #808080;
+  stroke: black;
+  r: 3;
 }

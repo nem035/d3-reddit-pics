@@ -3,10 +3,11 @@ d3.redditChart.bar = function() {
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
-  let width = 5;
 
   function chart(container) {
     g = container;
+
+    g.classed('g-bar', true);
 
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
@@ -26,7 +27,6 @@ d3.redditChart.bar = function() {
     const rectAttrs = {
       x: (d) => xScale(d.created),
       y: (d) => yRange[1] - yScale(d.score),
-      width,
       height: (d) => yScale(d.score)
     };
 
@@ -35,7 +35,6 @@ d3.redditChart.bar = function() {
       .transition()
       .duration(window.transitionTime)
       .delay((d, i) => i * 5)
-      .attr('fill', window.color.green)
       .attr(rectAttrs);
 
     bars.exit()
@@ -66,35 +65,24 @@ d3.redditChart.bar = function() {
     return chart;
   }
 
-  chart.width = function(val) {
-    if (!arguments.length) {
-      return width;
-    }
-    width = val;
-    return chart;
-  }
-
   return chart;
 }
 
 function loadExample(data) {
 
   const container = d3.select('.viz-container')
-    .append(`svg`);
+    .append('svg');
 
   const {
-     minWidth,
-     maxWidth,
-     minHeight,
-     maxHeight
+    xRange,
+    yRange,
   } = getContainerDim(container);
 
   const chart = d3.redditChart
     .bar()
     .data(data)
-    .xRange([ minWidth, maxWidth ])
-    .yRange([ minHeight, maxHeight ])
-    .width(5);
+    .xRange(xRange)
+    .yRange(yRange);
 
   chart(container);
 }

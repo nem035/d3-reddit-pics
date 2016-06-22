@@ -2,11 +2,11 @@ d3.redditChart.brush = function() {
   let g;
   let data;
   let xRange = [ 0, 600 ];
-  let width = 600;
-  let height = 30;
 
   function chart(container) {
     g = container;
+
+    g.classed('g-brush', true);
 
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
@@ -20,42 +20,18 @@ d3.redditChart.brush = function() {
 
     brush(g);
 
-    g.selectAll('rect')
-      .attr('height', height);
-
-    g.selectAll('rect.background')
-      .style({
-        fill: window.color.pink,
-        visibility: 'visible',
-      });
-
-    g.selectAll('rect.extent')
-      .style({
-        fill: window.color.green,
-        visibility: 'visible'
-      });
-
-    g.selectAll('.resize rect')
-      .style({
-        fill: window.color.yellow,
-        visibility: 'visible',
-      });
-
-    const rects = g.selectAll('rect.event')
+    const rects = g.selectAll('rect.no-event')
       .data(data);
 
     rects.enter()
       .append('rect')
-      .classed('no-event', true);
+      .classed('data no-event', true);
 
     rects.attr({
       x: ({ created }) => xScale(created),
-      y: 0,
-      width,
-      height
-    }).style({
-      fill: window.color.orange,
-    });
+      y: 0
+    })
+    .classed('brushed', false);
 
     brush.on('brush', function() {
       const [ minCreated, maxCreated ] = brush.extent();
@@ -65,20 +41,12 @@ d3.redditChart.brush = function() {
 
       const rects = g.selectAll('rect.no-event');
 
-      // resets the style from previous brushend
-      rects.transition()
-        .duration(window.transitionTime / 3)
-        .style({
-          fill: window.color.orange
-        });
+      // resets the style from previous brushing
+      rects.classed('brushed', false);
 
       // update new style
       rects.data(filtered, d => d.id)
-        .transition()
-        .duration(window.transitionTime / 3)
-        .style({
-          fill: window.color.teal
-        });
+        .classed('brushed', true);
     });
 
     rects.exit().remove();
@@ -89,22 +57,6 @@ d3.redditChart.brush = function() {
       return data;
     }
     data = val;
-    return chart;
-  }
-
-  chart.width = function(val) {
-    if (!arguments.length) {
-      return width;
-    }
-    width = val;
-    return chart;
-  }
-
-  chart.height = function(val) {
-    if (!arguments.length) {
-      return height;
-    }
-    height = val;
     return chart;
   }
 
@@ -122,19 +74,16 @@ d3.redditChart.brush = function() {
 function loadExample(data) {
 
   const container = d3.select('.viz-container')
-    .append(`svg`);
+    .append('svg');
 
   const {
-    minWidth,
-    maxWidth
+    xRange,
   } = getContainerDim(container);
 
   const chart = d3.redditChart
     .brush()
     .data(data)
-    .xRange([ minWidth, maxWidth ])
-    .width(5)
-    .height(30);
+    .xRange(xRange);
 
   chart(container);
 }

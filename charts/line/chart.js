@@ -3,10 +3,11 @@ d3.redditChart.line = function() {
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
-  let width = 5;
 
   function chart(container) {
     g = container;
+
+    g.classed('g-line', true);
 
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
@@ -26,12 +27,7 @@ d3.redditChart.line = function() {
       .interpolate('cardinal');
 
     const path = g.append('path')
-      .attr('d', line(data))
-      .style({
-        fill: 'none',
-        stroke: window.color.green,
-        'stroke-width': `${width}px`
-      });
+      .attr('d', line(data));
 
     const totalLength = path.node().getTotalLength();
 
@@ -66,35 +62,24 @@ d3.redditChart.line = function() {
     return chart;
   }
 
-  chart.width = function(val) {
-    if (!arguments.length) {
-      return width;
-    }
-    width = val;
-    return chart;
-  }
-
   return chart;
 }
 
 function loadExample(data) {
 
   const container = d3.select('.viz-container')
-    .append(`svg`);
+    .append('svg');
 
   const {
-    minWidth,
-    maxWidth,
-    minHeight,
-    maxHeight
+    xRange,
+    yRange,
   } = getContainerDim(container);
 
   const chart = d3.redditChart
     .line()
     .data(data)
-    .xRange([ minWidth, maxWidth ])
-    .yRange([ minHeight, maxHeight ])
-    .width(5);
+    .xRange(xRange)
+    .yRange(yRange);
 
   chart(container);
 }
