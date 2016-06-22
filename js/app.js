@@ -1,4 +1,3 @@
-window.codeScope = 'D3Reddit';
 window.D3Reddit = {
 
   xRange: null,

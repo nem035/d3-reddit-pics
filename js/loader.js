@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function updateAndVisualize() {
   clearContent();
   setLoading();
-  window.d3.json('https://www.reddit.com/r/pics.json', (error, json) => {
+  d3.json('https://www.reddit.com/r/pics.json', (error, json) => {
     resetLoading();
     destroyErrorBox();
     if (error) {
@@ -32,20 +32,9 @@ function updateAndVisualize() {
           data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
         }
         return data;
-      });
+      })
+      .sort((a, b) => a.created - b.created);
 
-    const { codeScope } = window;
-    if (codeScope === 'D3Reddit') {
-        window.D3Reddit.visualize(cleanData);
-    } else {
-      // individual chart examples
-      const data = cleanData.sort((a, b) => a.created - b.created);
-      // loads the example from the active script
-      if (typeof loadExample === 'function') {
-        loadExample(data);
-      } else {
-        createErrorBox('Missing loadExample()');
-      }
-    }
+    D3Reddit.visualize(cleanData);
   });
 }
