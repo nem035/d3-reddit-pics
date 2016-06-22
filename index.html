@@ -2,35 +2,71 @@
 <meta charset="utf-8">
 <html>
   <head>
-    <title>D3 Reddit</title>
-    <link rel="stylesheet" href="index.css"/>
-    <style>
-      .charts {
-        animation: fade-in .3s;
-        margin: 0;
-      }
-
-      .charts li {
-        font-size: 20px;
-        padding: 10px;
-      }
-    </style>
+    <title>D3 Reddit Pics</title>
+    <link rel="stylesheet" href="./css/index.css"/>
   </head>
   <body>
-    <h1><a href="./index.html">D3 Reddit</a></h1>
-    <hr />
-    <section>
-      <h2><a href="app">Click to View App</a></h2>
+
+    <!-- menu -->
+    <section class="menu">
+      <a href="https://d3js.org/" target="_blank">
+        <img src="./img/d3-flat.png" width="30" height="20">
+      </a>
+      <img src="./img/reddit-flat.png" width="20" height="20" class="alien rotating">
+      <a href="./index.html" title="home">D3Reddit Pics</a> based on
+      <a href="https://www.reddit.com/r/pics" target="_blank" title="r/pics">
+        <img src="https://a.thumbs.redditmedia.com/v6TowjW1Qnev8RYA2CounVgo_Y-B7pu2dyRDFZNTk_8.png" width="50"/>
+      </a>
+      <ul class="tabmenu">
+        <li class="selected">
+          <a href="./index.html" class="choice">app</a>
+        </li>
+        <li>
+          <a href="./about.html" class="choice">about</a>
+        </li>
+      </ul>
+      <ul class="chartmenu">
+        <li>
+          <input name="axis" id="axis" type="checkbox" checked="checked"> Axis
+        </li>
+        <li>
+          <input name="bar" id="bar" type="checkbox" checked="checked"> Bar
+        </li>
+        <li>
+          <input name="brush" id="brush" type="checkbox" checked="checked"> Brush
+        </li>
+        <li>
+          <input name="line" id="line" type="checkbox" checked="checked"> Line
+        </li>
+        <li>
+          <input name="scatter" id="scatter" type="checkbox" checked="checked"> Scatter
+        </li>
+        <li>
+          <input name="table" id="table" type="checkbox" checked="checked"> Table
+        </li>
+      </ul>
     </section>
-    <hr />
-    <h3>Individual Charts</h3>
-    <ul class="charts">
-      <li><a href="charts/axis">Axis</a></li>
-      <li><a href="charts/bar">Bar</a></li>
-      <li><a href="charts/brush">Brush</a></li>
-      <li><a href="charts/line">Line</a></li>
-      <li><a href="charts/scatter">Scatter</a></li>
-      <li><a href="charts/table">Table</a></li>
-    </ul>
+
+    <!-- container -->
+    <section class="viz-container">
+
+    </section>
+
+    <!-- d3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+
+    <!-- app -->
+    <script src="js/index.js"></script>
+
+    <!-- charts -->
+    <script src="js/charts/axis.js"></script>
+    <script src="js/charts/bar.js"></script>
+    <script src="js/charts/brush.js"></script>
+    <script src="js/charts/line.js"></script>
+    <script src="js/charts/scatter.js"></script>
+    <script src="js/charts/table.js"></script>
+
+    <!-- loader -->
+    <script src="js/loader.js"></script>
   </body>
 </html>

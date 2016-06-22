@@ -1,5 +1,3 @@
-window.codeScope = 'scatter';
-
 d3.redditChart.scatter = function() {
   let g;
   let data;
@@ -64,22 +62,3 @@ d3.redditChart.scatter = function() {
 
   return chart;
 };
-
-function loadExample(data) {
-
-  const container = d3.select('.viz-container')
-    .append('svg');
-
-  const {
-    xRange,
-    yRange,
-  } = getContainerDim(container);
-
-  const chart = d3.redditChart
-    .scatter()
-    .data(data)
-    .xRange(xRange)
-    .yRange(yRange);
-
-  chart(container);
-}

@@ -1,13 +1,4 @@
 window.transitionTime = 300;
-window.color = {
-  black: '#263238',
-  green: '#00e676',
-  gray: '#b0bec5',
-  lightgray: '#eceff1',
-  orange: '#ff9100',
-  yellow: '#00bfa5',
-  teal: '#eeff41',
-};
 
 if (!d3.redditChart) {
   d3.redditChart = {};
@@ -22,17 +13,19 @@ function getContainerDim(container) {
   })();
 
   const padding = 10;
+  const axisXSpacing = 50;
+  const axisYSpacing = 30;
 
   const height = parseInt(ref.style('height'));
-  const minHeight = height / 12;
+  const minHeight = height / padding;
   const maxHeight = height - minHeight;
 
   const width = parseInt(ref.style('width'));
-  const minWidth = width / 12;
+  const minWidth = width / padding;
   const maxWidth = width - minWidth;
 
-  const xRange = [ 50, width - padding ];
-  const yRange = [ padding, height - 30 ];
+  const xRange = [ axisXSpacing, width - padding ];
+  const yRange = [ padding, height - axisYSpacing ];
 
   return {
     padding,
@@ -62,21 +55,27 @@ function animateElemDestruction(elem) {
     .remove();
 }
 
-function createLoadingSlider() {
-  const slider = d3.select('body')
-    .insert('div', ':first-child')
-    .classed('loading-slider', true);
+function setLoading() {
+  // add reddit alien rotation
+  d3.select('.alien')
+    .classed('rotating', false)
 
-  animateElemCreation(slider);
-
-  slider.append('div').classed('line', true);
-  slider.append('div').classed('break dot1', true);
-  slider.append('div').classed('break dot2', true);
-  slider.append('div').classed('break dot3', true);
+  // create the loading span
+  d3.select('.viz-container')
+    .append('span')
+    .classed('loading', true)
+    .text('Loading');
 }
 
-function destroyLoadingSlider() {
-  animateElemDestruction(d3.select('.loading-slider'));
+function resetLoading() {
+  // remove reddit alien rotation
+  d3.select('.alien')
+    .classed('rotating', false)
+
+  // remove the loading span
+  d3.select('.loading')
+    .remove();
+
 }
 
 function createErrorBox(error) {

@@ -67,22 +67,3 @@ d3.redditChart.bar = function() {
 
   return chart;
 }
-
-function loadExample(data) {
-
-  const container = d3.select('.viz-container')
-    .append('svg');
-
-  const {
-    xRange,
-    yRange,
-  } = getContainerDim(container);
-
-  const chart = d3.redditChart
-    .bar()
-    .data(data)
-    .xRange(xRange)
-    .yRange(yRange);
-
-  chart(container);
-}

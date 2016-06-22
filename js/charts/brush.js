@@ -70,20 +70,3 @@ d3.redditChart.brush = function() {
 
   return chart;
 };
-
-function loadExample(data) {
-
-  const container = d3.select('.viz-container')
-    .append('svg');
-
-  const {
-    xRange,
-  } = getContainerDim(container);
-
-  const chart = d3.redditChart
-    .brush()
-    .data(data)
-    .xRange(xRange);
-
-  chart(container);
-}

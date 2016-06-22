@@ -1,55 +1,23 @@
 body {
-  background: #CEE3F8;
-  color: #888;
-  padding: 15px;
+  background: white;
   position: relative;
+  margin: 0;
   font-family: verdana, arial, helvetica, sans-serif;
 }
 
-.loading-slider {
-  position: absolute;
-  width: 100%;
-  height: 4px;
-  right: 0;
-  top: 0;
-}
+/* Animations */
 
-.loading-slider .line {
-  position: relative;
-  background: #42a5f5;
-  width: 102%;
-  left: -10px;
-  top: -9px;
-  height: 4px;
-}
-
-.loading-slider .break {
-  position: absolute;
-  background: #2196f3;
-  width: 6px;
-  height: 4px;
-  top: -8px;
-}
-
-.loading-slider .dot1 {
-  animation: loading 2s infinite;
-}
-
-.loading-slider .dot2 {
-  animation: loading 2s 0.25s infinite;
-}
-
-.loading-slider .dot3 {
-  animation: loading 2s 0.5s infinite;
-}
-
-@keyframes loading {
+@keyframes rotating {
   from {
-      left: 0;
+    transform: rotate(0deg);
   }
   to {
-      left: 100%;
+    transform: rotate(360deg);
   }
+}
+
+.rotating {
+  animation: rotating .5s linear infinite;
 }
 
 @keyframes fade-in {
@@ -61,6 +29,18 @@ body {
   }
 }
 
+.fade-in {
+  animation: fadeIn .5s linear infinite;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 20px;
+  }
+}
+
+/* Errors */
+
 .error-box {
 	position: absolute;
 	right: 20px;
@@ -70,18 +50,22 @@ body {
 	border: 1px solid #c51162;
 }
 
-.content {
-  text-align: center;
+/* Loading */
+
+.loading {
+  font-size: larger;
 }
 
-.content .title {
-  position: relative;
-  float: left;
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  animation: ellipsis steps(4,end) .5s infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
 }
 
-hr {
-  border-color: #b0bec5;
-}
+/* Links */
 
 a {
 	color: #369;
@@ -93,18 +77,70 @@ a:active {
 	color: #369;
 }
 
-a:hover {
-  opacity: 0.8;
+/* Content */
+
+.content {
+  text-align: center;
 }
 
-h2 {
-  margin: 10px;
+/* Menu */
+
+.menu {
+	background: #CEE3F8;
+	padding: 3px;
+	border-bottom: 1px solid #5F99CF;
 }
+
+.viz-container,
+.menu {
+  min-width: 1200px;
+  width: 100%;
+}
+
+/* Tab & Chart Menu */
+
+.tabmenu,
+.chartmenu {
+	list-style-type: none;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0;
+	margin-bottom: -3px;
+  vertical-align: bottom;
+	font-size: small;
+}
+
+.tabmenu li,
+.chartmenu li {
+	display: inline;
+  font-weight: bold;
+  margin: 0px 3px;
+}
+
+.chartmenu li {
+  font-size: smaller;
+}
+
+.tabmenu li a {
+	top-left-radius: 5px;
+  top-right-radius: 5px;
+	padding: 2px 6px 0 6px;
+  background-color: #eff7ff;
+}
+
+.tabmenu li.selected a {
+	color: orangered;
+  background-color: white;
+  border: 1px solid #5f99cf;
+  border-bottom: 1px solid white;
+  z-index: 100;
+}
+
+/* viz-container */
 
 .viz-container {
   animation: fade-in .3s;
   background: white;
-  width: 1200px;
   height: 600px;
   border: 1px solid #5F99CF;
   border-radius: 3px;
@@ -122,6 +158,12 @@ h2 {
 
 .viz-container text {
   font-size: 12px;
+}
+
+.viz-container .viz {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 /* Axis */

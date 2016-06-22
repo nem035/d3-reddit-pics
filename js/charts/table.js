@@ -1,5 +1,3 @@
-window.codeScope = 'table';
-
 d3.redditChart.table = function() {
   let c;
   let data;
@@ -77,23 +75,3 @@ d3.redditChart.table = function() {
 
   return chart;
 };
-
-
-function loadExample(data) {
-
-  const container = d3.select('.viz-container')
-    .append(`div`);
-
-  const {
-    minWidth,
-    maxWidth,
-    minHeight,
-    maxHeight
-  } = getContainerDim(container);
-
-  const chart = d3.redditChart
-    .table()
-    .data(data);
-
-  chart(container);
-}

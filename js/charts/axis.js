@@ -83,22 +83,3 @@ d3.redditChart.axis = function() {
 
   return chart;
 }
-
-function loadExample(data) {
-
-  const container = d3.select('.viz-container')
-    .append('svg');
-
-  const {
-    xRange,
-    yRange,
-  } = getContainerDim(container);
-
-  const chart = d3.redditChart
-    .axis()
-    .data(data)
-    .xRange(xRange)
-    .yRange(yRange);
-
-  chart(container);
-}

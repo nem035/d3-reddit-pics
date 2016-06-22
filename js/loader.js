@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function updateAndVisualize() {
   clearContent();
-  createLoadingSlider();
+  setLoading();
   window.d3.json('https://www.reddit.com/r/pics.json', (error, json) => {
-    destroyLoadingSlider();
+    resetLoading();
     destroyErrorBox();
     if (error) {
       createErrorBox(error);
@@ -29,7 +29,7 @@ function updateAndVisualize() {
       .map(({ data }) => {
         data.created = data.created * 1000;
         if (data.thumbnail.indexOf('://') === -1) {
-          data.thumbnail = `${baseURL}/placeholder-140x140.png`;
+          data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
         }
         return data;
       });
