@@ -76,6 +76,10 @@ function D3Reddit(data) {
 
     brush(container);
 
+    brush.on('brushFilter', function(data) {
+      console.log(data);
+    });
+
     d3.select('.viz.brush')
       .style({
         'margin-top': `${this.height - window.yAxisSpacing - 40}px`

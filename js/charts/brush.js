@@ -3,7 +3,9 @@ d3.redditChart.brush = function() {
   let data;
   let xRange = [ 0, 600 ];
 
-  function chart(container) {
+  const dispatch = d3.dispatch('brushFilter');
+
+  function chart(container, filterDispatch) {
     g = container;
 
     g.classed('g-brush', true);
@@ -49,6 +51,8 @@ d3.redditChart.brush = function() {
       // update new style
       rects.data(filtered, d => d.id)
         .classed('brushed', true);
+
+      dispatch.brushFilter(filtered);
     });
 
     rects.exit().remove();
@@ -70,5 +74,5 @@ d3.redditChart.brush = function() {
     return chart;
   }
 
-  return chart;
+  return d3.rebind(chart, dispatch, 'on');
 };
