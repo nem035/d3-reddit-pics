@@ -1,4 +1,5 @@
 window.transitionTime = 300;
+window.vizNames = ['axis', 'bar', 'brush', 'line', 'scatter', 'table'];
 
 if (!d3.redditChart) {
   d3.redditChart = {};
@@ -26,8 +27,8 @@ function getContainerDim(container) {
     padding,
     axisXSpacing,
     axisYSpacing,
-    height,
     width,
+    height,
     xRange,
     yRange,
   };
@@ -90,4 +91,59 @@ function destroyErrorBox() {
 
 function clearContent() {
   d3.selectAll('.viz-container > *').remove();
+}
+
+function getVizNamesFromHash() {
+  const {
+    vizNames,
+    location: {
+      hash
+    }
+  } = window;
+
+  return hash.length > 1 ?
+    hash.slice(1)
+      .split(',')
+      .filter(x => vizNames.indexOf(x) !== -1) :
+    vizNames;
+}
+
+function setupCheckboxes() {
+  const checkboxes = d3.selectAll('input[type=checkbox]');
+  const rawCheckBoxes = checkboxes[0];
+  const vizNames = getVizNamesFromHash();
+
+  // setup checked attribute from the gives visualizations
+  rawCheckBoxes.forEach(c => {
+    c.checked = vizNames.indexOf(c.name) !== -1 ? true : false;
+  });
+
+  checkboxes.on('change', () => {
+    const vizNames = rawCheckBoxes.filter(c => c.checked)
+      .map(c => c.name);
+    window.location.hash = `#${vizNames}`;
+    updateAndVisualize();
+  });
+}
+
+function cleanData({ data }) {
+  // extract data props
+  // add placeholder thumbnails when missing
+  // convert dates because reddit uses seconds
+  const {
+    hostname,
+    origin,
+  } = window.location;
+
+  // fix missing thumbnails
+  const baseURL = hostname === 'localhost' ? origin : 'https://nem035.github.io/d3-reddit-pics';
+  return data.children
+    .map(({ data }) => {
+      data.created = data.created * 1000;
+      if (data.thumbnail.indexOf('://') === -1) {
+        data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
+      }
+      return data;
+    })
+    .sort((a, b) => a.created - b.created);
 }

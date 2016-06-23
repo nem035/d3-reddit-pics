@@ -1,47 +1,44 @@
-window.D3Reddit = {
+function D3Reddit(data) {
 
-  xRange: null,
-  yRange: null,
+  // setup
+  const vizContainer = d3.select('.viz-container');
+  const {
+    padding,
+    axisXSpacing,
+    axisYSpacing,
+    width,
+    height,
+    xRange,
+    yRange,
+  } = getContainerDim(vizContainer);
 
-  visualize(redditData, vizNames = ['axis', 'bar', 'brush', 'line', 'scatter', 'table']) {
-    // setup
-    const data = redditData.sort((a, b) => a.created - b.created);
-    const vizContainer = d3.select('.viz-container');
+  this.data = data;
+  this.vizContainer = vizContainer;
+  this.padding = padding;
+  this.axisXSpacing = axisXSpacing;
+  this.axisYSpacing = axisYSpacing;
+  this.width = width;
+  this.height = height;
+  this.xRange = xRange;
+  this.yRange = yRange;
 
-    const {
-      padding,
-      width,
-      height,
-      xRange,
-      yRange,
-    } = getContainerDim(vizContainer);
-
-    this.vizContainer = vizContainer;
-    this.padding = padding;
-    this.width = width;
-    this.height = height;
-    this.xRange = xRange;
-    this.yRange = yRange;
-
-    // show specified visualizations
-    vizNames.forEach(viz => {
-      this[viz](data);
-    });
+  this.visualize = (visualizations) => {
+    getVizNamesFromHash().forEach(viz => this[viz]());
   },
 
-  loadChart(vizName, data) {
+  this.loadChart = (vizName) => {
     return d3.redditChart[vizName]()
-      .data(data);
+      .data(this.data);
   },
 
-  loadViz(vizName, data) {
+  this.loadViz = (vizName) => {
     const container = this.vizContainer
       .append('div')
       .classed(`viz ${vizName}`, true)
       .append('svg')
       .append('g');
 
-    const chart = this.loadChart(vizName, data);
+    const chart = this.loadChart(vizName);
 
     return {
       container,
@@ -49,11 +46,11 @@ window.D3Reddit = {
     };
   },
 
-  axis(data) {
+  this.axis = () => {
     const {
       chart: axis,
       container,
-    } = this.loadViz('axis', data);
+    } = this.loadViz('axis');
 
     axis.xRange(this.xRange)
       .yRange(this.yRange);
@@ -61,11 +58,11 @@ window.D3Reddit = {
     axis(container);
   },
 
-  bar(data) {
+  this.bar = (data) => {
     const {
       chart: bar,
       container,
-    } = this.loadViz('bar', data);
+    } = this.loadViz('bar');
 
     bar.xRange(this.xRange)
     .yRange(this.yRange);
@@ -73,27 +70,28 @@ window.D3Reddit = {
     bar(container);
   },
 
-  brush(data) {
+  this.brush = (data) => {
     const {
       chart: brush,
       container,
-    } = this.loadViz('brush', data);
+    } = this.loadViz('brush');
 
     brush.xRange(this.xRange);
 
     brush(container);
 
+    const brushHeight = 30;
     d3.select('.viz.brush')
       .style({
         'margin-top': `${this.height}px`
       })
   },
 
-  line(data) {
+  this.line = (data) => {
     const {
       chart: line,
       container,
-    } = this.loadViz('line', data);
+    } = this.loadViz('line');
 
     line.xRange(this.xRange)
     .yRange(this.yRange);
@@ -101,11 +99,11 @@ window.D3Reddit = {
     line(container);
   },
 
-  scatter(data) {
+  this.scatter = (data) => {
     const {
       chart: scatter,
       container,
-    } = this.loadViz('scatter', data);
+    } = this.loadViz('scatter');
 
     scatter.xRange(this.xRange)
     .yRange(this.yRange);
@@ -124,8 +122,8 @@ window.D3Reddit = {
       .on('mouseout', tip.hide);
   },
 
-  table(data) {
-    const table = this.loadChart('table', data);
+  this.table = (data) => {
+    const table = this.loadChart('table');
     const container = this.vizContainer
       .append('div')
       .classed('viz table', true);

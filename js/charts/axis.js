@@ -27,6 +27,8 @@ d3.redditChart.axis = function() {
       .orient('left')
       .tickSize(0);
 
+    const [ min, max ] = xDomain;
+    const tickValues = [min, min + (max - min) / 2, max].map(ms => new Date(ms));
     const xAxis = d3.svg
       .axis()
       .scale(xScale)

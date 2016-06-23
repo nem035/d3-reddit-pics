@@ -278,7 +278,6 @@ text.axis-text {
   fill: none;
   stroke: #CCCCCC;
   stroke-width: 2px;
-  transition: all .2s ease-in-out;
 }
 
 /* Scatter */
@@ -286,12 +285,11 @@ text.axis-text {
   fill: #808080;
   stroke: black;
   r: 5;
-  transition: all .3s ease-in-out;
+  transition: all .2s ease-in-out;
   cursor: pointer;
 }
 
 .g-scatter circle:hover {
   fill: #F8ECB6;
   stroke: #FFAE1A;
-  r: 10;
 }

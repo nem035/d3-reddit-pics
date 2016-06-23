@@ -1,4 +1,7 @@
+window.location.hash = `#${getVizNamesFromHash()}`;
+
 document.addEventListener('DOMContentLoaded', (event) => {
+  setupCheckboxes();
   updateAndVisualize();
 });
 
@@ -17,28 +20,11 @@ function updateAndVisualize() {
       return console.error(error);
     }
 
-    // extract data props
-    // add placeholder thumbnails when missing
-    // convert dates because reddit uses seconds
-    const {
-      hostname,
-      origin
-    } = window.location;
-    const baseURL = hostname === 'localhost' ? origin : 'https://nem035.github.io/d3-reddit-pics';
-    const cleanData = json.data.children
-      .map(({ data }) => {
-        data.created = data.created * 1000;
-        if (data.thumbnail.indexOf('://') === -1) {
-          data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
-        }
-        return data;
-      })
-      .sort((a, b) => a.created - b.created);
+    const data = cleanData(json);
 
-    const vizs = ['axis', 'bar', 'brush', 'line', 'scatter', 'table'];
-
-    window.data = cleanData;
-
-    D3Reddit.visualize(cleanData, vizs);
+    if (!window.d3Reddit) {
+      window.d3Reddit = new D3Reddit(data);
+    }
+    window.d3Reddit.visualize();
   });
 }
