@@ -142,7 +142,6 @@ a:active {
   animation: fade-in .3s;
   background: white;
   height: 600px;
-  border: 1px solid #5F99CF;
   border-radius: 3px;
   margin-top: 10px;
 }
@@ -157,13 +156,45 @@ a:active {
 }
 
 .viz-container text {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .viz-container .viz {
 	position: absolute;
-	width: 100%;
-	height: 100%;
+	width: inherit;
+	height: inherit;
+}
+
+/* Tooltip */
+.d3-tip {
+  transition: opacity .2s ease-in-out;
+  line-height: 1;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: monospace;
+  padding: 5px;
+  background: orangered;
+  color: white;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  width: 100%;
+  line-height: 1;
+  color: orangered;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
 }
 
 /* Axis */
@@ -182,10 +213,10 @@ a:active {
 }
 
 text.axis-text {
-  text-anchor: 'end';
+  text-anchor: end;
   fill: #263238;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 /* Bar */
@@ -230,12 +261,21 @@ text.axis-text {
 .g-line path {
   fill: none;
   stroke: #CCCCCC;
-  stroke-width: 1px;
+  stroke-width: 2px;
+  transition: all .2s ease-in-out;
 }
 
 /* Scatter */
 .g-scatter circle {
   fill: #808080;
   stroke: black;
-  r: 3;
+  r: 5;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+
+.g-scatter circle:hover {
+  fill: #F8ECB6;
+  stroke: #FFAE1A;
+  r: 10;
 }

@@ -27,9 +27,12 @@ d3.redditChart.scatter = function() {
     const circleAttrs = {
       cx: (d) => xScale(d.created),
       cy: (d) => yRange[1] - yScale(d.score),
+      'data-score': (d) => d.score,
+      'data-created': (d) => d.created,
     };
     circles.enter()
       .append('circle')
+      .classed('scatter-circle', true)
       .transition()
       .duration(window.transitionTime)
       .delay((d, i) => i * 5)

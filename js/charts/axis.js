@@ -24,23 +24,18 @@ d3.redditChart.axis = function() {
     const yAxis = d3.svg
       .axis()
       .scale(yScale)
-      .orient('left');
+      .orient('left')
+      .tickSize(0);
 
     const xAxis = d3.svg
       .axis()
       .scale(xScale)
-      .orient('bottom');
+      .orient('bottom')
+      .tickSize(0);
 
-    const gX = container.append('g');
-
-    gX.classed('axis x-axis', true)
+    const gX = container.append('g')
+      .classed('axis x-axis', true)
       .attr('transform', `translate(0, ${yRange[1]})`);
-
-    gX.append('text')
-      .classed('axis-text', true)
-      .attr('y', -10)
-      .attr('x', xRange[1] - 40)
-      .text('Time');
 
     const gY = container.append('g');
 
@@ -49,7 +44,7 @@ d3.redditChart.axis = function() {
 
     gY.append('text')
       .classed('axis-text', true)
-      .attr('y', 20)
+      .attr('y', 15)
       .attr('x', 10)
       .text('Score');
 

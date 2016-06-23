@@ -27,11 +27,14 @@ d3.redditChart.bar = function() {
     const rectAttrs = {
       x: (d) => xScale(d.created),
       y: (d) => yRange[1] - yScale(d.score),
-      height: (d) => yScale(d.score)
+      height: (d) => yScale(d.score),
+      'data-score': (d) => d.score,
+      'data-created': (d) => d.created,
     };
 
     bars.enter()
       .append('rect')
+      .classed('bar-rect', true)
       .transition()
       .duration(window.transitionTime)
       .delay((d, i) => i * 5)

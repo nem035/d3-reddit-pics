@@ -35,6 +35,8 @@ function updateAndVisualize() {
       })
       .sort((a, b) => a.created - b.created);
 
-    D3Reddit.visualize(cleanData);
+    const vizs = ['axis', 'bar', 'brush', 'line', 'scatter'];
+
+    D3Reddit.visualize(cleanData, vizs);
   });
 }

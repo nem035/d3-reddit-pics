@@ -13,28 +13,21 @@ function getContainerDim(container) {
   })();
 
   const padding = 10;
-  const axisXSpacing = 50;
-  const axisYSpacing = 30;
+  const axisXSpacing = 35;
+  const axisYSpacing = 20;
 
   const height = parseInt(ref.style('height'));
-  const minHeight = height / padding;
-  const maxHeight = height - minHeight;
-
   const width = parseInt(ref.style('width'));
-  const minWidth = width / padding;
-  const maxWidth = width - minWidth;
 
-  const xRange = [ axisXSpacing, width - padding ];
-  const yRange = [ padding, height - axisYSpacing ];
+  const xRange = [ padding + axisXSpacing, width - padding ];
+  const yRange = [ padding + axisYSpacing, height - axisYSpacing - padding ];
 
   return {
     padding,
+    axisXSpacing,
+    axisYSpacing,
     height,
-    minHeight,
-    maxHeight,
     width,
-    minWidth,
-    maxWidth,
     xRange,
     yRange,
   };

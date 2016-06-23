@@ -29,7 +29,9 @@ d3.redditChart.brush = function() {
 
     rects.attr({
       x: ({ created }) => xScale(created),
-      y: 0
+      y: 0,
+      'data-score': (d) => d.score,
+      'data-created': (d) => d.created,
     })
     .classed('brushed', false);
 
