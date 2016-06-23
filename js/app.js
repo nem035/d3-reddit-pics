@@ -113,4 +113,13 @@ window.D3Reddit = {
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
   },
+
+  table(data) {
+    const {
+      chart: table,
+      container,
+    } = this.loadViz('table', data);
+
+    table(container);
+  }
 };

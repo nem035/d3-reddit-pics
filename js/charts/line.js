@@ -31,7 +31,7 @@ d3.redditChart.line = function() {
 
     const totalLength = path.node().getTotalLength();
 
-    path.attr('stroke-dasharray', `${3} ${3}`)
+    path.attr('stroke-dasharray', `5 5`)
       .attr('stroke-dashoffset', totalLength)
       .transition()
       .duration(window.transitionTime)

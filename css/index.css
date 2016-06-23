@@ -146,6 +146,12 @@ a:active {
   z-index: 100;
 }
 
+.github {
+	font-size: small;
+	float: right;
+	margin-right: 5px;
+}
+
 /* viz-container */
 
 .viz-container {
@@ -280,7 +286,7 @@ text.axis-text {
   fill: #808080;
   stroke: black;
   r: 5;
-  transition: r .2s ease-in-out;
+  transition: all .3s ease-in-out;
   cursor: pointer;
 }
 
