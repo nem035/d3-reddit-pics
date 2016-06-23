@@ -37,6 +37,8 @@ function updateAndVisualize() {
 
     const vizs = ['axis', 'bar', 'brush', 'line', 'scatter'];
 
+    window.data = cleanData;
+
     D3Reddit.visualize(cleanData, vizs);
   });
 }

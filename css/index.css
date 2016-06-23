@@ -50,6 +50,16 @@ body {
 	border: 1px solid #c51162;
 }
 
+/* Alien */
+.alien:not(.rotating):hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.alien.rotating {
+  cursor: not-allowed;;
+}
+
 /* Loading */
 
 .loading {
@@ -270,7 +280,7 @@ text.axis-text {
   fill: #808080;
   stroke: black;
   r: 5;
-  transition: all .2s ease-in-out;
+  transition: r .2s ease-in-out;
   cursor: pointer;
 }
 

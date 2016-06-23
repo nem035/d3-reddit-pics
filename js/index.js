@@ -51,7 +51,7 @@ function animateElemDestruction(elem) {
 function setLoading() {
   // add reddit alien rotation
   d3.select('.alien')
-    .classed('rotating', false)
+    .classed('rotating', true)
 
   // create the loading span
   d3.select('.viz-container')
