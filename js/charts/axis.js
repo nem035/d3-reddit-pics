@@ -35,7 +35,7 @@ d3.redditChart.axis = function() {
       .orient('bottom')
       .tickSize(0)
       .tickValues(tickValues)
-      .tickFormat(timeFormat);
+      .tickFormat(window.timeFormat);
 
     const gX = container.append('g')
       .classed('axis x-axis', true)

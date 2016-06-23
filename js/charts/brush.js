@@ -56,6 +56,19 @@ d3.redditChart.brush = function() {
     });
 
     rects.exit().remove();
+
+    // brush time axis
+    const axisG = g.append('g')
+      .attr('transform', `translate(0, ${window.brushHeight})`);
+
+    const xAxis = d3.svg
+      .axis()
+      .scale(xScale)
+      .orient('bottom')
+      .tickSize(0)
+      .tickFormat(window.timeFormat);
+
+    xAxis(axisG);
   }
 
   chart.data = function(val) {

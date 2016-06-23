@@ -18,27 +18,31 @@ function D3Reddit(data) {
 
   this.visualize = (visualizations) => {
     getVizNamesFromHash().forEach(viz => this[`${viz}Viz`]());
-  },
+  };
 
   this.loadChart = (vizName) => {
     return d3.redditChart[vizName]()
       .data(this.data);
-  },
+  };
 
-  this.loadViz = (vizName) => {
-    const container = this.vizContainer
+  this.getVizContainer = (vizName) => {
+    const container = d3.select(`.${vizName}`);
+    return container[0][0] ? container : this.vizContainer
       .append('div')
       .classed(`viz ${vizName}`, true)
       .append('svg')
       .append('g');
+  };
 
+  this.loadViz = (vizName) => {
+    const container = this.getVizContainer(vizName);
     const chart = this.loadChart(vizName);
 
     return {
       container,
       chart,
     };
-  },
+  };
 
   this.axisViz = () => {
     const {
@@ -51,10 +55,10 @@ function D3Reddit(data) {
     axis.xRange(xRange)
       .yRange(yRange);
 
-    axis(container);
-  },
+    this.axis = axis(container);
+  };
 
-  this.barViz = (data) => {
+  this.barViz = () => {
     const {
       chart: bar,
       container,
@@ -63,10 +67,10 @@ function D3Reddit(data) {
     bar.xRange([this.xRange[0], this.xRange[1] + 5])
     .yRange(this.yRange);
 
-    bar(container);
-  },
+    this.bar = bar(container);
+  };
 
-  this.brushViz = (data) => {
+  this.brushViz = () => {
     const {
       chart: brush,
       container,
@@ -74,19 +78,20 @@ function D3Reddit(data) {
 
     brush.xRange([this.xRange[0], this.xRange[1] + 5]);
 
-    brush(container);
+    this.brush = brush(container);
 
-    brush.on('brushFilter', function(data) {
-      console.log(data);
+    brush.on('brushFilter', (filtered) => {
+      this.data = filtered;
+      this.scatterViz();
     });
 
     d3.select('.viz.brush')
       .style({
         'margin-top': `${this.height - window.yAxisSpacing - 40}px`
       })
-  },
+  };
 
-  this.lineViz = (data) => {
+  this.lineViz = () => {
     const {
       chart: line,
       container,
@@ -94,13 +99,13 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(5, 5)');
 
-    line.xRange(this.xRange)
+    this.line = line.xRange(this.xRange)
     .yRange([this.yRange[0] + 5, this.yRange[1]]);
 
     line(container);
-  },
+  };
 
-  this.scatterViz = (data) => {
+  this.scatterViz = () => {
     const {
       chart: scatter,
       container,
@@ -108,7 +113,7 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(5, 5)');
 
-    scatter.xRange(this.xRange)
+    this.scatter = scatter.xRange(this.xRange)
       .yRange([this.yRange[0] + 5, this.yRange[1]]);
 
     scatter(container);
@@ -128,21 +133,24 @@ function D3Reddit(data) {
     d3.select('.viz.scatter > svg').call(tip);
 
     d3.selectAll('circle')
-      .on('mouseover', tip.show)
+      .on('mouseover', function() {
+        console.log(this);
+        tip.show.apply(this, arguments);
+      })
       .on('mouseout', tip.hide);
-  },
+  };
 
-  this.tableViz = (data) => {
+  this.tableViz = () => {
     const table = this.loadChart('table');
     const container = this.vizContainer
       .append('div')
       .classed('viz table', true);
 
-    table(container);
+    this.table = table(container);
 
     d3.select('.viz.table')
       .style({
         'margin-top': `${this.height + window.brushHeight}px`
       })
-  }
+  };
 };
