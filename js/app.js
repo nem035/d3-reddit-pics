@@ -9,11 +9,17 @@ window.D3Reddit = {
     const vizContainer = d3.select('.viz-container');
 
     const {
+      padding,
+      width,
+      height,
       xRange,
       yRange,
     } = getContainerDim(vizContainer);
 
     this.vizContainer = vizContainer;
+    this.padding = padding;
+    this.width = width;
+    this.height = height;
     this.xRange = xRange;
     this.yRange = yRange;
 
@@ -23,6 +29,11 @@ window.D3Reddit = {
     });
   },
 
+  loadChart(vizName, data) {
+    return d3.redditChart[vizName]()
+      .data(data);
+  },
+
   loadViz(vizName, data) {
     const container = this.vizContainer
       .append('div')
@@ -30,8 +41,7 @@ window.D3Reddit = {
       .append('svg')
       .append('g');
 
-    const chart = d3.redditChart[vizName]()
-      .data(data);
+    const chart = this.loadChart(vizName, data);
 
     return {
       container,
@@ -75,7 +85,7 @@ window.D3Reddit = {
 
     d3.select('.viz.brush')
       .style({
-        'margin-top': this.vizContainer.style('height')
+        'margin-top': `${this.height}px`
       })
   },
 
@@ -115,11 +125,17 @@ window.D3Reddit = {
   },
 
   table(data) {
-    const {
-      chart: table,
-      container,
-    } = this.loadViz('table', data);
+    const table = this.loadChart('table', data);
+    const container = this.vizContainer
+      .append('div')
+      .classed('viz table', true);
 
     table(container);
+
+    const brushHeight = 30;
+    d3.select('.viz.table')
+      .style({
+        'margin-top': `${this.height + brushHeight + this.padding}px`
+      })
   }
 };

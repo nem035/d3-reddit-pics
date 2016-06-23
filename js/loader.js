@@ -35,7 +35,7 @@ function updateAndVisualize() {
       })
       .sort((a, b) => a.created - b.created);
 
-    const vizs = ['axis', 'bar', 'brush', 'line', 'scatter'];
+    const vizs = ['axis', 'bar', 'brush', 'line', 'scatter', 'table'];
 
     window.data = cleanData;
 

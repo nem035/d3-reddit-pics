@@ -35,7 +35,8 @@ d3.redditChart.table = function() {
     dataRowsEnter.append('td')
       .append('a')
       .attr({
-        href: (d) => d.url
+        href: (d) => d.url,
+        target: '_blank',
       })
       .append('img')
       .attr({
@@ -46,7 +47,8 @@ d3.redditChart.table = function() {
     dataRowsEnter.append('td')
       .append('a')
       .attr({
-        href: (d) => `https://reddit.com${d.permalink}`
+        href: (d) => `https://reddit.com${d.permalink}`,
+        target: '_blank',
       })
       .text(d => d.title);
 
