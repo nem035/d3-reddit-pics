@@ -3,9 +3,6 @@ function D3Reddit(data) {
   // setup
   const vizContainer = d3.select('.viz-container');
   const {
-    padding,
-    axisXSpacing,
-    axisYSpacing,
     width,
     height,
     xRange,
@@ -14,9 +11,6 @@ function D3Reddit(data) {
 
   this.data = data;
   this.vizContainer = vizContainer;
-  this.padding = padding;
-  this.axisXSpacing = axisXSpacing;
-  this.axisYSpacing = axisYSpacing;
   this.width = width;
   this.height = height;
   this.xRange = xRange;
@@ -52,8 +46,10 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('axis');
 
-    axis.xRange(this.xRange)
-      .yRange(this.yRange);
+    const xRange = [this.xRange[0], this.xRange[1] + window.xAxisSpacing]
+    const yRange = this.yRange;
+    axis.xRange(xRange)
+      .yRange(yRange);
 
     axis(container);
   },
@@ -80,7 +76,6 @@ function D3Reddit(data) {
 
     brush(container);
 
-    const brushHeight = 30;
     d3.select('.viz.brush')
       .style({
         'margin-top': `${this.height}px`
@@ -93,8 +88,10 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('line');
 
+    container.attr('transform', 'translate(5, 5)');
+
     line.xRange(this.xRange)
-    .yRange(this.yRange);
+    .yRange([this.yRange[0] + 5, this.yRange[1]]);
 
     line(container);
   },
@@ -105,15 +102,24 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('scatter');
 
+    container.attr('transform', 'translate(5, 5)');
+
     scatter.xRange(this.xRange)
-    .yRange(this.yRange);
+      .yRange([this.yRange[0] + 5, this.yRange[1]]);
 
     scatter(container);
 
     const tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
-      .html(d => `<strong>Score:</strong> <span>${d.score}</span>`);
+      .html(d => (
+        `<div class="score">
+          <strong>Score:</strong> <span>${d.score}</span>
+        </div>
+        <div class="created">
+          <strong>Created:</strong> <span>${getAxisTimeFormat(d.created)}</span>
+        </div>`
+      ));
 
     d3.select('.viz.scatter > svg').call(tip);
 
@@ -130,10 +136,9 @@ function D3Reddit(data) {
 
     table(container);
 
-    const brushHeight = 30;
     d3.select('.viz.table')
       .style({
-        'margin-top': `${this.height + brushHeight + this.padding}px`
+        'margin-top': `${this.height + window.brushHeight}px`
       })
   }
 };

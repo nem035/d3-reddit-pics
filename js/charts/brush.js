@@ -20,6 +20,9 @@ d3.redditChart.brush = function() {
 
     brush(g);
 
+    g.selectAll('rect')
+      .style('height', `${window.brushHeight}px`);
+
     const rects = g.selectAll('rect.no-event')
       .data(data);
 

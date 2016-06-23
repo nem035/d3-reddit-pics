@@ -30,6 +30,7 @@ d3.redditChart.scatter = function() {
       'data-score': (d) => d.score,
       'data-created': (d) => d.created,
     };
+    
     circles.enter()
       .append('circle')
       .classed('scatter-circle', true)

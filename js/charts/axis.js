@@ -35,7 +35,7 @@ d3.redditChart.axis = function() {
       .orient('bottom')
       .tickSize(0)
       .ticks(5)
-      .tickFormat(d3.time.format('%a %I %M %p'));
+      .tickFormat(timeFormat);
 
     const gX = container.append('g')
       .classed('axis x-axis', true)
@@ -48,8 +48,8 @@ d3.redditChart.axis = function() {
 
     gY.append('text')
       .classed('axis-text', true)
-      .attr('y', 15)
-      .attr('x', 10)
+      .attr('y', 10) // 10 is half of the margin of viz-container
+      .attr('x', window.xAxisSpacing + 5)
       .text('Score');
 
     yAxis(gY);

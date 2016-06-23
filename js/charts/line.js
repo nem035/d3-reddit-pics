@@ -1,8 +1,8 @@
 d3.redditChart.line = function() {
   let g;
   let data;
-  let xRange = [ 0, 600 ];
-  let yRange = [ 0, 300 ];
+  let xRange;
+  let yRange;
 
   function chart(container) {
     g = container;
@@ -23,8 +23,7 @@ d3.redditChart.line = function() {
 
     const line = d3.svg.line()
       .x(d => xScale(d.created))
-      .y(d => yRange[1] - yScale(d.score))
-      .interpolate('cardinal');
+      .y(d => yRange[1] - yScale(d.score));
 
     const path = g.append('path')
       .attr('d', line(data));
@@ -34,7 +33,7 @@ d3.redditChart.line = function() {
     path.attr('stroke-dasharray', `${totalLength} ${totalLength}`)
       .attr('stroke-dashoffset', totalLength)
       .transition()
-      .duration(1500)
+      .duration(window.transitionTime)
       .attr('stroke-dashoffset', 0);
   }
 

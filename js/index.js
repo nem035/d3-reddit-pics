@@ -1,5 +1,10 @@
-window.transitionTime = 300;
+window.transitionTime = 1500;
 window.vizNames = ['axis', 'bar', 'brush', 'line', 'scatter', 'table'];
+window.brushHeight = 30;
+window.timeFormat = d3.time.format('%a %I:%M %p');
+window.xAxisSpacing = 35;
+window.yAxisSpacing = 20;
+window.yAxisTextHeight = 45;
 
 if (!d3.redditChart) {
   d3.redditChart = {};
@@ -13,20 +18,18 @@ function getContainerDim(container) {
     return container;
   })();
 
-  const padding = 10;
-  const axisXSpacing = 35;
-  const axisYSpacing = 20;
+  const {
+    xAxisSpacing,
+    yAxisSpacing
+  } = window;
 
   const height = parseInt(ref.style('height'));
   const width = parseInt(ref.style('width'));
 
-  const xRange = [ padding + axisXSpacing, width - padding ];
-  const yRange = [ padding + axisYSpacing, height - axisYSpacing - padding ];
+  const xRange = [ xAxisSpacing, width ];
+  const yRange = [ 0, height - yAxisSpacing ];
 
   return {
-    padding,
-    axisXSpacing,
-    axisYSpacing,
     width,
     height,
     xRange,
@@ -146,4 +149,8 @@ function cleanData({ data }) {
       return data;
     })
     .sort((a, b) => a.created - b.created);
+}
+
+function getAxisTimeFormat(ms) {
+  return window.timeFormat(new Date(ms));
 }
