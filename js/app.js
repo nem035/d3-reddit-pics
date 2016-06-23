@@ -46,7 +46,7 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('axis');
 
-    const xRange = [this.xRange[0], this.xRange[1] + window.xAxisSpacing]
+    const xRange = [this.xRange[0], this.xRange[1] + 5]
     const yRange = this.yRange;
     axis.xRange(xRange)
       .yRange(yRange);
@@ -60,7 +60,7 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('bar');
 
-    bar.xRange(this.xRange)
+    bar.xRange([this.xRange[0], this.xRange[1] + 5])
     .yRange(this.yRange);
 
     bar(container);
@@ -72,13 +72,13 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('brush');
 
-    brush.xRange(this.xRange);
+    brush.xRange([this.xRange[0], this.xRange[1] + 5]);
 
     brush(container);
 
     d3.select('.viz.brush')
       .style({
-        'margin-top': `${this.height}px`
+        'margin-top': `${this.height - window.yAxisSpacing - 40}px`
       })
   },
 

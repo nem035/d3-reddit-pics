@@ -172,10 +172,16 @@ a:active {
   font-size: 10px;
 }
 
-.viz-container .viz {
+.viz {
 	position: absolute;
 	width: inherit;
 	height: inherit;
+}
+
+.viz.bar,
+.viz.line,
+.viz.scatter {
+	height: 530px;
 }
 
 /* Tooltip */
@@ -241,6 +247,7 @@ text.axis-text {
 /* Brush */
 .g-brush rect {
   fill: #B3CCE6;
+  height: 30px;
 }
 
 .g-brush rect.data {

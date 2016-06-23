@@ -26,8 +26,8 @@ function getContainerDim(container) {
   const height = parseInt(ref.style('height'));
   const width = parseInt(ref.style('width'));
 
-  const xRange = [ xAxisSpacing, width ];
-  const yRange = [ 0, height - yAxisSpacing ];
+  const xRange = [ xAxisSpacing, width - 50 ];
+  const yRange = [ 0, height - yAxisSpacing - 70 ];
 
   return {
     width,
