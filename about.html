@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <title>D3 Reddit Pics</title>
+    <link rel="stylesheet" href="./css/index.css"/>
+  </head>
+  <body>
+
+    <!-- menu -->
+    <section class="menu">
+      <a href="https://d3js.org/" target="_blank">
+        <img src="./img/d3-flat.png" width="30" height="20">
+      </a>
+      <img src="./img/reddit-flat.png" width="20" height="20" class="alien" onclick="window.location = './index.html'" title="home">
+      <a href="./index.html" title="home">D3Reddit Pics</a> based on
+      <a href="https://www.reddit.com/r/pics" target="_blank" title="r/pics">
+        <img src="https://a.thumbs.redditmedia.com/v6TowjW1Qnev8RYA2CounVgo_Y-B7pu2dyRDFZNTk_8.png" width="50"/>
+      </a>
+      <ul class="tabmenu">
+        <li>
+          <a href="./index.html" class="choice">app</a>
+        </li>
+        <li class="selected">
+          <a href="./about.html" class="choice">about</a>
+        </li>
+      </ul>
+      <ul class="chartmenu">
+        <li>
+          <input name="axis" id="axis" type="checkbox" checked="checked"> Axis
+        </li>
+        <li>
+          <input name="bar" id="bar" type="checkbox" checked="checked"> Bar
+        </li>
+        <li>
+          <input name="brush" id="brush" type="checkbox" checked="checked"> Brush
+        </li>
+        <li>
+          <input name="line" id="line" type="checkbox" checked="checked"> Line
+        </li>
+        <li>
+          <input name="scatter" id="scatter" type="checkbox" checked="checked"> Scatter
+        </li>
+        <li>
+          <input name="table" id="table" type="checkbox" checked="checked"> Table
+        </li>
+      </ul>
+      <a class="github" href="https://github.com/nem035/d3-reddit-pics" target="_blank">Github Repo</a>
+    </section>
+    <section style="padding: 10px">
+      <h1 class="text-center">D3Reddit</h1>
+      <h2>
+        Learning D3 by making various visualizations of <a href="https://www.reddit.com/r/pics" target="_blank">r/pics</a>
+        <small>(<a href="https://www.reddit.com/r/pics.json" target="_blank">raw data</a>)</small>
+      </h2>
+      <p>Inspired by a <a href="http://enjalot.github.io/intro-d3/frontendmasters/" target="_blank">FrontendMasters</a> course by <a href="http://enjalot.github.io/" target="_blank">enjalot</a>
+    </section>
+  </body>
+</html>
