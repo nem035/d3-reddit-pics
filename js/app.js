@@ -17,7 +17,7 @@ function D3Reddit(data) {
   this.yRange = yRange;
 
   this.visualize = (visualizations) => {
-    getVizNamesFromHash().forEach(viz => this[viz]());
+    getVizNamesFromHash().forEach(viz => this[`${viz}Viz`]());
   },
 
   this.loadChart = (vizName) => {
@@ -40,7 +40,7 @@ function D3Reddit(data) {
     };
   },
 
-  this.axis = () => {
+  this.axisViz = () => {
     const {
       chart: axis,
       container,
@@ -54,7 +54,7 @@ function D3Reddit(data) {
     axis(container);
   },
 
-  this.bar = (data) => {
+  this.barViz = (data) => {
     const {
       chart: bar,
       container,
@@ -66,7 +66,7 @@ function D3Reddit(data) {
     bar(container);
   },
 
-  this.brush = (data) => {
+  this.brushViz = (data) => {
     const {
       chart: brush,
       container,
@@ -86,7 +86,7 @@ function D3Reddit(data) {
       })
   },
 
-  this.line = (data) => {
+  this.lineViz = (data) => {
     const {
       chart: line,
       container,
@@ -100,7 +100,7 @@ function D3Reddit(data) {
     line(container);
   },
 
-  this.scatter = (data) => {
+  this.scatterViz = (data) => {
     const {
       chart: scatter,
       container,
@@ -132,7 +132,7 @@ function D3Reddit(data) {
       .on('mouseout', tip.hide);
   },
 
-  this.table = (data) => {
+  this.tableViz = (data) => {
     const table = this.loadChart('table');
     const container = this.vizContainer
       .append('div')
