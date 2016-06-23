@@ -82,7 +82,9 @@ function D3Reddit(data) {
 
     brush.on('brushFilter', (filtered) => {
       this.data = filtered;
-      this.scatterViz();
+      console.log(filtered.map(f => new Date(f.created)));
+      this.scatter.data(filtered)
+        .render();
     });
 
     d3.select('.viz.brush')
@@ -117,27 +119,6 @@ function D3Reddit(data) {
       .yRange([this.yRange[0] + 5, this.yRange[1]]);
 
     scatter(container);
-
-    const tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-10, 0])
-      .html(d => (
-        `<div class="score">
-          <strong>Score:</strong> <span>${d.score}</span>
-        </div>
-        <div class="created">
-          <strong>Created:</strong> <span>${getAxisTimeFormat(d.created)}</span>
-        </div>`
-      ));
-
-    d3.select('.viz.scatter > svg').call(tip);
-
-    d3.selectAll('circle')
-      .on('mouseover', function() {
-        console.log(this);
-        tip.show.apply(this, arguments);
-      })
-      .on('mouseout', tip.hide);
   };
 
   this.tableViz = () => {

@@ -37,7 +37,7 @@ d3.redditChart.brush = function() {
     })
     .classed('brushed', false);
 
-    brush.on('brush', function() {
+    brush.on('brushend', function() {
       const [ minCreated, maxCreated ] = brush.extent();
       const filtered = data.filter(({ created }) => (
         created > minCreated && created < maxCreated
