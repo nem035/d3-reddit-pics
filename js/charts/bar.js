@@ -35,8 +35,10 @@ d3.redditChart.bar = function() {
     bars.enter()
       .append('rect')
       .classed('bar-rect', true)
-      .transition()
-      .duration(window.transitionTime)
+      .attr('height', 0);
+
+    bars.transition()
+      .duration(window.transitionTime * 3)
       .delay((d, i) => i * 5)
       .attr(rectAttrs);
 

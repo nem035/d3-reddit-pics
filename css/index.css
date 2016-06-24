@@ -44,10 +44,11 @@ body {
 .error-box {
 	position: absolute;
 	right: 20px;
-	background: #f50057;
+	background: #FFEDED;
 	padding: 20px;
-	border-radius: 3px;
-	border: 1px solid #c51162;
+	border: 1px solid #FF4A4A;
+  z-index: 1;
+	margin: 15px;
 }
 
 /* Alien */

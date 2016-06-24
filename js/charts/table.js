@@ -13,8 +13,6 @@ d3.redditChart.table = function() {
     const dataRows = table.selectAll('tr.data-row')
       .data(data);
 
-    console.log(dataRows);
-
     const dataRowsEnter = dataRows.enter()
       .append('tr')
       .classed('data-row', true)

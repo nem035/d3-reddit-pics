@@ -40,14 +40,14 @@ function getContainerDim(container) {
 function animateElemCreation(elem) {
   elem.style('opacity', 0)
     .transition()
-    .duration(window.transitionTime)
+    .duration(window.transitionTime * 3)
     .style('opacity', 1);
 }
 
 function animateElemDestruction(elem) {
   elem.style('opacity', 1)
     .transition()
-    .duration(window.transitionTime)
+    .duration(window.transitionTime * 3)
     .style('opacity', 0)
     .remove();
 }
@@ -76,7 +76,7 @@ function resetLoading() {
 }
 
 function createErrorBox(error) {
-  const message = error.responseText || error.message || 'Uknown Error';
+  const message = error.responseText || error.message || 'Something went wrong. Probably good old CORS. Try Refreshing the page.';
 
   const errorBox = d3.select('body')
     .insert('div', ':first-child')
@@ -104,11 +104,9 @@ function getVizNamesFromHash() {
     }
   } = window;
 
-  return hash.length > 1 ?
-    hash.slice(1)
+  return hash.slice(1)
       .split(',')
-      .filter(x => vizNames.indexOf(x) !== -1) :
-    vizNames;
+      .filter(x => vizNames.indexOf(x) !== -1);
 }
 
 function setupCheckboxes() {
