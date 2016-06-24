@@ -1,31 +1,36 @@
 d3.redditChart.axis = function() {
   let g;
+  let gX;
+  let gY;
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
 
   function chart(container) {
     g = container;
-
     g.classed('g-axis', true);
 
+    // render the axis groups the first time
+    gX = g.append('g')
+      .classed('axis x-axis', true);
+
+    gY = g.append('g')
+      .classed('axis y-axis', true);
+
+    chart.render();
+  }
+
+  chart.render = function() {
+    chart.renderY();
+    chart.renderX();
+  }
+
+  chart.renderX = function() {
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
       .scale()
       .domain(xDomain)
       .range(xRange);
-
-    const yDomain = [ d3.max(data, d => d.score), 0 ];
-    const yScale = d3.scale
-      .linear()
-      .domain(yDomain)
-      .range(yRange);
-
-    const yAxis = d3.svg
-      .axis()
-      .scale(yScale)
-      .orient('left')
-      .tickSize(0);
 
     const [ min, max ] = xDomain;
     const tickValues = [min, min + (max - min) / 2, max].map(ms => new Date(ms));
@@ -38,14 +43,25 @@ d3.redditChart.axis = function() {
       .tickFormat(window.timeFormat)
       .tickPadding(10);
 
-    const gX = container.append('g')
-      .classed('axis x-axis', true)
-      .attr('transform', `translate(0, ${yRange[1]})`);
+    gX.attr('transform', `translate(0, ${yRange[1]})`);
 
-    const gY = container.append('g');
+    xAxis(gX);
+  }
 
-    gY.classed('axis y-axis', true)
-      .attr('transform', `translate(${xRange[0]}, 0)`);
+  chart.renderY = function() {
+    const yDomain = [ d3.max(data, d => d.score), 0 ];
+    const yScale = d3.scale
+      .linear()
+      .domain(yDomain)
+      .range(yRange);
+
+    const yAxis = d3.svg
+      .axis()
+      .scale(yScale)
+      .orient('left')
+      .tickSize(0);
+
+    gY.attr('transform', `translate(${xRange[0]}, 0)`);
 
     gY.append('text')
       .classed('axis-text', true)
@@ -54,7 +70,6 @@ d3.redditChart.axis = function() {
       .text('Score');
 
     yAxis(gY);
-    xAxis(gX);
   }
 
   chart.data = function(val) {

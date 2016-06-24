@@ -52,10 +52,11 @@ function D3Reddit(data) {
 
     const xRange = [this.xRange[0], this.xRange[1] + 5]
     const yRange = this.yRange;
-    axis.xRange(xRange)
+
+    this.axis = axis.xRange(xRange)
       .yRange(yRange);
 
-    this.axis = axis(container);
+    axis(container);
   };
 
   this.barViz = () => {
@@ -64,10 +65,10 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('bar');
 
-    bar.xRange([this.xRange[0], this.xRange[1] + 5])
+    this.bar = bar.xRange([this.xRange[0], this.xRange[1] + 5])
     .yRange(this.yRange);
 
-    this.bar = bar(container);
+    bar(container);
   };
 
   this.brushViz = () => {
@@ -76,15 +77,22 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('brush');
 
-    brush.xRange([this.xRange[0], this.xRange[1] + 5]);
+    this.brush = brush.xRange([this.xRange[0], this.xRange[1] + 5]);
 
-    this.brush = brush(container);
+    brush(container);
 
     brush.on('brushFilter', (filtered) => {
       this.data = filtered;
-      console.log(filtered.map(f => new Date(f.created)));
-      this.scatter.data(filtered)
+
+      // rerender scatter plot with filtered data
+      this.scatter
+        .data(filtered)
         .render();
+
+      // rerender x-axis with the dates from the filtered data
+      this.axis
+        .data(filtered)
+        .renderX();
     });
 
     d3.select('.viz.brush')
@@ -127,7 +135,7 @@ function D3Reddit(data) {
       .append('div')
       .classed('viz table', true);
 
-    this.table = table(container);
+    table(container);
 
     d3.select('.viz.table')
       .style({

@@ -8,9 +8,6 @@ d3.redditChart.scatter = function() {
   function chart(container) {
     g = container;
     g.classed('g-scatter', true);
-
-
-
     chart.render();
   }
 
