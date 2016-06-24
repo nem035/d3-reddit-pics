@@ -20,12 +20,12 @@ function D3Reddit(data) {
   this.yRange = yRange;
 
   this.visualize = () => {
-    this.visualizations = getVizNamesFromHash();
-    this.fixedVisualizations = ['axis', 'brush', 'table'];
-    this.filterableVisualizations = ['axis', 'table'].concat(this.visualizations);
+    this.togglableVisualizations = getVizNamesFromHash();
+    this.persistentVisualizations = ['axis', 'brush', 'table'];
+    this.filterableVisualizations = ['axis', 'table'].concat(this.togglableVisualizations);
 
-    this.visualizations
-      .concat(this.fixedVisualizations)
+    this.togglableVisualizations
+      .concat(this.persistentVisualizations)
       .forEach(viz => this[`${viz}Viz`]());
   };
 
@@ -161,13 +161,13 @@ function D3Reddit(data) {
     table(container);
 
     table.on('rowMouseOver', d => {
-      if (this.scater) {
+      if (this.scatter) {
         this.scatter.highlightCircles([ d ]);
       }
     });
 
     table.on('rowMouseOut', () => {
-      if (this.scater) {
+      if (this.scatter) {
         this.scatter.unhighlightAllCircles();
       }
     });
