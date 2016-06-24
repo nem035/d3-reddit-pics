@@ -40,8 +40,8 @@ d3.redditChart.bar = function() {
       .attr('height', 0);
 
     bars.transition()
+      .ease('quad')
       .duration(window.transitionTime * 3)
-      .delay((d, i) => i * 5)
       .attr(rectAttrs);
 
     bars.exit()

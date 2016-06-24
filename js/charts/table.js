@@ -18,7 +18,11 @@ d3.redditChart.table = function() {
       .classed('data-row', true)
       .attr('id', d => d.id);
 
-    // build the dataRows
+    dataRowsEnter.style('opacity', 0)
+      .transition()
+      .ease('quad')
+      .duration(window.transitionTime)
+      .style('opacity', 1);
 
     // 1st column is the thumbnail linking to the post
     dataRowsEnter.append('td')
@@ -28,9 +32,7 @@ d3.redditChart.table = function() {
         target: '_blank',
       })
       .append('img')
-      .attr({
-        src: (d) => d.thumbnail
-      });
+      .attr('src', d => d.thumbnail);
 
     // next column is the title linking to the post
     dataRowsEnter.append('td')
@@ -63,7 +65,13 @@ d3.redditChart.table = function() {
       dispatch.rowMouseOut(d);
     });
 
-    dataRows.exit().remove();
+    dataRows.exit()
+      .style('opacity', 1)
+      .transition()
+      .ease('quad')
+      .duration(window.transitionTime)
+      .style('opacity', 0)
+      .remove();
   }
 
   chart.highlightRows = function(data) {

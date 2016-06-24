@@ -298,6 +298,7 @@ text.axis-text {
   cursor: pointer;
   transition: all .2s ease-in-out;
 }
+
 .viz.table table tr.highlighted {
   background-color: #FFAE1A;
   color: white;

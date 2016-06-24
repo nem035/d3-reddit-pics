@@ -34,7 +34,8 @@ d3.redditChart.line = function() {
     path.attr('stroke-dasharray', `${totalLength} ${totalLength}`)
       .attr('stroke-dashoffset', totalLength)
       .transition()
-      .duration(window.transitionTime*3)
+      .ease('quad')
+      .duration(window.transitionTime * 3)
       .attr('stroke-dashoffset', 0);
   }
 

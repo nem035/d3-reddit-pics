@@ -45,14 +45,17 @@ d3.redditChart.scatter = function() {
     // new circles are created
     circles.enter()
       .append('circle')
+      .attr('r', 0)
       .transition()
-      .ease('exp')
-      .attr('r', 0);
+      .duration(window.transitionTime)
+      .ease('quad')
+      .attr('r', 6);
 
     // existing circles animated
     circles.transition()
       .duration(window.transitionTime)
       .ease('quad')
+      // .delay((d, i) => i * 5)
       .attr(circleAttrs);
 
     circles.on('mouseover', (d) => {
@@ -66,10 +69,10 @@ d3.redditChart.scatter = function() {
 
     // old circles are removed
     circles.exit()
-      .transition()
-      .duration(window.transitionTime)
-      .ease('exp')
       .attr('r', 0)
+      .transition()
+      .duration(window.transitionTime * 3)
+      .ease('exp')
       .remove();
   }
 

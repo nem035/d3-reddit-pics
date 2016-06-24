@@ -45,6 +45,8 @@ d3.redditChart.axis = function() {
 
     gX.attr('transform', `translate(0, ${yRange[1]})`)
       .transition()
+      .ease('quad')
+      .duration(window.transitionTime)
       .call(xAxis);
   }
 
@@ -63,6 +65,8 @@ d3.redditChart.axis = function() {
 
     gY.attr('transform', `translate(${xRange[0]}, 0)`)
       .transition()
+      .ease('quad')
+      .duration(window.transitionTime)
       .call(yAxis);
 
     gY.append('text')
