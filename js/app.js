@@ -94,6 +94,11 @@ function D3Reddit(data) {
       this.data = filtered;
 
       // rerender scatter plot with filtered data
+      this.line
+        .data(filtered)
+        .render();
+
+      // rerender scatter plot with filtered data
       this.scatter
         .data(filtered)
         .render();

@@ -1,14 +1,16 @@
 d3.redditChart.line = function() {
-  let g;
+  let path;
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
 
   function chart(container) {
-    g = container;
+    path = container.append('path');
+    container.classed('g-line', true);
+    chart.render();
+  }
 
-    g.classed('g-line', true);
-
+  chart.render = function() {
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
       .scale()
@@ -25,8 +27,7 @@ d3.redditChart.line = function() {
       .x(d => xScale(d.created))
       .y(d => yRange[1] - yScale(d.score));
 
-    const path = g.append('path')
-      .attr('d', line(data));
+    path.attr('d', line(data));
 
     const totalLength = path.node().getTotalLength();
 
