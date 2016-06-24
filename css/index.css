@@ -158,7 +158,7 @@ a:active {
   animation: fade-in .3s;
   background: white;
   height: 600px;
-  border-radius: 3px;
+  border-bottom: 1px solid #7E7E7E;
   margin-top: 15px;
 }
 
@@ -172,6 +172,9 @@ a:active {
   float: right;
   margin-right: 10px;
   width: 500px;
+  height: 615px;
+  border-left: 1px solid #7E7E7E;
+	margin-top: 0;
 }
 
 .viz-container .no-event {
@@ -193,18 +196,11 @@ a:active {
   height: inherit;
 }
 
-.viz.axis,
 .viz.bar,
 .viz.line,
-.viz.scatter {
-  top: 0;
-  height: 540px;
-}
-
-.viz.bar,
-.viz.line,
-.viz.scatter {
-	height: 530px;
+.viz.scatter,
+.viz.table {
+	height: 580px;
 }
 
 /* Axis */
@@ -289,11 +285,16 @@ text.axis-text {
 }
 
 /* Table */
-.viz.table table tbody tr {
+.viz.table {
+  overflow-y: scroll;
+  height: inherit;	
+}
+
+.viz.table table tr {
   cursor: pointer;
   transition: all .2s ease-in-out;
 }
-.viz.table table tbody tr.highlighted {
+.viz.table table tr.highlighted {
   background-color: #FFAE1A;
   color: white;
 }

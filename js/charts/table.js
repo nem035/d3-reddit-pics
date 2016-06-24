@@ -8,23 +8,8 @@ d3.redditChart.table = function() {
     c = container;
 
     const table = container.append('table');
-    const tHead = table.append('thead');
-    const tBody = table.append('tbody');
 
-    const titleRow = tHead.append('tr');
-
-    titleRow.append('td')
-      .text('Thumbnail');
-    titleRow.append('td')
-      .text('Title');
-    titleRow.append('td')
-      .text('Score');
-    titleRow.append('td')
-      .text('Upvotes');
-    titleRow.append('td')
-      .text('Downvotes');
-
-    const dataRows = tBody.selectAll('tr.data-row')
+    const dataRows = table.selectAll('tr.data-row')
       .data(data);
 
     const dataRowsEnter = dataRows.enter()
