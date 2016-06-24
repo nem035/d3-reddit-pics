@@ -192,8 +192,8 @@ a:active {
   font-weight: bold;
   font-family: monospace;
   padding: 5px;
-  background: orangered;
-  color: white;
+  background: #F8ECB6;
+  border: 1px solid #FFAE1A;
   border-radius: 2px;
 }
 
@@ -203,7 +203,7 @@ a:active {
   display: inline;
   width: 100%;
   line-height: 1;
-  color: orangered;
+  color: #FFAE1A;
   content: "\25BC";
   position: absolute;
   text-align: center;

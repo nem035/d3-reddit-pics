@@ -139,8 +139,12 @@ function cleanData({ data }) {
   } = window.location;
 
   // fix missing thumbnails
-  const baseURL = hostname === 'localhost' ? origin : 'https://nem035.github.io/d3-reddit-pics';
+  const baseURL = hostname === 'localhost' ?
+    origin :
+    'https://nem035.github.io/d3-reddit-pics';
+    
   return data.children
+    .filter(({ data }) => data.thumbnail !== 'self')
     .map(({ data }) => {
       data.created = data.created * 1000;
       if (data.thumbnail.indexOf('://') === -1) {

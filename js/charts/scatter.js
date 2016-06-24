@@ -96,7 +96,11 @@ d3.redditChart.scatter = function() {
       .attr('class', 'd3-tip')
       .offset([-10, 0])
       .html(d => (
-        `<div class="score">
+        `
+        <h4 class="title" style="text-align: center; margin: 3px;">
+          ${d.title}
+        </h4>
+        <div class="score">
           <strong>Score:</strong> <span>${d.score}</span>
         </div>
         <div class="created">
