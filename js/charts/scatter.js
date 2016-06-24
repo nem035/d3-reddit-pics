@@ -122,6 +122,7 @@ d3.redditChart.scatter = function() {
         `
         <div class="pic" style="text-align: center; margin: 3px;">
           <img src=${d.thumbnail} />
+          <div class="title">${d.title}</div>
         </div>
         <div class="score">
           <strong>Score:</strong> <span>${d.score}</span>

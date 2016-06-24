@@ -217,6 +217,7 @@ a:active {
   left: 0;
 }
 
+/* Eastward tooltips */
 .d3-tip.e:after {
   content: "\25C0";
   margin: -4px 0 0 0;
@@ -230,6 +231,22 @@ a:active {
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
+}
+
+.d3-tip .pic {
+	max-width: 120px;
+}
+
+.d3-tip .pic .title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-height: 10px;
+}
+
+.d3-tip img {
+	width: 120px;
+	height: 120px;
 }
 
 /* Axis */
