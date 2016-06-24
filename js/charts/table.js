@@ -2,6 +2,8 @@ d3.redditChart.table = function() {
   let c;
   let data;
 
+  const dispatch = d3.dispatch('rowMouseOver', 'rowMouseOut');
+
   function chart(container) {
     c = container;
 
@@ -27,7 +29,8 @@ d3.redditChart.table = function() {
 
     const dataRowsEnter = dataRows.enter()
       .append('tr')
-      .classed('data-row', true);
+      .classed('data-row', true)
+      .attr('id', d => d.id);
 
     // build the dataRows
 
@@ -64,7 +67,29 @@ d3.redditChart.table = function() {
     dataRowsEnter.append('td')
       .text(d => d.downs);
 
+    // dispatch mouse events
+    dataRowsEnter.on('mouseover', (d) => {
+      chart.highlightRows([ d ]);
+      dispatch.rowMouseOver(d);
+    });
+    dataRowsEnter.on('mouseout', (d) => {
+      chart.unhighlightRows([ d ]);
+      dispatch.rowMouseOut(d);
+    });
+
     dataRows.exit().remove();
+  }
+
+  chart.highlightRows = function(data) {
+    c.selectAll('tr.data-row')
+      .data(data, d => d.id)
+      .classed('highlighted', true);
+  }
+
+  chart.unhighlightRows = function(data) {
+    c.selectAll('tr.data-row')
+      .data(data, d => d.id)
+      .classed('highlighted', false);
   }
 
   chart.data = function(val) {
@@ -75,5 +100,5 @@ d3.redditChart.table = function() {
     return chart;
   };
 
-  return chart;
+  return d3.rebind(chart, dispatch, 'on');
 };

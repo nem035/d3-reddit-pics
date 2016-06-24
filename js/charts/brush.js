@@ -66,6 +66,7 @@ d3.redditChart.brush = function() {
       .scale(xScale)
       .orient('bottom')
       .tickSize(0)
+      .ticks(7)
       .tickFormat(window.timeFormat);
 
     xAxis(axisG);

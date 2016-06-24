@@ -1,9 +1,11 @@
 d3.redditChart.scatter = function() {
   let g;
   let data;
-  let xRange;
-  let yRange;
+  let xRange = [ 0, 600 ];
+  let yRange = [ 0, 300 ];
   let circles;
+
+  const dispatch = d3.dispatch('circleMouseOver', 'circleMouseOut');
 
   function chart(container) {
     g = container;
@@ -12,9 +14,6 @@ d3.redditChart.scatter = function() {
   }
 
   chart.render = function() {
-    // clear the graph before rendering
-    // g.html('');
-
     // create x scale from the data
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
@@ -57,7 +56,14 @@ d3.redditChart.scatter = function() {
       .delay((d, i) => i * 5)
       .attr(circleAttrs);
 
-    addTooltip(circles);
+    circles.on('mouseover', (d) => {
+      chart.highlightCircles([ d ]);
+      dispatch.circleMouseOver(d);
+    })
+    .on('mouseout', (d) => {
+      chart.unhighlightCircles([ d ]);
+      dispatch.circleMouseOut(d);
+    });
 
     // old circles are removed
     circles.exit()
@@ -66,6 +72,24 @@ d3.redditChart.scatter = function() {
       .ease('exp')
       .attr('r', 0)
       .remove();
+  }
+
+  chart.highlightCircles = function(data) {
+    chart.unhighlightAllCircles();
+    g.selectAll('circle')
+      .data(data, d => d.id)
+      .classed('highlighted', true);
+  }
+
+  chart.unhighlightCircles = function(data) {
+    g.selectAll('circle')
+      .data(data, d => d.id)
+      .classed('highlighted', false);
+  }
+
+  chart.unhighlightAllCircles = function() {
+    g.selectAll('circle')
+      .classed('highlighted', false);
   }
 
   chart.data = function(val) {
@@ -90,53 +114,5 @@ d3.redditChart.scatter = function() {
     return chart;
   }
 
-  function addTooltip(circles) {
-    const leftHalf = data.slice(0, data.length / 2);
-    const rightHalf = data.slice(data.length / 2, data.length);
-
-    const leftMax = d3.mean(leftHalf, d => d.created);
-    const rightMax = d3.mean(rightHalf, d => d.created);
-
-    // tooltip
-    const tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset(d => {
-        if (d.created < leftMax) {
-          return [0,10];
-        }
-        if (d.created > rightMax) {
-          return [0,-10];
-        }
-        return [-10,0];
-      })
-      .direction(d => {
-        if (d.created < leftMax) {
-          return 'e';
-        }
-        if (d.created > rightMax) {
-          return 'w';
-        }
-        return 'n'
-      })
-      .html(d => (
-        `
-        <div class="pic" style="text-align: center; margin: 3px;">
-          <img src=${d.thumbnail} />
-          <div class="title">${d.title}</div>
-        </div>
-        <div class="score">
-          <strong>Score:</strong> <span>${d.score}</span>
-        </div>
-        <div class="created">
-          <strong>Created:</strong> <span>${getAxisTimeFormat(d.created)}</span>
-        </div>`
-      ));
-
-    d3.select('.viz.scatter > svg').call(tip);
-
-    circles.on('mouseover', tip.show)
-    .on('mouseout', tip.hide);
-  }
-
-  return chart;
+  return d3.rebind(chart, dispatch, 'on');
 };

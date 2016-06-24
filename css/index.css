@@ -147,25 +147,35 @@ a:active {
 	margin-right: 5px;
 }
 
-/* viz-container */
+/* containers */
+
+.containers {
+  width: 1270px;
+}
 
 .viz-container {
+  position: relative;
   animation: fade-in .3s;
   background: white;
   height: 600px;
   border-radius: 3px;
-  margin-top: 20px;
+  margin-top: 15px;
+}
+
+.viz-container.left {
+  float: left;
   margin-left: 10px;
-  width: 800px;
+  width: 750px;
+}
+
+.viz-container.right {
+  float: right;
+  margin-right: 10px;
+  width: 500px;
 }
 
 .viz-container .no-event {
   pointer-events: none;
-}
-
-.viz-container svg {
-	width: inherit;
-	height: inherit;
 }
 
 .viz-container text {
@@ -173,80 +183,28 @@ a:active {
 }
 
 .viz {
-	position: absolute;
+  position: absolute;
 	width: inherit;
 	height: inherit;
+}
+
+.viz svg {
+  width: inherit;
+  height: inherit;
+}
+
+.viz.axis,
+.viz.bar,
+.viz.line,
+.viz.scatter {
+  top: 0;
+  height: 540px;
 }
 
 .viz.bar,
 .viz.line,
 .viz.scatter {
 	height: 530px;
-}
-
-/* Tooltip */
-.d3-tip {
-  transition: opacity .2s ease-in-out;
-  line-height: 1;
-  font-size: 10px;
-  font-weight: bold;
-  font-family: monospace;
-  padding: 5px;
-  background: #F8ECB6;
-  border: 1px solid #FFAE1A;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  width: 100%;
-  line-height: 1;
-  color: #FFAE1A;
-  position: absolute;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  content: "\25BC";
-  text-align: center;
-
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-
-/* Eastward tooltips */
-.d3-tip.e:after {
-  content: "\25C0";
-  margin: -4px 0 0 0;
-  top: 50%;
-  left: -8px;
-}
-
-/* Westward tooltips */
-.d3-tip.w:after {
-  content: "\25B6";
-  margin: -4px 0 0 -1px;
-  top: 50%;
-  left: 100%;
-}
-
-.d3-tip .pic {
-	max-width: 120px;
-}
-
-.d3-tip .pic .title {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	min-height: 10px;
-}
-
-.d3-tip img {
-	width: 120px;
-	height: 120px;
 }
 
 /* Axis */
@@ -320,11 +278,22 @@ text.axis-text {
 .g-scatter circle {
   fill: #808080;
   stroke: black;
-  transition: fill .2s ease-in-out;
+  transition: all .2s ease-in-out;
   cursor: pointer;
 }
 
-.g-scatter circle:hover {
-  fill: #F8ECB6;
-  stroke: #FFAE1A;
+.g-scatter circle.highlighted {
+  fill: #FFAE1A;
+  stroke: black;
+  r: 10;
+}
+
+/* Table */
+.viz.table table tbody tr {
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+.viz.table table tbody tr.highlighted {
+  background-color: #FFAE1A;
+  color: white;
 }

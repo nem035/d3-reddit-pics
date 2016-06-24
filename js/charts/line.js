@@ -1,8 +1,8 @@
 d3.redditChart.line = function() {
   let g;
   let data;
-  let xRange;
-  let yRange;
+  let xRange = [ 0, 600 ];
+  let yRange = [ 0, 300 ];
 
   function chart(container) {
     g = container;
