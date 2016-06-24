@@ -72,7 +72,7 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(0, 5)');
 
-    bar.xRange([this.xRange[0], this.xRange[1] + 10])
+    bar.xRange([this.xRange[0], this.xRange[1] + 5])
     .yRange(this.yRange);
 
     bar(container);

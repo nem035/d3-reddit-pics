@@ -55,7 +55,6 @@ d3.redditChart.scatter = function() {
     circles.transition()
       .duration(window.transitionTime)
       .ease('quad')
-      // .delay((d, i) => i * 5)
       .attr(circleAttrs);
 
     circles.on('mouseover', (d) => {
