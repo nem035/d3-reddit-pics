@@ -203,6 +203,10 @@ a:active {
 	height: 580px;
 }
 
+.viz.scatter {
+	z-index: 1;	 /* so hovering works */
+}
+
 .viz.brush {
 	height: 50px;
 }

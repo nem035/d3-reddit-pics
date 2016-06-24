@@ -42,7 +42,7 @@ d3.redditChart.scatter = function() {
       class: 'scatter-circle',
     };
 
-    // new circles are created
+    // new circles are created with a transition
     circles.enter()
       .append('circle')
       .attr('r', 0)
@@ -51,7 +51,7 @@ d3.redditChart.scatter = function() {
       .ease('quad')
       .attr('r', 6);
 
-    // existing circles animated
+    // existing circles are added with a transition
     circles.transition()
       .duration(window.transitionTime)
       .ease('quad')
@@ -66,7 +66,7 @@ d3.redditChart.scatter = function() {
       dispatch.circleMouseOut(d);
     });
 
-    // old circles are removed
+    // old circles are removed with a transition
     circles.exit()
       .attr('r', 0)
       .transition()
