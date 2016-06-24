@@ -161,11 +161,15 @@ function D3Reddit(data) {
     table(container);
 
     table.on('rowMouseOver', d => {
-      this.scatter.highlightCircles([ d ]);
+      if (this.scater) {
+        this.scatter.highlightCircles([ d ]);
+      }
     });
 
     table.on('rowMouseOut', () => {
-      this.scatter.unhighlightAllCircles();
+      if (this.scater) {
+        this.scatter.unhighlightAllCircles();
+      }
     });
 
     this.table = table;
