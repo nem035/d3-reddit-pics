@@ -52,7 +52,7 @@ d3.redditChart.brush = function() {
       rects.data(filtered, d => d.id)
         .classed('brushed', true);
 
-      dispatch.brushFilter(filtered);
+      dispatch.brushFilter(filtered, minCreated, maxCreated);
     });
 
     rects.exit().remove();

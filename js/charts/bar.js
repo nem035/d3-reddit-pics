@@ -41,7 +41,7 @@ d3.redditChart.bar = function() {
 
     bars.transition()
       .ease('quad')
-      .duration(window.transitionTime * 3)
+      .duration(window.transitionTime * 2)
       .attr(rectAttrs);
 
     bars.exit()

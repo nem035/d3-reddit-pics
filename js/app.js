@@ -19,8 +19,13 @@ function D3Reddit(data) {
   this.xRange = xRange;
   this.yRange = yRange;
 
-  this.visualize = (visualizations) => {
-    getVizNamesFromHash().concat(['axis', 'brush', 'table'])
+  this.visualize = () => {
+    this.visualizations = getVizNamesFromHash();
+    this.fixedVisualizations = ['axis', 'brush', 'table'];
+    this.filterableVisualizations = ['axis', 'table'].concat(this.visualizations);
+
+    this.visualizations
+      .concat(this.fixedVisualizations)
       .forEach(viz => this[`${viz}Viz`]());
   };
 
@@ -93,30 +98,11 @@ function D3Reddit(data) {
     brush.on('brushFilter', (filtered) => {
       this.data = filtered;
 
-      // rerender bar plot with filtered data
-      this.bar
-        .data(filtered)
-        .render();
-
-      // rerender line plot with filtered data
-      this.line
-        .data(filtered)
-        .render();
-
-      // rerender scatter plot with filtered data
-      this.scatter
-        .data(filtered)
-        .render();
-
-      // rerender the table with filtered data
-      this.table
-        .data(filtered)
-        .render();
-
-      // rerender x-axis with the dates from the filtered data
-      this.axis
-        .data(filtered)
-        .render();
+      this.filterableVisualizations
+        .forEach(viz => {
+          this[viz].data(filtered)
+            .render()
+          });
     });
 
     d3.select('.viz.brush')
