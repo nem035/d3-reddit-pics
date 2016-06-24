@@ -5,17 +5,18 @@ d3.redditChart.table = function() {
   const dispatch = d3.dispatch('rowMouseOver', 'rowMouseOut');
 
   function chart(container) {
-    table = container.append('table');
+    table = container.append('div')
+      .classed('table', true);
     chart.render();
   }
 
   chart.render = function() {
-    const dataRows = table.selectAll('tr.data-row')
+    const dataRows = table.selectAll('.row')
       .data(data);
 
     const dataRowsEnter = dataRows.enter()
-      .append('tr')
-      .classed('data-row', true)
+      .append('div')
+      .classed('row', true)
       .attr('id', d => d.id);
 
     dataRowsEnter.style('opacity', 0)
@@ -24,36 +25,62 @@ d3.redditChart.table = function() {
       .duration(window.transitionTime)
       .style('opacity', 1);
 
-    // 1st column is the thumbnail linking to the post
-    dataRowsEnter.append('td')
-      .append('a')
+    dataRowsEnter.append('span')
+      .classed('rank', true)
+      .text('1');
+
+    dataRowsEnter.append('div')
+      .classed('voted', true)
+      .html((d) => `
+        <div class="arrow up" role="button" aria-label="upvote" tabindex="0"></div>
+        <div class="score dislikes">78</div>
+        <div class="score unvoted">79</div>
+        <div class="score likes">80</div>
+        <div class="arrow down" role="button" aria-label="downvote" tabindex="0"></div>
+      `);
+
+    dataRowsEnter.append('a')
+      .classed('thumbnail', true)
       .attr({
-        href: (d) => d.url,
+        href: (d) => d.thumbnail,
         target: '_blank',
       })
       .append('img')
-      .attr('src', d => d.thumbnail);
+      .attr({
+        src: (d) => d.thumbnail,
+        width: 70,
+        height: 70
+      });
 
-    // next column is the title linking to the post
-    dataRowsEnter.append('td')
+    const entry = dataRowsEnter.append('div')
+      .classed('entry', true);
+
+    entry.append('p')
+      .classed('title', true)
       .append('a')
+      .classed('title', true)
       .attr({
         href: (d) => `https://reddit.com${d.permalink}`,
         target: '_blank',
+        tab_index: 1
       })
-      .text(d => d.title);
+      .text(d => d.title)
+      .append('span')
+      .classed('domain', true)
+      .html((d) => `
+        (<a href="${d.thumbnail}">i.imgur.com</a>)
+      `);
 
-    // next column is the score
-    dataRowsEnter.append('td')
-      .text(d => d.score);
-
-    // next column is the upvotes
-    dataRowsEnter.append('td')
-      .text(d => d.ups);
-
-    // next column is the downvotes
-    dataRowsEnter.append('td')
-      .text(d => d.downs);
+    entry.append('p')
+      .classed('tagline', true)
+      .html((d) => `
+        submitted
+        <time title="${d.created}" datetime="${new Date(d.created)}" class="live-timestamp">
+          ${timeFormat(new Date(d.created))}
+        </time>
+        by
+        <a href="user goes here" class="author">USER</a>
+      `);
 
     // dispatch mouse events
     dataRowsEnter.on('mouseover', (d) => {
@@ -75,13 +102,13 @@ d3.redditChart.table = function() {
   }
 
   chart.highlightRows = function(data) {
-    table.selectAll('tr.data-row')
+    table.selectAll('.row')
       .data(data, d => d.id)
       .classed('highlighted', true);
   }
 
   chart.unhighlightRows = function(data) {
-    table.selectAll('tr.data-row')
+    table.selectAll('.row')
       .data(data, d => d.id)
       .classed('highlighted', false);
   }
