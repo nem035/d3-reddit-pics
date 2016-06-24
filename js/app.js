@@ -20,7 +20,8 @@ function D3Reddit(data) {
   this.yRange = yRange;
 
   this.visualize = (visualizations) => {
-    getVizNamesFromHash().forEach(viz => this[`${viz}Viz`]());
+    getVizNamesFromHash().concat(['axis', 'brush', 'table'])
+      .forEach(viz => this[`${viz}Viz`]());
   };
 
   this.loadChart = (vizName) => {
@@ -94,6 +95,11 @@ function D3Reddit(data) {
 
       // rerender scatter plot with filtered data
       this.scatter
+        .data(filtered)
+        .render();
+
+      // rerender the table with filtered data
+      this.table
         .data(filtered)
         .render();
 

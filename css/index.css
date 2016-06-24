@@ -157,7 +157,7 @@ a:active {
   position: relative;
   animation: fade-in .3s;
   background: white;
-  height: 600px;
+  height: 640px;
   border-bottom: 1px solid #7E7E7E;
   margin-top: 15px;
 }
@@ -172,7 +172,7 @@ a:active {
   float: right;
   margin-right: 10px;
   width: 500px;
-  height: 615px;
+  height: 655px;
   border-left: 1px solid #7E7E7E;
 	margin-top: 0;
 }
@@ -198,9 +198,12 @@ a:active {
 
 .viz.bar,
 .viz.line,
-.viz.scatter,
-.viz.table {
+.viz.scatter {
 	height: 580px;
+}
+
+.viz.brush {
+	height: 50px;
 }
 
 /* Axis */
@@ -287,7 +290,7 @@ text.axis-text {
 /* Table */
 .viz.table {
   overflow-y: scroll;
-  height: inherit;	
+  height: inherit;
 }
 
 .viz.table table tr {

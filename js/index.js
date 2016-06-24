@@ -1,5 +1,5 @@
 window.transitionTime = 300;
-window.vizNames = ['axis', 'bar', 'brush', 'line', 'scatter', 'table'];
+window.vizNames = ['bar', 'line', 'scatter'];
 window.brushHeight = 30;
 window.timeFormat = d3.time.format('%a %I:%M %p');
 window.xAxisSpacing = 35;
@@ -142,7 +142,7 @@ function cleanData({ data }) {
   const baseURL = hostname === 'localhost' ?
     origin :
     'https://nem035.github.io/d3-reddit-pics';
-    
+
   return data.children
     .filter(({ data }) => data.thumbnail !== 'self')
     .map(({ data }) => {

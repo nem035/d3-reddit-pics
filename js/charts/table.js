@@ -1,16 +1,19 @@
 d3.redditChart.table = function() {
-  let c;
   let data;
+  let table;
 
   const dispatch = d3.dispatch('rowMouseOver', 'rowMouseOut');
 
   function chart(container) {
-    c = container;
+    table = container.append('table');
+    chart.render();
+  }
 
-    const table = container.append('table');
-
+  chart.render = function() {
     const dataRows = table.selectAll('tr.data-row')
       .data(data);
+
+    console.log(dataRows);
 
     const dataRowsEnter = dataRows.enter()
       .append('tr')
@@ -66,13 +69,13 @@ d3.redditChart.table = function() {
   }
 
   chart.highlightRows = function(data) {
-    c.selectAll('tr.data-row')
+    table.selectAll('tr.data-row')
       .data(data, d => d.id)
       .classed('highlighted', true);
   }
 
   chart.unhighlightRows = function(data) {
-    c.selectAll('tr.data-row')
+    table.selectAll('tr.data-row')
       .data(data, d => d.id)
       .classed('highlighted', false);
   }
