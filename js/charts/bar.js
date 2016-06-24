@@ -6,9 +6,11 @@ d3.redditChart.bar = function() {
 
   function chart(container) {
     g = container;
-
     g.classed('g-bar', true);
+    chart.render();
+  }
 
+  chart.render = function() {
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
       .scale()

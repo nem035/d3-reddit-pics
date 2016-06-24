@@ -93,7 +93,12 @@ function D3Reddit(data) {
     brush.on('brushFilter', (filtered) => {
       this.data = filtered;
 
-      // rerender scatter plot with filtered data
+      // rerender bar plot with filtered data
+      this.bar
+        .data(filtered)
+        .render();
+
+      // rerender line plot with filtered data
       this.line
         .data(filtered)
         .render();
