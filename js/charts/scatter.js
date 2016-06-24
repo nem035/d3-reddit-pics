@@ -91,10 +91,33 @@ d3.redditChart.scatter = function() {
   }
 
   function addTooltip(circles) {
+    const leftHalf = data.slice(0, data.length / 2);
+    const rightHalf = data.slice(data.length / 2, data.length);
+
+    const leftMax = d3.mean(leftHalf, d => d.created);
+    const rightMax = d3.mean(rightHalf, d => d.created);
+
     // tooltip
     const tip = d3.tip()
       .attr('class', 'd3-tip')
-      .offset([-10, 0])
+      .offset(d => {
+        if (d.created < leftMax) {
+          return [0,10];
+        }
+        if (d.created > rightMax) {
+          return [0,-10];
+        }
+        return [-10,0];
+      })
+      .direction(d => {
+        if (d.created < leftMax) {
+          return 'e';
+        }
+        if (d.created > rightMax) {
+          return 'w';
+        }
+        return 'n'
+      })
       .html(d => (
         `
         <h4 class="title" style="text-align: center; margin: 3px;">
