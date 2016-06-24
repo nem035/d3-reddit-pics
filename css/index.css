@@ -287,7 +287,6 @@ text.axis-text {
 .g-scatter circle {
   fill: #808080;
   stroke: black;
-  r: 5;
   transition: fill .2s ease-in-out;
   cursor: pointer;
 }

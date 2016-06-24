@@ -1,4 +1,4 @@
-window.transitionTime = 1500;
+window.transitionTime = 300;
 window.vizNames = ['axis', 'bar', 'brush', 'line', 'scatter', 'table'];
 window.brushHeight = 30;
 window.timeFormat = d3.time.format('%a %I:%M %p');

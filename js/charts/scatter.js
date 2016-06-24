@@ -8,12 +8,15 @@ d3.redditChart.scatter = function() {
   function chart(container) {
     g = container;
     g.classed('g-scatter', true);
+
+
+
     chart.render();
   }
 
   chart.render = function() {
     // clear the graph before rendering
-    g.html('');
+    // g.html('');
 
     // create x scale from the data
     const xDomain = d3.extent(data, d => d.created);
@@ -39,38 +42,33 @@ d3.redditChart.scatter = function() {
       cy: (d) => yRange[1] - yScale(d.score),
       'data-score': (d) => d.score,
       'data-created': (d) => d.created,
+      r: 6,
+      class: 'scatter-circle',
     };
 
+    // new circles are created
     circles.enter()
       .append('circle')
-      .classed('scatter-circle', true)
       .transition()
+      .ease('exp')
+      .attr('r', 0);
+
+    // existing circles animated
+    circles.transition()
       .duration(window.transitionTime)
+      .ease('quad')
       .delay((d, i) => i * 5)
       .attr(circleAttrs);
 
-    // tooltip
-    const tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-10, 0])
-      .html(d => (
-        `<div class="score">
-          <strong>Score:</strong> <span>${d.score}</span>
-        </div>
-        <div class="created">
-          <strong>Created:</strong> <span>${getAxisTimeFormat(d.created)}</span>
-        </div>`
-      ));
+    addTooltip(circles);
 
-    d3.select('.viz.scatter > svg').call(tip);
-
-    circles.on('mouseover', function() {
-      console.log(this);
-      tip.show.apply(this, arguments);
-    })
-    .on('mouseout', tip.hide);
-
-    circles.exit().remove();
+    // old circles are removed
+    circles.exit()
+      .transition()
+      .duration(window.transitionTime)
+      .ease('exp')
+      .attr('r', 0)
+      .remove();
   }
 
   chart.data = function(val) {
@@ -93,6 +91,26 @@ d3.redditChart.scatter = function() {
     }
     yRange = val;
     return chart;
+  }
+
+  function addTooltip(circles) {
+    // tooltip
+    const tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(d => (
+        `<div class="score">
+          <strong>Score:</strong> <span>${d.score}</span>
+        </div>
+        <div class="created">
+          <strong>Created:</strong> <span>${getAxisTimeFormat(d.created)}</span>
+        </div>`
+      ));
+
+    d3.select('.viz.scatter > svg').call(tip);
+
+    circles.on('mouseover', tip.show)
+    .on('mouseout', tip.hide);
   }
 
   return chart;
