@@ -43,9 +43,9 @@ d3.redditChart.axis = function() {
       .tickFormat(window.timeFormat)
       .tickPadding(10);
 
-    gX.attr('transform', `translate(0, ${yRange[1]})`);
-
-    xAxis(gX);
+    gX.attr('transform', `translate(0, ${yRange[1]})`)
+      .transition()
+      .call(xAxis);
   }
 
   chart.renderY = function() {
@@ -61,15 +61,15 @@ d3.redditChart.axis = function() {
       .orient('left')
       .tickSize(0);
 
-    gY.attr('transform', `translate(${xRange[0]}, 0)`);
+    gY.attr('transform', `translate(${xRange[0]}, 0)`)
+      .transition()
+      .call(yAxis);
 
     gY.append('text')
       .classed('axis-text', true)
       .attr('y', 10) // 10 is half of the margin of viz-container
       .attr('x', window.xAxisSpacing + 5)
       .text('Score');
-
-    yAxis(gY);
   }
 
   chart.data = function(val) {

@@ -50,11 +50,10 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('axis');
 
-    const xRange = [this.xRange[0], this.xRange[1] + 5]
-    const yRange = this.yRange;
+    container.attr('transform', 'translate(0, 5)');
 
-    this.axis = axis.xRange(xRange)
-      .yRange(yRange);
+    this.axis = axis.xRange([this.xRange[0], this.xRange[1] + 5])
+      .yRange(this.yRange);
 
     axis(container);
   };
@@ -65,7 +64,9 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('bar');
 
-    this.bar = bar.xRange([this.xRange[0], this.xRange[1] + 5])
+    container.attr('transform', 'translate(0, 5)');
+
+    this.bar = bar.xRange([this.xRange[0], this.xRange[1] + 10])
     .yRange(this.yRange);
 
     bar(container);
@@ -92,7 +93,7 @@ function D3Reddit(data) {
       // rerender x-axis with the dates from the filtered data
       this.axis
         .data(filtered)
-        .renderX();
+        .render();
     });
 
     d3.select('.viz.brush')
@@ -107,7 +108,7 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('line');
 
-    container.attr('transform', 'translate(5, 5)');
+    container.attr('transform', 'translate(5, 10)');
 
     this.line = line.xRange(this.xRange)
     .yRange([this.yRange[0] + 5, this.yRange[1]]);
@@ -121,7 +122,7 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('scatter');
 
-    container.attr('transform', 'translate(5, 5)');
+    container.attr('transform', 'translate(5, 10)');
 
     this.scatter = scatter.xRange(this.xRange)
       .yRange([this.yRange[0] + 5, this.yRange[1]]);
