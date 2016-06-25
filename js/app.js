@@ -5,19 +5,17 @@ function D3Reddit(data) {
   const vizContainerRight = d3.select('.viz-container.right');
 
   const {
-    width,
     height,
     xRange,
     yRange,
-  } = getContainerDim(vizContainerLeft);
+  } = getLeftContainerDim(vizContainerLeft);
 
   this.data = data;
   this.vizContainerLeft = vizContainerLeft;
   this.vizContainerRight = vizContainerRight;
-  this.width = width;
-  this.height = height;
-  this.xRange = xRange;
-  this.yRange = yRange;
+  this.heightLeft = height;
+  this.xRangeLeft = xRange;
+  this.yRangeLeft = yRange;
 
   this.visualize = () => {
     this.activeVisualizations = getVizNamesFromHash();
@@ -61,8 +59,8 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(0, 5)');
 
-    axis.xRange([this.xRange[0], this.xRange[1] + 5])
-      .yRange(this.yRange);
+    axis.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5])
+      .yRange(this.yRangeLeft);
 
     axis(container);
 
@@ -77,8 +75,8 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(0, 5)');
 
-    bar.xRange([this.xRange[0], this.xRange[1] + 5])
-    .yRange(this.yRange);
+    bar.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5])
+    .yRange(this.yRangeLeft);
 
     bar(container);
 
@@ -91,7 +89,7 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('brush');
 
-    brush.xRange([this.xRange[0], this.xRange[1] + 5]);
+    brush.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5]);
 
     brush(container);
 
@@ -116,7 +114,7 @@ function D3Reddit(data) {
     });
 
     d3.select('.viz.brush')
-      .style('margin-top', `${this.height - window.yAxisSpacing - 40}px`);
+      .style('margin-top', `${this.heightLeft - window.yAxisSpacing - 40}px`);
 
     this.brush = brush;
   };
@@ -129,8 +127,8 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(5, 10)');
 
-    line.xRange(this.xRange)
-    .yRange([this.yRange[0] + 5, this.yRange[1]]);
+    line.xRange(this.xRangeLeft)
+    .yRange([this.yRangeLeft[0] + 5, this.yRangeLeft[1]]);
 
     line(container);
 
@@ -145,8 +143,8 @@ function D3Reddit(data) {
 
     container.attr('transform', 'translate(5, 10)');
 
-    scatter.xRange(this.xRange)
-      .yRange([this.yRange[0] + 5, this.yRange[1]]);
+    scatter.xRange(this.xRangeLeft)
+      .yRange([this.yRangeLeft[0] + 5, this.yRangeLeft[1]]);
 
     scatter(container);
 

@@ -20,7 +20,7 @@ function initValues(data) {
   window.maxPostScore = maxPostScore;
 }
 
-function getContainerDim(container) {
+function getLeftContainerDim(container) {
   const ref = (() => {
     while (!container.style) {
       container = container.parentElement;
