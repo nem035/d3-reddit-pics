@@ -22,7 +22,7 @@ function D3Reddit(data) {
   this.visualize = () => {
     this.togglableVisualizations = getVizNamesFromHash();
     this.persistentVisualizations = ['axis', 'brush', 'table'];
-    this.filterableVisualizations = ['axis', 'table'].concat(this.togglableVisualizations);
+    this.filterableVisualizations = [ 'table' ].concat(this.togglableVisualizations);
 
     this.togglableVisualizations
       .concat(this.persistentVisualizations)
@@ -95,14 +95,24 @@ function D3Reddit(data) {
 
     brush(container);
 
-    brush.on('brushFilter', (filtered) => {
+    brush.on('brushFilter', (filtered, minCreated, maxCreated) => {
       this.data = filtered;
+
+      this.axis
+        .data(filtered)
+        .render([ minCreated, maxCreated ]);
 
       this.filterableVisualizations
         .forEach(viz => {
           this[viz].data(filtered)
             .render()
           });
+
+      d3.select('.timespan .from')
+        .text(timeFormat(minCreated));
+
+      d3.select('.timespan .to')
+        .text(timeFormat(maxCreated));
     });
 
     d3.select('.viz.brush')

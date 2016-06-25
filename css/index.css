@@ -114,6 +114,7 @@ a:active {
 	margin-bottom: -3px;
   vertical-align: bottom;
 	font-size: small;
+  padding: 0;
 }
 
 .tabmenu li,
@@ -141,6 +142,12 @@ a:active {
   border-bottom: 1px solid white;
   z-index: 100;
 }
+
+.timespan {
+	font-size: small;
+	font-weight: bold;
+}
+
 
 .github {
 	font-size: small;
@@ -287,8 +294,8 @@ text.axis-text {
 }
 
 .g-scatter circle.highlighted {
-  fill: #FFAE1A;
-  stroke: black;
+  fill: #F8ECB6;
+  stroke: #FFAE1A;
   r: 10;
 }
 
@@ -304,14 +311,16 @@ text.axis-text {
 }
 
 .viz.table .row.highlighted {
-  background-color: #FFAE1A;
-  color: white;
+  background-color: #F8ECB6;
+  border-top: 1px solid #FFAE1A;
+  border-bottom: 1px solid #FFAE1A;
 }
 
 .viz.table .row {
   margin-bottom: 0px;
   padding-top: 12px;
   padding-bottom: 12px;
+  border-top: 1px solid transparent;
   border-bottom: 1px solid #ececec;
 }
 

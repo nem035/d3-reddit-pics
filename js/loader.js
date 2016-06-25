@@ -27,6 +27,7 @@ function updateAndVisualize() {
     }
 
     const data = cleanData(json);
+    initValues(data);
 
     if (!window.d3Reddit) {
       window.d3Reddit = new D3Reddit(data);

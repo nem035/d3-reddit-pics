@@ -10,6 +10,16 @@ function init() {
   window.timeFormat = d3.time.format('%a %d %I:%M %p');
 }
 
+function initValues(data) {
+  const [ furthestPostDate, nearestPostDate ] = d3.extent(data, d => d.created);
+  const [ minPostScore, maxPostScore ] = d3.extent(data, d => d.score);
+
+  window.furthestPostDate = furthestPostDate;
+  window.nearestPostDate = nearestPostDate;
+  window.minPostScore = minPostScore;
+  window.maxPostScore = maxPostScore;
+}
+
 function getContainerDim(container) {
   const ref = (() => {
     while (!container.style) {

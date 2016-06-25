@@ -20,13 +20,13 @@ window.redditChart.axis = function() {
     chart.render();
   }
 
-  chart.render = function() {
+  chart.render = function(xDomain) {
     chart.renderY();
-    chart.renderX();
+    chart.renderX(xDomain);
   }
 
-  chart.renderX = function() {
-    const xDomain = d3.extent(data, d => d.created);
+  chart.renderX = function(xDomain = d3.extent(data, d => d.created)) {
+
     const xScale = d3.time
       .scale()
       .domain(xDomain)
@@ -51,7 +51,11 @@ window.redditChart.axis = function() {
   }
 
   chart.renderY = function() {
-    const yDomain = [ d3.max(data, d => d.score), 0 ];
+
+    const yDomain = data.length ?
+      [ d3.max(data, d => d.score), 0 ] :
+      [ window.maxPostScore, window.minPostScore ];
+
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
