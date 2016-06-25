@@ -1,4 +1,4 @@
-d3.redditChart.table = function() {
+window.redditChart.table = function() {
   let data;
   let table;
 

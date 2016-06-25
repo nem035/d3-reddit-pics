@@ -1,4 +1,4 @@
-d3.redditChart.axis = function() {
+window.redditChart.axis = function() {
   let g;
   let gX;
   let gY;

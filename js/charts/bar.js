@@ -1,4 +1,4 @@
-d3.redditChart.bar = function() {
+window.redditChart.bar = function() {
   let g;
   let data;
   let xRange = [ 0, 600 ];

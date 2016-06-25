@@ -30,7 +30,7 @@ function D3Reddit(data) {
   };
 
   this.loadChart = (vizName) => {
-    return d3.redditChart[vizName]()
+    return redditChart[vizName]()
       .data(this.data);
   };
 

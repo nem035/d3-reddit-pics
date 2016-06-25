@@ -1,8 +1,14 @@
 window.location.hash = `#${getVizNamesFromHash()}`;
 
 document.addEventListener('DOMContentLoaded', (event) => {
-  setupCheckboxes();
-  updateAndVisualize();
+  if (window.d3) {
+    init();
+    setupCheckboxes();
+    updateAndVisualize();
+  } else {
+    resetLoading();
+    createErrorBox({ message: 'Check your internet connection' });
+  }
 });
 
 function updateAndVisualize() {

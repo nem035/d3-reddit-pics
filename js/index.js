@@ -1,13 +1,13 @@
 window.transitionTime = 300;
 window.vizNames = ['bar', 'line', 'scatter'];
 window.brushHeight = 30;
-window.timeFormat = d3.time.format('%a %I:%M %p');
 window.xAxisSpacing = 35;
 window.yAxisSpacing = 20;
 window.yAxisTextHeight = 45;
+window.redditChart = {};
 
-if (!d3.redditChart) {
-  d3.redditChart = {};
+function init() {
+  window.timeFormat = d3.time.format('%a %I:%M %p');
 }
 
 function getContainerDim(container) {
@@ -37,59 +37,76 @@ function getContainerDim(container) {
   };
 }
 
-function animateElemCreation(elem) {
-  elem.style('opacity', 0)
-    .transition()
-    .duration(window.transitionTime * 3)
-    .style('opacity', 1);
+function startAlienRotation() {
+  const alien = document.querySelector('.alien');
+  if (alien) {
+    if (alien.className.indexOf('rotating') === -1) {
+      alien.className += ' rotating';
+    }
+  }
 }
 
-function animateElemDestruction(elem) {
-  elem.style('opacity', 1)
-    .transition()
-    .duration(window.transitionTime * 3)
-    .style('opacity', 0)
-    .remove();
+function createLoadingNode() {
+  const loadingNode = document.createElement('span');
+  loadingNode.className += ' loading';
+
+  loadingNode.appendChild(document.createTextNode('Loading'));
+
+  document.body
+    .appendChild(loadingNode);
 }
 
 function setLoading() {
-  // add reddit alien rotation
-  d3.select('.alien')
-    .classed('rotating', true)
+  startAlienRotation();
+  createLoadingNode();
+}
 
-  // create the loading span
-  d3.select('.viz-container')
-    .append('span')
-    .classed('loading', true)
-    .text('Loading');
+function stopAlienRotation() {
+  const alien = document.querySelector('.alien');
+  if (alien) {
+    alien.className = alien.className
+    .replace('rotating', '');
+  }
+}
+
+function removeLoadingNode() {
+  const loadingNode = document.querySelector('.loading');
+  if (loadingNode) {
+    loadingNode.remove();
+  }
 }
 
 function resetLoading() {
-  // remove reddit alien rotation
-  d3.select('.alien')
-    .classed('rotating', false)
-
-  // remove the loading span
-  d3.select('.loading')
-    .remove();
-
+  stopAlienRotation();
+  removeLoadingNode();
 }
 
 function createErrorBox(error) {
   const message = error.responseText || error.message || 'Something went wrong. Probably good old CORS. Try Refreshing the page.';
 
-  const errorBox = d3.select('body')
-    .insert('div', ':first-child')
-    .classed('error-box', true);
+  // create error node
+  const errorBox = document.createElement('div');
+  errorBox.className += ' error-box';
 
-  animateElemCreation(errorBox);
+  // create error message node
+  const errorMessage = document.createElement('span');
+  errorMessage.className += ' error-message';
 
-  errorBox.append('error-message')
-    .text(message);
+  // add error message text
+  errorMessage.appendChild(document.createTextNode(message))
+
+  // add error mesage node to the error node
+  errorBox.appendChild(errorMessage);
+
+  // prepend error node to body
+  document.body.insertBefore(errorBox, document.body.firstChild);
 }
 
 function destroyErrorBox() {
-  animateElemDestruction(d3.select('.error-box'));
+  const errorBox = document.querySelector('.error-box');
+  if (errorBox) {
+    errorBox.remove();
+  }
 }
 
 function clearContent() {

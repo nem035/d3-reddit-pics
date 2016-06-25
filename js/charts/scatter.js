@@ -1,4 +1,4 @@
-d3.redditChart.scatter = function() {
+window.redditChart.scatter = function() {
   let g;
   let data;
   let xRange = [ 0, 600 ];

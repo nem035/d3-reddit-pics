@@ -1,4 +1,4 @@
-d3.redditChart.brush = function() {
+window.redditChart.brush = function() {
   let g;
   let data;
   let xRange = [ 0, 600 ];

@@ -1,4 +1,4 @@
-d3.redditChart.line = function() {
+window.redditChart.line = function() {
   let path;
   let data;
   let xRange = [ 0, 600 ];
