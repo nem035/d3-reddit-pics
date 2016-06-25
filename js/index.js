@@ -181,11 +181,12 @@ function cleanData({ data }) {
       // clean thumbnail
       if (data.thumbnail.indexOf('://') === -1) {
         data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
+        data.no_image = true;
       }
 
       if (data.preview) {
         data.niceImage = data.preview.images[0].source;
-      } else {
+      } else if (!data.no_image) {
         data.niceImage = {
           url: data.url || data.thumbnail,
           width: data.width || 140,

@@ -412,7 +412,7 @@ text.axis-text {
 	position: absolute;
 	z-index: 2;
 	top: 30px;
-	transition: background .2s ease-in;
+	transition: background .3s ease-in;
 	background: rgba(0, 0, 0, 0);
   width: inherit;
 	display: flex;
@@ -420,15 +420,16 @@ text.axis-text {
 	align-items: center;
 }
 
-.img-preview.visible {
-	background: rgba(0, 0, 0, .7);
-	height: inherit;
-}
-
 .img-preview img {
   max-height: 500px;
   max-width: 1100px;
 	border: 1px solid black;
+  animation: fade-in .3s ease-in;
+}
+
+.img-preview.visible {
+	background: rgba(0, 0, 0, .7);
+	height: inherit;
 }
 
 .viz.table .entry {

@@ -46,14 +46,15 @@ window.redditChart.table = function() {
         height: 70
       });
 
-    thumbnail.append('div')
+    const visibleThumbnail = thumbnail.filter(d => !d.no_image);
+
+    visibleThumbnail.append('div')
       .classed('overlay', true)
       .append('span')
       .text('View');
 
-    thumbnail.on('click', ({ niceImage }) => {
+    visibleThumbnail.on('click', ({ niceImage }) => {
       const imgPreview = d3.select('.img-preview');
-      console.log(niceImage);
       imgPreview.classed('visible', true)
         .append('img')
         .attr({
