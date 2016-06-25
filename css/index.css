@@ -148,7 +148,6 @@ a:active {
 	font-weight: bold;
 }
 
-
 .github {
 	font-size: small;
 	float: right;
@@ -207,7 +206,7 @@ a:active {
 .viz.bar,
 .viz.line,
 .viz.scatter {
-	height: 580px;
+	height: 570px;
 }
 
 .viz.scatter {
@@ -248,7 +247,7 @@ text.axis-text {
 
 /* Brush */
 .g-brush rect {
-  fill: #B3CCE6;
+  fill: #7E7E7E;
   height: 30px;
 }
 
@@ -261,8 +260,8 @@ text.axis-text {
 }
 
 .g-brush rect.background {
-  fill: #F7F7F7;
-  stroke: #CCCCCC;
+  fill: #CCCCCC;
+  stroke: #7E7E7E;
   visibility: visible !important;
 }
 
