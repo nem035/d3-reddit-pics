@@ -58,16 +58,13 @@ body.loading * {
 /* Loading */
 
 .loading-box {
-  font-size: larger;
-}
-
-.loading-box:after {
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: bottom;
-  animation: ellipsis steps(4,end) .5s infinite;
-  content: "\2026"; /* ascii code for the ellipsis character */
-  width: 0px;
+  font-size: 30px;
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  left: 25%;
+  top: 1050%;
+  animation: fade-in 1s infinite linear;
 }
 
 /* Links */
@@ -289,7 +286,6 @@ text.axis-text {
 .g-scatter circle.highlighted {
   fill: #F8ECB6;
   stroke: #FFAE1A;
-  r: 10;
 }
 
 /* Table */

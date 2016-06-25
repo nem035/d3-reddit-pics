@@ -75,7 +75,7 @@ window.redditChart.axis = function() {
 
     gY.append('text')
       .classed('axis-text', true)
-      .attr('y', 10) // 10 is half of the margin of viz-container
+      .attr('y', 4) // 10 is half of the margin of viz-container
       .attr('x', -2)
       .text('Score');
   }

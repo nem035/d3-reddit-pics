@@ -58,7 +58,7 @@ function startAlienRotation() {
 
 function createLoadingNode() {
   const loadingNode = document.createElement('span');
-  loadingNode.className += ' loading';
+  loadingNode.className += ' loading-box';
 
   loadingNode.appendChild(document.createTextNode('Loading'));
 
