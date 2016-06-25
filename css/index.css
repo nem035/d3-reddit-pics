@@ -5,6 +5,10 @@ body {
   font-family: normal x-small verdana,arial,helvetica,sans-serif;;
 }
 
+body.loading * {
+  cursor: progress !important;
+}
+
 /* Animations */
 
 @keyframes rotating {
@@ -51,23 +55,13 @@ body {
 	margin: 15px;
 }
 
-/* Alien */
-.alien:not(.rotating):hover {
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.alien.rotating {
-  cursor: not-allowed;;
-}
-
 /* Loading */
 
-.loading {
+.loading-box {
   font-size: larger;
 }
 
-.loading:after {
+.loading-box:after {
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
@@ -389,34 +383,34 @@ text.axis-text {
 }
 
 .viz.table .score.dislikes {
-    color: #9494FF;
+  color: #9494FF;
 }
 
 .viz.table .thumbnail {
-    float: left;
-    font-size: 0;
-    margin: 0;
-    margin-right: 5px;
-    margin-bottom: 2px;
-    overflow: hidden;
-    width: 70px;
+  float: left;
+  font-size: 0;
+  margin: 0;
+  margin-right: 5px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  width: 70px;
 }
 
 .viz.table .entry {
-    overflow: hidden;
-    margin-left: 3px;
-    opacity: 1;
+  overflow: hidden;
+  margin-left: 3px;
+  opacity: 1;
 }
 
 .viz.table .title {
 	font-size: medium;
-    font-weight: normal;
-    margin-bottom: 1px;
-    color: blue;
-    outline: none;
-    margin-right: .4em;
-    padding: 0px;
-    overflow: hidden;
+  font-weight: normal;
+  margin-bottom: 1px;
+  color: blue;
+  outline: none;
+  margin-right: .4em;
+  padding: 0px;
+  overflow: hidden;
 }
 
 .viz.table .title:visited {
@@ -424,14 +418,18 @@ text.axis-text {
 }
 
 .viz.table .domain {
-    color: #888;
-    font-size: x-small;
-    white-space: nowrap;
+  color: #888;
+  font-size: x-small;
+  white-space: nowrap;
+}
+
+.viz.table .domain:hover {
+  text-decoration: underline;
 }
 
 .viz.table .tagline {
 	color: #888;
-    font-size: x-small;
+  font-size: x-small;
 }
 
 .viz.table .author:hover {

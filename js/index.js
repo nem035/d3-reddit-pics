@@ -67,6 +67,7 @@ function createLoadingNode() {
 }
 
 function setLoading() {
+  document.body.className += ' loading';
   startAlienRotation();
   createLoadingNode();
 }
@@ -75,12 +76,12 @@ function stopAlienRotation() {
   const alien = document.querySelector('.alien');
   if (alien) {
     alien.className = alien.className
-    .replace('rotating', '');
+    .replace(' rotating', '');
   }
 }
 
 function removeLoadingNode() {
-  const loadingNode = document.querySelector('.loading');
+  const loadingNode = document.querySelector('.loading-box');
   if (loadingNode) {
     loadingNode.remove();
   }
@@ -89,6 +90,7 @@ function removeLoadingNode() {
 function resetLoading() {
   stopAlienRotation();
   removeLoadingNode();
+  document.body.className = document.body.className.replace(' loading', '');
 }
 
 function createErrorBox(error) {

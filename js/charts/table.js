@@ -68,7 +68,7 @@ window.redditChart.table = function() {
       .append('span')
       .classed('domain', true)
       .html((d) => `
-        (<a href="${d.thumbnail}">i.imgur.com</a>)
+        (<a href="https://www.reddit.com/domain/${d.domain}" target="_blank">${d.domain}</a>)
       `);
 
     entry.append('p')
@@ -95,6 +95,7 @@ window.redditChart.table = function() {
     dataRows.exit()
       .style('opacity', 1)
       .transition()
+      .delay(window.transitionTime)
       .ease('quad')
       .duration(window.transitionTime)
       .style('opacity', 0)
