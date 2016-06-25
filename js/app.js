@@ -20,11 +20,11 @@ function D3Reddit(data) {
   this.yRange = yRange;
 
   this.visualize = () => {
-    this.togglableVisualizations = getVizNamesFromHash();
+    this.activeVisualizations = getVizNamesFromHash();
     this.persistentVisualizations = ['axis', 'brush', 'table'];
-    this.filterableVisualizations = [ 'table' ].concat(this.togglableVisualizations);
+    this.filterableVisualizations = [ 'table' ].concat(this.activeVisualizations);
 
-    this.togglableVisualizations
+    this.activeVisualizations
       .concat(this.persistentVisualizations)
       .forEach(viz => this[`${viz}Viz`]());
   };

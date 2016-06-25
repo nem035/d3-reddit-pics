@@ -1,4 +1,4 @@
-window.location.hash = `#${getVizNamesFromHash()}`;
+window.location.hash = `#${vizNames.join(',')}`;
 
 document.addEventListener('DOMContentLoaded', (event) => {
   if (window.d3) {
@@ -15,6 +15,7 @@ function updateAndVisualize() {
   clearContent();
   setLoading();
   d3.json('https://www.reddit.com/r/pics.json', (error, json) => {
+    window.location.hash = `#${getVizNamesFromHash()}`;
     resetLoading();
     destroyErrorBox();
     if (error) {

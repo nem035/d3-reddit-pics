@@ -131,11 +131,9 @@ function getVizNamesFromHash() {
     }
   } = window;
 
-  return hash.length > 1 ?
-    hash.slice(1)
+  return hash.slice(1)
       .split(',')
-      .filter(x => vizNames.indexOf(x) !== -1) :
-    vizNames;
+      .filter(x => vizNames.indexOf(x) !== -1);
 }
 
 function setupCheckboxes() {
