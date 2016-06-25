@@ -118,12 +118,12 @@ window.redditChart.table = function() {
       const target = table.selectAll('.row')
         .data(data, d => d.id)[0][0];
 
-      const targetPos = findPos(target);
+      const targetPos = findYOffset(target);
 
       d3.transition()
-        .duration(500)
+        .duration(window.transitionTime * 2)
         .ease('quad')
-        .tween('scrollTop', scrollTopTween(targetPos - 33));
+        .tween('scrollTop', scrollTopTween(targetPos - 33)); // 33 for some extra spacing
     }
   }
 
@@ -135,21 +135,21 @@ window.redditChart.table = function() {
     return chart;
   };
 
-  function findPos(obj) {
+  function findYOffset(obj) {
     let top = 0;
-    if (obj.offsetParent) {
-      do {
-        top += obj.offsetTop;
-      } while (obj = obj.offsetParent);
-      return top;
+    while (obj.offsetParent) {
+      top += obj.offsetTop;
+      obj = obj.offsetParent;
     }
+    return top;
   }
 
   function scrollTopTween(scrollTop) {
+    const node = table.node();
     return function() {
-      const i = d3.interpolateNumber(table.node().scrollTop, scrollTop);
+      const i = d3.interpolateNumber(node.scrollTop, scrollTop);
       return function(t) {
-        table.node().scrollTop = i(t);
+        node.scrollTop = i(t);
       };
    };
   }
