@@ -12,7 +12,8 @@ window.redditChart.table = function() {
 
   chart.render = function() {
     const dataRows = table.selectAll('.row')
-      .data(data);
+      .data(data, d => d.id)
+      .order();
 
     const dataRowsEnter = dataRows.enter()
       .append('div')
@@ -24,10 +25,6 @@ window.redditChart.table = function() {
       .ease('quad')
       .duration(window.transitionTime)
       .style('opacity', 1);
-
-    dataRowsEnter.append('span')
-      .classed('rank', true)
-      .text((d, i) => i + 1);
 
     dataRowsEnter.append('div')
       .classed('voted', true)
@@ -92,13 +89,11 @@ window.redditChart.table = function() {
       dispatch.rowMouseOut(d);
     });
 
+    // transition removal of excess rows
     dataRows.exit()
-      .style('opacity', 1)
-      .transition()
-      .delay(window.transitionTime)
-      .ease('quad')
-      .duration(window.transitionTime)
       .style('opacity', 0)
+      .transition()
+      .ease('quad')
       .remove();
   }
 

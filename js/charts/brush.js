@@ -55,7 +55,8 @@ window.redditChart.brush = function() {
       dispatch.brushFilter(filtered, minCreated, maxCreated);
     });
 
-    rects.exit().remove();
+    rects.exit()
+      .remove();
 
     // brush time axis
     const axisG = g.append('g')
