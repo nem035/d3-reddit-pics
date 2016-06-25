@@ -173,7 +173,12 @@ function cleanData({ data }) {
   return data.children
     .filter(({ data }) => data.thumbnail !== 'self')
     .map(({ data }) => {
-      data.created = data.created * 1000;
+
+      // clean up time to only contain propr UTC
+      data.created = data.created_utc * 1000; // * 1000 because create_utc is in seconds
+      delete data.created_utc;
+
+      // clean thumbnail
       if (data.thumbnail.indexOf('://') === -1) {
         data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
       }
@@ -184,4 +189,38 @@ function cleanData({ data }) {
 
 function getAxisTimeFormat(ms) {
   return window.timeFormat(new Date(ms));
+}
+
+function getTimeFromNow(ms) {
+  const end = new Date(ms);
+  const start = new Date();
+  const daysPassed = d3.time.days(end, start, 1).length - 1;
+  const hoursPassed = d3.time.hours(end, start, 1).length - 1;
+  const minutesPassed = d3.time.minutes(end, start, 1).length - 1;
+  const secondsPassed = d3.time.seconds(end, start, 1).length - 1;
+
+  let unit;
+  let val;
+
+  // determine days, hours, mins or seconds
+  if (daysPassed > 0) {
+    val = daysPassed;
+    unit = 'day';
+  } else if (hoursPassed > 0) {
+    val = hoursPassed;
+    unit = 'hour';
+  } else if (minutesPassed > 0) {
+    val = minutesPassed;
+    unit = 'minute';
+  } else {
+    val = secondsPassed;
+    unit = 'second';
+  }
+
+  // pluralize
+  if (val !== 1) {
+    unit = `${unit}s`;
+  }
+
+  return `${val} ${unit} ago`;
 }

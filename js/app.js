@@ -109,10 +109,10 @@ function D3Reddit(data) {
           });
 
       d3.select('.timespan .from')
-        .text(timeFormat(minCreated));
+        .text(window.timeFormat(minCreated));
 
       d3.select('.timespan .to')
-        .text(timeFormat(maxCreated));
+        .text(window.timeFormat(maxCreated));
     });
 
     d3.select('.viz.brush')

@@ -72,8 +72,8 @@ window.redditChart.table = function() {
       .classed('tagline', true)
       .html((d) => `
         submitted
-        <time title="${timeFormat(new Date(d.created))}" datetime="${new Date(d.created)}" class="live-timestamp">
-          ${timeFormat(new Date(d.created))}
+        <time title="${getAxisTimeFormat(d.created)}" datetime="${new Date(d.created)}" class="live-timestamp">
+          ${getTimeFromNow(d.created)}
         </time>
         by
         <a href="https://www.reddit.com/user/${d.author}" target="_blank" class="author">${d.author}</a>
