@@ -385,11 +385,11 @@ text.axis-text {
 	color: #FF8B60;
 }
 
-.score.dislikes {
+.viz.table .score.dislikes {
     color: #9494FF;
 }
 
-.thumbnail {
+.viz.table .thumbnail {
     float: left;
     font-size: 0;
     margin: 0;
@@ -399,13 +399,13 @@ text.axis-text {
     width: 70px;
 }
 
-.entry {
+.viz.table .entry {
     overflow: hidden;
     margin-left: 3px;
     opacity: 1;
 }
 
-.title {
+.viz.table .title {
 	font-size: medium;
     font-weight: normal;
     margin-bottom: 1px;
@@ -416,17 +416,21 @@ text.axis-text {
     overflow: hidden;
 }
 
-.title:visited {
+.viz.table .title:visited {
 	color: #551a8b;
 }
 
-.domain {
+.viz.table .domain {
     color: #888;
     font-size: x-small;
     white-space: nowrap;
 }
 
-.tagline {
+.viz.table .tagline {
 	color: #888;
     font-size: x-small;
+}
+
+.viz.table .author:hover {
+  text-decoration: underline;
 }

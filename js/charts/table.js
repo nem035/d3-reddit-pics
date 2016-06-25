@@ -27,15 +27,15 @@ window.redditChart.table = function() {
 
     dataRowsEnter.append('span')
       .classed('rank', true)
-      .text('1');
+      .text((d, i) => i + 1);
 
     dataRowsEnter.append('div')
       .classed('voted', true)
       .html((d) => `
         <div class="arrow up" role="button" aria-label="upvote" tabindex="0"></div>
-        <div class="score dislikes">78</div>
-        <div class="score unvoted">79</div>
-        <div class="score likes">80</div>
+        <div class="score dislikes">${d.downs}</div>
+        <div class="score unvoted">${d.ups}</div>
+        <div class="score likes">${d.score}</div>
         <div class="arrow down" role="button" aria-label="downvote" tabindex="0"></div>
       `);
 
@@ -79,7 +79,7 @@ window.redditChart.table = function() {
           ${timeFormat(new Date(d.created))}
         </time>
         by
-        <a href="user goes here" class="author">USER</a>
+        <a href="https://www.reddit.com/user/${d.author}" target="_blank" class="author">${d.author}</a>
       `);
 
     // dispatch mouse events
