@@ -36,18 +36,39 @@ window.redditChart.table = function() {
         <div class="arrow down" role="button" aria-label="downvote" tabindex="0"></div>
       `);
 
-    dataRowsEnter.append('a')
-      .classed('thumbnail', true)
-      .attr({
-        href: (d) => d.thumbnail,
-        target: '_blank',
-      })
-      .append('img')
+    const thumbnail = dataRowsEnter.append('div')
+      .classed('thumbnail', true);
+
+    thumbnail.append('img')
       .attr({
         src: (d) => d.thumbnail,
         width: 70,
         height: 70
       });
+
+    thumbnail.append('div')
+      .classed('overlay', true)
+      .append('span')
+      .text('View');
+
+    thumbnail.on('click', ({ niceImage }) => {
+      const imgPreview = d3.select('.img-preview');
+      console.log(niceImage);
+      imgPreview.classed('visible', true)
+        .append('img')
+        .attr({
+          width: niceImage.width,
+          height: niceImage.height,
+          src: niceImage.url,
+        });
+
+      imgPreview.on('click', function() {
+          d3.select(this)
+            .classed('visible', false)
+            .select('img')
+            .remove();
+        });
+    });
 
     const entry = dataRowsEnter.append('div')
       .classed('entry', true);

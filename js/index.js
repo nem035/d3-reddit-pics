@@ -182,6 +182,17 @@ function cleanData({ data }) {
       if (data.thumbnail.indexOf('://') === -1) {
         data.thumbnail = `${baseURL}/img/placeholder-140x140.png`;
       }
+
+      if (data.preview) {
+        data.niceImage = data.preview.images[0].source;
+      } else {
+        data.niceImage = {
+          url: data.url || data.thumbnail,
+          width: data.width || 140,
+          height: data.height || 140,
+        }
+      }
+
       return data;
     })
     .sort((a, b) => b.created - a.created);
