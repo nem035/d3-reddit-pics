@@ -45,7 +45,6 @@ window.redditChart.axis = function() {
       .tickFormat(window.timeFormat)
       .tickPadding(10);
 
-    console.log(yRange);
     gX.transition()
       .ease('quad')
       .duration(window.transitionTime)

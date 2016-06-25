@@ -300,6 +300,10 @@ text.axis-text {
 
 /* Table */
 .viz.table {
+  height: inherit;
+}
+
+.viz.table .table {
   overflow-y: scroll;
   height: inherit;
 }

@@ -102,7 +102,7 @@ window.redditChart.table = function() {
   }
 
   chart.highlightRows = function(data) {
-    table.selectAll('.row')
+    const rows = table.selectAll('.row')
       .data(data, d => d.id)
       .classed('highlighted', true);
   }
@@ -113,6 +113,20 @@ window.redditChart.table = function() {
       .classed('highlighted', false);
   }
 
+  chart.scrollToRow = function(data) {
+    if (data.length === 1) {
+      const target = table.selectAll('.row')
+        .data(data, d => d.id)[0][0];
+
+      const targetPos = findPos(target);
+
+      d3.transition()
+        .duration(500)
+        .ease('quad')
+        .tween('scrollTop', scrollTopTween(targetPos - 33));
+    }
+  }
+
   chart.data = function(val) {
     if (!arguments.length) {
       return data;
@@ -120,6 +134,25 @@ window.redditChart.table = function() {
     data = val;
     return chart;
   };
+
+  function findPos(obj) {
+    let top = 0;
+    if (obj.offsetParent) {
+      do {
+        top += obj.offsetTop;
+      } while (obj = obj.offsetParent);
+      return top;
+    }
+  }
+
+  function scrollTopTween(scrollTop) {
+    return function() {
+      const i = d3.interpolateNumber(table.node().scrollTop, scrollTop);
+      return function(t) {
+        table.node().scrollTop = i(t);
+      };
+   };
+  }
 
   return d3.rebind(chart, dispatch, 'on');
 };

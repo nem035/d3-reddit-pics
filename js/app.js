@@ -152,6 +152,7 @@ function D3Reddit(data) {
 
     scatter.on('circleMouseOver', d => {
       this.table.highlightRows([ d ]);
+      this.table.scrollToRow([ d ]);
     });
 
     scatter.on('circleMouseOut', (d) => {
