@@ -7,7 +7,7 @@ window.yAxisTextHeight = 45;
 window.redditChart = {};
 
 function init() {
-  window.timeFormat = d3.time.format('%a %I:%M %p');
+  window.timeFormat = d3.time.format('%a %d %I:%M %p');
 }
 
 function getContainerDim(container) {
@@ -169,7 +169,7 @@ function cleanData({ data }) {
       }
       return data;
     })
-    .sort((a, b) => a.created - b.created);
+    .sort((a, b) => b.created - a.created);
 }
 
 function getAxisTimeFormat(ms) {

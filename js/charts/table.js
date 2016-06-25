@@ -75,7 +75,7 @@ window.redditChart.table = function() {
       .classed('tagline', true)
       .html((d) => `
         submitted
-        <time title="${d.created}" datetime="${new Date(d.created)}" class="live-timestamp">
+        <time title="${timeFormat(new Date(d.created))}" datetime="${new Date(d.created)}" class="live-timestamp">
           ${timeFormat(new Date(d.created))}
         </time>
         by
