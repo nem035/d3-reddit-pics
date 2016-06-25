@@ -12,9 +12,11 @@ window.redditChart.axis = function() {
 
     // render the axis groups the first time
     gX = g.append('g')
+      .attr('transform', `translate(0, ${yRange[1]})`)
       .classed('axis x-axis', true);
 
     gY = g.append('g')
+      .attr('transform', `translate(${xRange[0]}, 0)`)
       .classed('axis y-axis', true);
 
     chart.render();
@@ -43,8 +45,8 @@ window.redditChart.axis = function() {
       .tickFormat(window.timeFormat)
       .tickPadding(10);
 
-    gX.attr('transform', `translate(0, ${yRange[1]})`)
-      .transition()
+    console.log(yRange);
+    gX.transition()
       .ease('quad')
       .duration(window.transitionTime)
       .call(xAxis);
@@ -67,8 +69,7 @@ window.redditChart.axis = function() {
       .orient('left')
       .tickSize(0);
 
-    gY.attr('transform', `translate(${xRange[0]}, 0)`)
-      .transition()
+    gY.transition()
       .ease('quad')
       .duration(window.transitionTime)
       .call(yAxis);
@@ -76,7 +77,7 @@ window.redditChart.axis = function() {
     gY.append('text')
       .classed('axis-text', true)
       .attr('y', 10) // 10 is half of the margin of viz-container
-      .attr('x', window.xAxisSpacing + 5)
+      .attr('x', -2)
       .text('Score');
   }
 
