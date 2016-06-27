@@ -53,21 +53,43 @@ window.redditChart.table = function() {
       .append('span')
       .text('View');
 
+    const imgPreview = d3.select('.img-preview');
+    const img = imgPreview.select('img');
+    const imgMaxWidth = parseInt(img.style('max-width'));
+    const imgMaxHeight = parseInt(img.style('max-height'));
+    const imgWidthScale = d3.scale
+      .linear()
+      .domain([ 0, imgMaxWidth ])
+      .range([ 0, imgMaxWidth ]);
+    const imgHeightScale = d3.scale
+      .linear()
+      .domain([ 0, imgMaxHeight ])
+      .range([ 0, imgMaxHeight ]);
+
     visibleThumbnail.on('click', ({ niceImage }) => {
-      const imgPreview = d3.select('.img-preview');
-      imgPreview.classed('visible', true)
-        .append('img')
-        .attr({
-          width: niceImage.width,
-          height: niceImage.height,
-          src: niceImage.url,
-        });
+
+      imgPreview.classed('visible', true);
+
+      img.attr({
+        src: niceImage.url,
+      });
+
+      img.style({
+        width: `${imgWidthScale(niceImage.width)}px`,
+        height: `${imgHeightScale(niceImage.height)}px`,
+      });
 
       imgPreview.on('click', function() {
-          d3.select(this)
-            .classed('visible', false)
-            .select('img')
-            .remove();
+          imgPreview.classed('visible', false);
+
+          img.attr({
+            src: '',
+          });
+
+          img.style({
+            width: 0,
+            height: 0,
+          });
         });
     });
 
