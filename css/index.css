@@ -65,7 +65,7 @@ body.loading * {
   z-index: 2;
   margin: 0;
   left: 25%;
-  top: 1050%;
+  top: 50%;
   animation: fade-in 1s infinite linear;
 }
 
@@ -74,6 +74,7 @@ body.loading * {
 a {
 	color: #369;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:visited,
@@ -104,7 +105,7 @@ a:active {
 }
 
 .menu-left {
-	width: 770px;
+	width: 780px;
 }
 
 .menu-right {
