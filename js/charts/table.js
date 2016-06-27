@@ -46,12 +46,14 @@ window.redditChart.table = function() {
         height: 70
       });
 
-    const visibleThumbnail = thumbnail.filter(d => !d.no_image);
-
-    visibleThumbnail.append('div')
+    const thumbsWithPreview = thumbnail.filter(d => !d.no_image);
+    thumbsWithPreview.append('div')
       .classed('overlay', true)
       .append('span')
       .text('View');
+
+    thumbnail.filter(d => d.no_image)
+      .classed('no-preview', true);
 
     const imgPreview = d3.select('.img-preview');
     const img = imgPreview.select('img');
@@ -66,7 +68,7 @@ window.redditChart.table = function() {
       .domain([ 0, imgMaxHeight ])
       .range([ 0, imgMaxHeight ]);
 
-    visibleThumbnail.on('click', ({ niceImage }) => {
+    thumbsWithPreview.on('click', ({ niceImage }) => {
 
       imgPreview.classed('visible', true);
 

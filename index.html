@@ -10,36 +10,48 @@
 
     <!-- menu -->
     <section class="menu">
-      <a href="https://d3js.org/" target="_blank">
-        <img src="./img/d3-flat.png" width="30" height="20">
-      </a>
-      <img src="./img/reddit-flat.png" width="20" height="20" class="alien rotating">
-      <a href="./index.html" title="home">D3Reddit Pics</a> based on
-      <a href="https://www.reddit.com/r/pics" target="_blank" title="r/pics">
-        <img src="https://a.thumbs.redditmedia.com/v6TowjW1Qnev8RYA2CounVgo_Y-B7pu2dyRDFZNTk_8.png" width="50"/>
-      </a>
-      <ul class="tabmenu">
-        <li class="selected">
-          <a href="./index.html" class="choice">app</a>
-        </li>
-        <li>
-          <a href="./about.html" class="choice">about</a>
-        </li>
-      </ul>
-      <ul class="chartmenu">
-        <li>
-          <input name="bar" id="bar" type="checkbox"> Bar
-        </li>
-        <li>
-          <input name="line" id="line" type="checkbox"> Line
-        </li>
-        <li>
-          <input name="scatter" id="scatter" type="checkbox"> Scatter
-        </li>
-      </ul>
-      <span class="timespan">
-        <span class="from"></span> - <span class="to"></span>
-      </span>
+      <div class="menu-left">
+        <a href="https://d3js.org/" target="_blank">
+          <img src="./img/d3-flat.png" width="30" height="20">
+        </a>
+        <img src="./img/reddit-flat.png" width="20" height="20" class="alien rotating">
+        <a href="./index.html" title="home">D3Reddit Pics</a> based on
+        <a href="https://www.reddit.com/r/pics" target="_blank" title="r/pics">
+          <img src="https://a.thumbs.redditmedia.com/v6TowjW1Qnev8RYA2CounVgo_Y-B7pu2dyRDFZNTk_8.png" width="50"/>
+        </a>
+        <ul class="tabmenu">
+          <li class="selected">
+            <a href="./index.html" class="choice">app</a>
+          </li>
+          <li>
+            <a href="./about.html" class="choice">about</a>
+          </li>
+        </ul>
+        <ul class="chartmenu">
+          <li>
+            <input name="bar" id="bar" type="checkbox"> Bar
+          </li>
+          <li>
+            <input name="line" id="line" type="checkbox"> Line
+          </li>
+          <li>
+            <input name="scatter" id="scatter" type="checkbox"> Scatter
+          </li>
+        </ul>
+        <span class="timespan">
+          <span class="from"></span> - <span class="to"></span>
+        </span>
+      </div>
+      <div class="menu-right">
+        <ul class="tabmenu">
+          <li class="selected">
+            <a class="tab-data" class="choice">data</a>
+          </li>
+          <li>
+            <a class="tab-histogram" class="choice">histogram</a>
+          </li>
+        </ul>
+      </div>
       <a class="github" href="https://github.com/nem035/d3-reddit-pics" target="_blank">Github Repo</a>
     </section>
 
