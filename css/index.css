@@ -285,6 +285,18 @@ text.axis-text {
   width: 5px;
 }
 
+/* Histogram */
+.viz.histogram {
+  height: inherit;
+	margin-top: 3px;
+  transition: margin-left .3s ease-in-out;
+  margin-left: 0;
+}
+
+.viz.histogram.hide {
+	margin-left: 500px;
+}
+
 /* Line */
 .g-line path {
   fill: none;
@@ -309,6 +321,12 @@ text.axis-text {
 .viz.table {
   height: inherit;
 	margin-top: 3px;
+  transition: margin-left .3s ease-in-out;
+  margin-left: 0;
+}
+
+.viz.table.hide {
+	margin-left: 500px;
 }
 
 .viz.table .table {

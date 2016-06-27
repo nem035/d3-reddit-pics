@@ -5,26 +5,58 @@ function D3Reddit(data) {
   const vizContainerRight = d3.select('.viz-container.right');
 
   const {
-    height,
-    xRange,
-    yRange,
+    height: heightLeft,
+    xRange: xRangeLeft,
+    yRange: yRangeLeft,
   } = getLeftContainerDim(vizContainerLeft);
 
-  this.data = data;
   this.vizContainerLeft = vizContainerLeft;
+  this.heightLeft = heightLeft;
+  this.xRangeLeft = xRangeLeft;
+  this.yRangeLeft = yRangeLeft;
+
+  const {
+    height: heightRight,
+    xRange: xRangeRight,
+    yRange: yRangeRight,
+  } = getRightContainerDim(vizContainerRight);
+
   this.vizContainerRight = vizContainerRight;
-  this.heightLeft = height;
-  this.xRangeLeft = xRange;
-  this.yRangeLeft = yRange;
+  this.heightRight = heightRight;
+  this.xRangeRight = xRangeRight;
+  this.yRangeRight = yRangeRight;
+
+  this.data = data;
 
   this.visualize = () => {
     this.activeVisualizations = getVizNamesFromHash();
-    this.persistentVisualizations = ['axis', 'brush', 'table'];
-    this.filterableVisualizations = [ 'table' ].concat(this.activeVisualizations);
+    this.persistentVisualizations = ['axis', 'brush', 'table', 'histogram'];
+    this.filterableVisualizations = [ 'table', 'histogram' ].concat(this.activeVisualizations);
 
     this.activeVisualizations
       .concat(this.persistentVisualizations)
       .forEach(viz => this[`${viz}Viz`]());
+
+    d3.select('.viz.histogram')
+      .classed('hide', true);
+
+    d3.select('.tab-data')
+      .on('click', () => {
+        d3.select('.menu-right .data')
+          .classed('selected', true);
+        d3.select('.menu-right .histogram')
+          .classed('selected', false);
+        this.showTable();
+      });
+
+    d3.select('.tab-histogram')
+      .on('click', () => {
+        d3.select('.menu-right .histogram')
+          .classed('selected', true);
+        d3.select('.menu-right .data')
+          .classed('selected', false);
+        this.showHistogram();
+      });
   };
 
   this.loadChart = (vizName) => {
@@ -32,17 +64,17 @@ function D3Reddit(data) {
       .data(this.data);
   };
 
-  this.getVizContainer = (vizName) => {
-    const container = d3.select(`.${vizName}`);
-    return container[0][0] ? container : this.vizContainerLeft
-      .append('div')
-      .classed(`viz ${vizName}`, true)
-      .append('svg')
-      .append('g');
+  this.getVizContainer = (vizName, side) => {
+    const container = d3.select(`.viz.${vizName}`);
+    return container[0][0] ?
+      container :
+      (side === 'left' ? this.vizContainerLeft : this.vizContainerRight)
+        .append('div')
+        .classed(`viz ${vizName}`, true);
   };
 
-  this.loadViz = (vizName) => {
-    const container = this.getVizContainer(vizName);
+  this.loadViz = (vizName, side) => {
+    const container = this.getVizContainer(vizName, side);
     const chart = this.loadChart(vizName);
 
     return {
@@ -55,14 +87,16 @@ function D3Reddit(data) {
     const {
       chart: axis,
       container,
-    } = this.loadViz('axis');
+    } = this.loadViz('axis', 'left');
 
     container.attr('transform', 'translate(0, 5)');
 
     axis.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5])
       .yRange(this.yRangeLeft);
 
-    axis(container);
+    const g = container.append('svg')
+      .append('g');
+    axis(g);
 
     this.axis = axis;
   };
@@ -71,14 +105,16 @@ function D3Reddit(data) {
     const {
       chart: bar,
       container,
-    } = this.loadViz('bar');
+    } = this.loadViz('bar', 'left');
 
     container.attr('transform', 'translate(0, 5)');
 
     bar.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5])
     .yRange(this.yRangeLeft);
 
-    bar(container);
+    const g = container.append('svg')
+      .append('g');
+    bar(g);
 
     this.bar = bar;
   };
@@ -87,11 +123,13 @@ function D3Reddit(data) {
     const {
       chart: brush,
       container,
-    } = this.loadViz('brush');
+    } = this.loadViz('brush', 'left');
 
     brush.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5]);
 
-    brush(container);
+    const g = container.append('svg')
+      .append('g');
+    brush(g);
 
     brush.on('brushFilter', (filtered, minCreated, maxCreated) => {
       this.data = filtered;
@@ -119,18 +157,36 @@ function D3Reddit(data) {
     this.brush = brush;
   };
 
+  this.histogramViz = () => {
+    const {
+      chart: histogram,
+      container,
+    } = this.loadViz('histogram', 'right');
+
+    histogram.xRange(this.xRangeRight)
+    .yRange(this.yRangeRight);
+
+    const g = container.append('svg')
+      .append('g');
+    histogram(g);
+
+    this.histogram = histogram;
+  },
+
   this.lineViz = () => {
     const {
       chart: line,
       container,
-    } = this.loadViz('line');
+    } = this.loadViz('line', 'left');
 
     container.attr('transform', 'translate(5, 10)');
 
     line.xRange(this.xRangeLeft)
     .yRange([this.yRangeLeft[0] + 5, this.yRangeLeft[1]]);
 
-    line(container);
+    const g = container.append('svg')
+      .append('g');
+    line(g);
 
     this.line = line;
   };
@@ -139,14 +195,16 @@ function D3Reddit(data) {
     const {
       chart: scatter,
       container,
-    } = this.loadViz('scatter');
+    } = this.loadViz('scatter', 'left');
 
     container.attr('transform', 'translate(5, 10)');
 
     scatter.xRange(this.xRangeLeft)
       .yRange([this.yRangeLeft[0] + 5, this.yRangeLeft[1]]);
 
-    scatter(container);
+    const g = container.append('svg')
+      .append('g');
+    scatter(g);
 
     scatter.on('circleMouseOver', d => {
       this.table.highlightRows([ d ]);
@@ -162,10 +220,10 @@ function D3Reddit(data) {
   };
 
   this.tableViz = () => {
-    const table = this.loadChart('table');
-    const container = this.vizContainerRight
-      .append('div')
-      .classed('viz table', true);
+    const {
+      chart: table,
+      container,
+    } = this.loadViz('table', 'right');
 
     table(container);
 
@@ -183,4 +241,20 @@ function D3Reddit(data) {
 
     this.table = table;
   };
+
+  this.showTable = () => {
+    d3.select('.viz.histogram')
+      .classed('hide', true);
+
+    d3.select('.viz.table')
+      .classed('hide', false);
+  },
+
+  this.showHistogram = () => {
+    d3.select('.viz.table')
+      .classed('hide', true);
+
+    d3.select('.viz.histogram')
+      .classed('hide', false);
+  }
 };

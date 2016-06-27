@@ -20,13 +20,32 @@ function initValues(data) {
   window.maxPostScore = maxPostScore;
 }
 
+function extractStyledElem(elem) {
+  while (!elem.style) {
+    elem = elem.parentElement;
+  }
+  return elem;
+}
+
+function getRightContainerDim(container) {
+  const ref = extractStyledElem(container);
+
+  const height = parseInt(ref.style('height'));
+  const width = parseInt(ref.style('width'));
+
+  const xRange = [ 0, width ];
+  const yRange = [ 0, height ];
+  
+  return {
+    width,
+    height,
+    xRange,
+    yRange,
+  };
+}
+
 function getLeftContainerDim(container) {
-  const ref = (() => {
-    while (!container.style) {
-      container = container.parentElement;
-    }
-    return container;
-  })();
+  const ref = extractStyledElem(container);
 
   const {
     xAxisSpacing,
