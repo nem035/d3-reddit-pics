@@ -153,8 +153,12 @@ a:active {
 }
 
 .timespan {
-	font-size: small;
-	font-weight: bold;
+	position: absolute;
+	z-index: 1;
+	right: 3px;
+	top: 10px;
+	font-size: 16px;
+  font-weight: bold;
 }
 
 .github {
@@ -284,6 +288,11 @@ text.axis-text {
   fill: #808080;
   visibility: visible !important;
   width: 5px;
+}
+
+.g-brush rect.highlighted {
+  fill: #F8ECB6;
+  stroke: #FFAE1A;
 }
 
 /* Histogram */

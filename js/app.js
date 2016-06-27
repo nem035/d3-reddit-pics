@@ -27,6 +27,7 @@ function D3Reddit(data) {
   this.yRangeRight = yRangeRight;
 
   this.data = data;
+  this.isShowingTable = true;
 
   this.visualize = () => {
     this.activeVisualizations = getVizNamesFromHash();
@@ -131,7 +132,7 @@ function D3Reddit(data) {
       .append('g');
     brush(g);
 
-    brush.on('brushFilter', (filtered, minCreated, maxCreated) => {
+    brush.on('filter', (filtered, minCreated, maxCreated) => {
       this.data = filtered;
 
       this.axis
@@ -170,16 +171,18 @@ function D3Reddit(data) {
       .append('g');
     histogram(g);
 
-    histogram.on('histMouseOver', d => {
+    histogram.on('mouseOver', d => {
       if (this.scatter) {
-        this.scatter.highlightCircles(d);
+        this.scatter.highlight(d);
       }
+      this.brush.highlight(d);
     });
 
-    histogram.on('histMouseOut', (d) => {
+    histogram.on('mouseOut', (d) => {
       if (this.scatter) {
-        this.scatter.unhighlightCircles(d);
+        this.scatter.unhighlight(d);
       }
+      this.brush.unhighlight(d);
     });
 
     this.histogram = histogram;
@@ -218,13 +221,22 @@ function D3Reddit(data) {
       .append('g');
     scatter(g);
 
-    scatter.on('circleMouseOver', d => {
-      this.table.highlightRows([ d ]);
-      this.table.scrollToRow([ d ]);
+    scatter.on('mouseOver', d => {
+      this.brush.highlight(d);
+      if (this.isShowingTable) {
+        this.table.highlight([ d ]);
+        this.table.scrollTo([ d ]);
+      } else {
+        this.histogram.highlight([ d ]);
+      }
     });
 
-    scatter.on('circleMouseOut', (d) => {
-      this.table.unhighlightRows([ d ]);
+    scatter.on('mouseOut', (d) => {
+      if (this.isShowingTable) {
+         this.table.unhighlight([ d ]);
+      } else {
+        this.histogram.unhighlight([ d ]);
+      }
     });
 
     this.scatter = scatter;
@@ -239,15 +251,15 @@ function D3Reddit(data) {
 
     table(container);
 
-    table.on('rowMouseOver', d => {
+    table.on('mouseOver', d => {
       if (this.scatter) {
-        this.scatter.highlightCircles([ d ]);
+        this.scatter.highlight([ d ]);
       }
     });
 
-    table.on('rowMouseOut', () => {
+    table.on('mouseOut', () => {
       if (this.scatter) {
-        this.scatter.unhighlightAllCircles();
+        this.scatter.unhighlightAll();
       }
     });
 
@@ -260,6 +272,8 @@ function D3Reddit(data) {
 
     d3.select('.viz.table')
       .classed('hide', false);
+
+    this.isShowingTable = true;
   },
 
   this.showHistogram = () => {
@@ -268,5 +282,7 @@ function D3Reddit(data) {
 
     d3.select('.viz.histogram')
       .classed('hide', false);
+
+    this.isShowingTable = false;
   }
 };

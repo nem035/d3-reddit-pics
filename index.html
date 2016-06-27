@@ -38,9 +38,6 @@
             <input name="scatter" id="scatter" type="checkbox"> Scatter
           </li>
         </ul>
-        <span class="timespan">
-          <span class="from"></span> - <span class="to"></span>
-        </span>
       </div>
       <div class="menu-right">
         <ul class="tabmenu">
@@ -55,7 +52,9 @@
           </li>
         </ul>
       </div>
-      <a class="github" href="https://github.com/nem035/d3-reddit-pics" target="_blank">Github Repo</a>
+      <span class="timespan">
+        <span class="from"></span> - <span class="to"></span>
+      </span>
     </section>
 
     <div class="img-preview">
@@ -63,7 +62,8 @@
     </div>
 
     <!-- containers -->
-    <section class="viz-container left"></section>
+    <section class="viz-container left">
+    </section>
     <section class="viz-container right"></section>
     <!-- d3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>

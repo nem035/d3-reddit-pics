@@ -2,7 +2,7 @@ window.redditChart.table = function() {
   let data;
   let table;
 
-  const dispatch = d3.dispatch('rowMouseOver', 'rowMouseOut');
+  const dispatch = d3.dispatch('mouseOver', 'mouseOut');
 
   function chart(container) {
     table = container.append('div')
@@ -127,12 +127,12 @@ window.redditChart.table = function() {
 
     // dispatch mouse events
     dataRowsEnter.on('mouseover', (d) => {
-      chart.highlightRows([ d ]);
-      dispatch.rowMouseOver(d);
+      chart.highlight([ d ]);
+      dispatch.mouseOver(d);
     });
     dataRowsEnter.on('mouseout', (d) => {
-      chart.unhighlightRows([ d ]);
-      dispatch.rowMouseOut(d);
+      chart.unhighlight([ d ]);
+      dispatch.mouseOut(d);
     });
 
     // transition removal of excess rows
@@ -143,19 +143,19 @@ window.redditChart.table = function() {
       .remove();
   }
 
-  chart.highlightRows = function(data) {
+  chart.highlight = function(data) {
     const rows = table.selectAll('.row')
       .data(data, d => d.id)
       .classed('highlighted', true);
   }
 
-  chart.unhighlightRows = function(data) {
+  chart.unhighlight = function(data) {
     table.selectAll('.row')
       .data(data, d => d.id)
       .classed('highlighted', false);
   }
 
-  chart.scrollToRow = function(data) {
+  chart.scrollTo = function(data) {
     if (data.length === 1) {
       const target = table.selectAll('.row')
         .data(data, d => d.id)[0][0];

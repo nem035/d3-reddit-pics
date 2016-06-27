@@ -5,7 +5,7 @@ window.redditChart.scatter = function() {
   let yRange = [ 0, 300 ];
   let circles;
 
-  const dispatch = d3.dispatch('circleMouseOver', 'circleMouseOut');
+  const dispatch = d3.dispatch('mouseOver', 'mouseOut');
 
   function chart(container) {
     g = container;
@@ -28,6 +28,11 @@ window.redditChart.scatter = function() {
       .domain(yDomain)
       .range(yRange);
 
+    const commentScale = d3.scale
+      .linear()
+      .domain(d3.extent(data, d => d.num_comments))
+      .range([3, 15]);
+
     // create all circles (do not exist yet)
     const circles = g.selectAll('circle')
       .data(data);
@@ -38,7 +43,7 @@ window.redditChart.scatter = function() {
       cy: (d) => yRange[1] - yScale(d.score),
       'data-score': (d) => d.score,
       'data-created': (d) => d.created,
-      r: 6,
+      r: (d) => commentScale(d.num_comments),
       class: 'scatter-circle',
     };
 
@@ -58,12 +63,12 @@ window.redditChart.scatter = function() {
       .attr(circleAttrs);
 
     circles.on('mouseover', (d) => {
-      chart.highlightCircles([ d ]);
-      dispatch.circleMouseOver(d);
+      chart.highlight([ d ]);
+      dispatch.mouseOver(d);
     })
     .on('mouseout', (d) => {
-      chart.unhighlightCircles([ d ]);
-      dispatch.circleMouseOut(d);
+      chart.unhighlight([ d ]);
+      dispatch.mouseOut(d);
     });
 
     // old circles are removed with a transition
@@ -75,20 +80,20 @@ window.redditChart.scatter = function() {
       .remove();
   }
 
-  chart.highlightCircles = function(data) {
-    chart.unhighlightAllCircles();
+  chart.highlight = function(data) {
+    chart.unhighlightAll();
     g.selectAll('circle')
       .data(data, d => d.id)
       .classed('highlighted', true);
   }
 
-  chart.unhighlightCircles = function(data) {
+  chart.unhighlight = function(data) {
     g.selectAll('circle')
       .data(data, d => d.id)
       .classed('highlighted', false);
   }
 
-  chart.unhighlightAllCircles = function() {
+  chart.unhighlightAll = function() {
     g.selectAll('circle')
       .classed('highlighted', false);
   }

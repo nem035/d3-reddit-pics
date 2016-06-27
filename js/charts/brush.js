@@ -3,7 +3,7 @@ window.redditChart.brush = function() {
   let data;
   let xRange = [ 0, 600 ];
 
-  const dispatch = d3.dispatch('brushFilter');
+  const dispatch = d3.dispatch('filter');
 
   function chart(container, filterDispatch) {
     g = container;
@@ -52,7 +52,7 @@ window.redditChart.brush = function() {
       rects.data(filtered, d => d.id)
         .classed('brushed', true);
 
-      dispatch.brushFilter(filtered, minCreated, maxCreated);
+      dispatch.filter(filtered, minCreated, maxCreated);
     });
 
     rects.exit()
@@ -71,6 +71,18 @@ window.redditChart.brush = function() {
       .tickFormat(window.timeFormat);
 
     xAxis(axisG);
+  }
+
+  chart.highlight = function(data) {
+    g.selectAll('rect.data')
+      .data(data, d => d.id)
+      .classed('highlighted', true);
+  }
+
+  chart.unhighlight = function(data) {
+    g.selectAll('rect.data')
+      .data(data, d => d.id)
+      .classed('highlighted', false);
   }
 
   chart.data = function(val) {

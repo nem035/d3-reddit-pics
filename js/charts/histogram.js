@@ -6,7 +6,7 @@ window.redditChart.histogram = function() {
   let cx = 10;
   let numberBins = 5;
 
-  const dispatch = d3.dispatch(chart, 'histMouseOver', 'histMouseOut');
+  const dispatch = d3.dispatch(chart, 'mouseOver', 'mouseOut');
 
   function chart(container) {
     g = container;
@@ -59,11 +59,11 @@ window.redditChart.histogram = function() {
 
     rects.on('mouseover', function(d) {
         d3.select(this).style('fill', 'orange')
-        dispatch.histMouseOver(d);
+        dispatch.mouseOver(d);
       });
     rects.on('mouseout', function(d) {
       d3.select(this).style('fill', '')
-      dispatch.histMouseOut(d);
+      dispatch.mouseOut(d);
     })
 
   }
