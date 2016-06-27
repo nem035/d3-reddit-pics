@@ -170,6 +170,18 @@ function D3Reddit(data) {
       .append('g');
     histogram(g);
 
+    histogram.on('histMouseOver', d => {
+      if (this.scatter) {
+        this.scatter.highlightCircles(d);
+      }
+    });
+
+    histogram.on('histMouseOut', (d) => {
+      if (this.scatter) {
+        this.scatter.unhighlightCircles(d);
+      }
+    });
+
     this.histogram = histogram;
   },
 

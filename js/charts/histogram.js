@@ -5,7 +5,8 @@ window.redditChart.histogram = function() {
   let yRange;
   let cx = 10;
   let numberBins = 5;
-  let dispatch = d3.dispatch(chart, 'histMouseOver', 'histMouseOut');
+
+  const dispatch = d3.dispatch(chart, 'histMouseOver', 'histMouseOut');
 
   function chart(container) {
     g = container;
@@ -62,7 +63,7 @@ window.redditChart.histogram = function() {
       });
     rects.on('mouseout', function(d) {
       d3.select(this).style('fill', '')
-      dispatch.histMouseOut([]);
+      dispatch.histMouseOut(d);
     })
 
   }
@@ -91,5 +92,5 @@ window.redditChart.histogram = function() {
     return chart;
   }
 
-  return chart;
+  return d3.rebind(chart, dispatch, 'on');
 }
