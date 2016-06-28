@@ -4,11 +4,15 @@ function D3Reddit(data) {
   const vizContainerLeft = d3.select('.viz-container.left');
   const vizContainerRight = d3.select('.viz-container.right');
 
+  const scatterRadiusRange = [ 3, 15 ];
+
   const {
     height: heightLeft,
     xRange: xRangeLeft,
     yRange: yRangeLeft,
   } = getLeftContainerDim(vizContainerLeft);
+
+  this.scatterRadiusRange = scatterRadiusRange;
 
   this.vizContainerLeft = vizContainerLeft;
   this.heightLeft = heightLeft;
@@ -96,8 +100,6 @@ function D3Reddit(data) {
     const g = container.append('svg')
       .append('g');
 
-    // g.attr('transform', 'translate(0, 5)');
-
     axis(g);
 
     this.axis = axis;
@@ -114,8 +116,6 @@ function D3Reddit(data) {
 
     const g = container.append('svg')
       .append('g');
-
-    // g.attr('transform', 'translate(0, 5)');
 
     bar(g);
 
@@ -204,8 +204,6 @@ function D3Reddit(data) {
     const g = container.append('svg')
       .append('g');
 
-    // g.attr('transform', 'translate(5, 10)');
-
     line(g);
 
     this.line = line;
@@ -219,12 +217,10 @@ function D3Reddit(data) {
 
     scatter.xRange(this.xRangeLeft)
       .yRange(this.yRangeLeft)
-      .radiusRange([ 3, 15 ]);
+      .radiusRange(this.scatterRadiusRange);
 
     const g = container.append('svg')
       .append('g');
-
-    // g.attr('transform', 'translate(5, 10)');
 
     scatter(g);
 

@@ -35,13 +35,12 @@ window.redditChart.axis = function() {
       .range(xRange);
 
     const [ min, max ] = xDomain;
-    const tickValues = [min, min + (max - min) / 2, max].map(ms => new Date(ms));
     const xAxis = d3.svg
       .axis()
       .scale(xScale)
       .orient('bottom')
       .tickSize(0)
-      .tickValues(tickValues)
+      .ticks(3)
       .tickFormat(window.timeFormat)
       .tickPadding(10);
 
@@ -75,7 +74,7 @@ window.redditChart.axis = function() {
 
     gY.append('text')
       .classed('axis-text', true)
-      .attr('y', 4)
+      .attr('y', 10)
       .attr('x', -2)
       .text('Score');
   }

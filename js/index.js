@@ -35,7 +35,7 @@ function getRightContainerDim(container) {
 
   const xRange = [ 0, width ];
   const yRange = [ 0, height ];
-  
+
   return {
     width,
     height,
@@ -49,14 +49,15 @@ function getLeftContainerDim(container) {
 
   const {
     xAxisSpacing,
-    yAxisSpacing
+    yAxisSpacing,
+    brushHeight,
   } = window;
 
   const height = parseInt(ref.style('height'));
   const width = parseInt(ref.style('width'));
 
-  const xRange = [ xAxisSpacing, width - 50 ];
-  const yRange = [ 0, height - yAxisSpacing - 70 ];
+  const xRange = [ xAxisSpacing, width - 10 ];
+  const yRange = [ 0, height - 10 - yAxisSpacing - 2*brushHeight ];
 
   return {
     width,

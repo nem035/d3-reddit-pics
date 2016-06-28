@@ -37,7 +37,7 @@ window.redditChart.brush = function() {
     })
     .classed('brushed', false);
 
-    brush.on('brushend', function() {
+    brush.on('brushend', () => {
       const [ minCreated, maxCreated ] = brush.extent();
       const filtered = data.filter(({ created }) => (
         created > minCreated && created < maxCreated
