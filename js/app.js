@@ -43,7 +43,9 @@ function D3Reddit(data) {
       .forEach(viz => this[`${viz}Viz`]());
 
     d3.select('.viz.histogram')
-      .classed('hide', true);
+      .style('visibility', 'hidden')
+      .classed('hide', true)
+      .style('visibility', 'visible');
 
     d3.select('.tab-data')
       .on('click', () => {
