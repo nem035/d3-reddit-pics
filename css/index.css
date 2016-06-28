@@ -311,7 +311,7 @@ text.axis-text {
 .g-line path {
   fill: none;
   stroke: #CCCCCC;
-  stroke-width: 2px;
+  stroke-width: 1px;
 }
 
 /* Scatter */

@@ -90,13 +90,14 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('axis', 'left');
 
-    container.attr('transform', 'translate(0, 5)');
-
-    axis.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5])
+    axis.xRange(this.xRangeLeft)
       .yRange(this.yRangeLeft);
 
     const g = container.append('svg')
       .append('g');
+
+    // g.attr('transform', 'translate(0, 5)');
+
     axis(g);
 
     this.axis = axis;
@@ -108,13 +109,14 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('bar', 'left');
 
-    container.attr('transform', 'translate(0, 5)');
-
-    bar.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5])
+    bar.xRange(this.xRangeLeft)
     .yRange(this.yRangeLeft);
 
     const g = container.append('svg')
       .append('g');
+
+    // g.attr('transform', 'translate(0, 5)');
+
     bar(g);
 
     this.bar = bar;
@@ -126,10 +128,11 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('brush', 'left');
 
-    brush.xRange([this.xRangeLeft[0], this.xRangeLeft[1] + 5]);
+    brush.xRange(this.xRangeLeft);
 
     const g = container.append('svg')
       .append('g');
+
     brush(g);
 
     brush.on('filter', (filtered, minCreated, maxCreated) => {
@@ -169,6 +172,7 @@ function D3Reddit(data) {
 
     const g = container.append('svg')
       .append('g');
+
     histogram(g);
 
     histogram.on('mouseOver', d => {
@@ -194,13 +198,14 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('line', 'left');
 
-    container.attr('transform', 'translate(5, 10)');
-
     line.xRange(this.xRangeLeft)
-    .yRange([this.yRangeLeft[0] + 5, this.yRangeLeft[1]]);
+    .yRange(this.yRangeLeft);
 
     const g = container.append('svg')
       .append('g');
+
+    // g.attr('transform', 'translate(5, 10)');
+
     line(g);
 
     this.line = line;
@@ -212,13 +217,15 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('scatter', 'left');
 
-    container.attr('transform', 'translate(5, 10)');
-
     scatter.xRange(this.xRangeLeft)
-      .yRange([this.yRangeLeft[0] + 5, this.yRangeLeft[1]]);
+      .yRange(this.yRangeLeft)
+      .radiusRange([ 3, 15 ]);
 
     const g = container.append('svg')
       .append('g');
+
+    // g.attr('transform', 'translate(5, 10)');
+
     scatter(g);
 
     scatter.on('mouseOver', d => {

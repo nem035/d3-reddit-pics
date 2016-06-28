@@ -3,6 +3,7 @@ window.redditChart.scatter = function() {
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
+  let radiusRange = [ 3, 15 ];
   let circles;
 
   const dispatch = d3.dispatch('mouseOver', 'mouseOut');
@@ -31,7 +32,7 @@ window.redditChart.scatter = function() {
     const commentScale = d3.scale
       .linear()
       .domain(d3.extent(data, d => d.num_comments))
-      .range([3, 15]);
+      .range(radiusRange);
 
     // create all circles (do not exist yet)
     const circles = g.selectAll('circle')
@@ -117,6 +118,14 @@ window.redditChart.scatter = function() {
       return yRange;
     }
     yRange = val;
+    return chart;
+  }
+
+  chart.radiusRange = function(val) {
+    if (!arguments.length) {
+      return radiusRange;
+    }
+    radiusRange = val;
     return chart;
   }
 
