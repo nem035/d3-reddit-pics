@@ -15,19 +15,27 @@ window.redditChart.scatter = function() {
   }
 
   chart.render = function() {
+    const maxRadius = radiusRange[1];
+
     // create x scale from the data
     const xDomain = d3.extent(data, d => d.created);
     const xScale = d3.time
       .scale()
       .domain(xDomain)
-      .range(xRange);
+      .range([
+        xRange[0] + maxRadius,
+        xRange[1] - maxRadius
+      ]);
 
     // create the y scale from the data
     const yDomain = [0, d3.max(data, d => d.score)];
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
-      .range(yRange);
+      .range([
+        yRange[0] + maxRadius,
+        yRange[1] - maxRadius
+      ]);
 
     const commentScale = d3.scale
       .linear()

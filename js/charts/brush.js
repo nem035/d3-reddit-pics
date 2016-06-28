@@ -2,6 +2,7 @@ window.redditChart.brush = function() {
   let g;
   let data;
   let xRange = [ 0, 600 ];
+  let offset = 0;
 
   const dispatch = d3.dispatch('filter');
 
@@ -14,7 +15,10 @@ window.redditChart.brush = function() {
     const xScale = d3.time
       .scale()
       .domain(xDomain)
-      .range(xRange);
+      .range([
+        xRange[0] + offset,
+        xRange[1] - offset
+      ]);
 
     const brush = d3.svg
       .brush()
@@ -98,6 +102,14 @@ window.redditChart.brush = function() {
       return xRange;
     }
     xRange = val;
+    return chart;
+  }
+
+  chart.offset = function(val) {
+    if (!arguments.length) {
+      return offset;
+    }
+    offset = val;
     return chart;
   }
 

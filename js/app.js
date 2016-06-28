@@ -112,7 +112,8 @@ function D3Reddit(data) {
     } = this.loadViz('bar', 'left');
 
     bar.xRange(this.xRangeLeft)
-    .yRange(this.yRangeLeft);
+    .yRange(this.yRangeLeft)
+    .offset(this.scatterRadiusRange[1]);
 
     const g = container.append('svg')
       .append('g');
@@ -128,7 +129,8 @@ function D3Reddit(data) {
       container,
     } = this.loadViz('brush', 'left');
 
-    brush.xRange(this.xRangeLeft);
+    brush.xRange(this.xRangeLeft)
+    .offset(this.scatterRadiusRange[1]);
 
     const g = container.append('svg')
       .append('g');
@@ -199,7 +201,8 @@ function D3Reddit(data) {
     } = this.loadViz('line', 'left');
 
     line.xRange(this.xRangeLeft)
-    .yRange(this.yRangeLeft);
+    .yRange(this.yRangeLeft)
+    .offset(this.scatterRadiusRange[1]);
 
     const g = container.append('svg')
       .append('g');

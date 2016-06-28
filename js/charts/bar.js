@@ -3,6 +3,7 @@ window.redditChart.bar = function() {
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
+  let offset = 0;
 
   function chart(container) {
     g = container;
@@ -15,13 +16,19 @@ window.redditChart.bar = function() {
     const xScale = d3.time
       .scale()
       .domain(xDomain)
-      .range(xRange);
+      .range([
+        xRange[0] + offset,
+        xRange[1] - offset
+      ]);
 
     const yDomain = [0, d3.max(data, d => d.score)];
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
-      .range(yRange);
+      .range([
+        yRange[0] + offset,
+        yRange[1] - offset
+      ]);
 
     const bars = g.selectAll('rect')
       .data(data);
@@ -69,6 +76,14 @@ window.redditChart.bar = function() {
       return yRange;
     }
     yRange = val;
+    return chart;
+  }
+
+  chart.offset = function(val) {
+    if (!arguments.length) {
+      return offset;
+    }
+    offset = val;
     return chart;
   }
 
