@@ -57,7 +57,7 @@ function getLeftContainerDim(container) {
   const width = parseInt(ref.style('width'));
 
   const xRange = [ xAxisSpacing, width - 10 ];
-  const yRange = [ 0, height - 10 - yAxisSpacing - 2*brushHeight ];
+  const yRange = [ 0, height - yAxisSpacing - 2*brushHeight - 10 ];
 
   return {
     width,
