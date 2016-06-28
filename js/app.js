@@ -35,8 +35,8 @@ function D3Reddit(data) {
 
   this.visualize = () => {
     this.activeVisualizations = getVizNamesFromHash();
-    this.persistentVisualizations = ['axis', 'brush', 'table', 'histogram'];
-    this.filterableVisualizations = [ 'table', 'histogram' ].concat(this.activeVisualizations);
+    this.persistentVisualizations = ['axis', 'brush', 'histogram', 'scatter', 'table',];
+    this.filterableVisualizations = [ 'histogram', 'scatter', 'table' ].concat(this.activeVisualizations);
 
     this.activeVisualizations
       .concat(this.persistentVisualizations)

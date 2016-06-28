@@ -1,5 +1,5 @@
 window.transitionTime = 300;
-window.vizNames = ['bar', 'line', 'scatter'];
+window.activeVizNames = ['bar', 'line'];
 window.brushHeight = 30;
 window.xAxisSpacing = 35;
 window.yAxisSpacing = 20;
@@ -147,7 +147,7 @@ function clearContent() {
 
 function getVizNamesFromHash() {
   const {
-    vizNames,
+    activeVizNames,
     location: {
       hash
     }
@@ -155,7 +155,7 @@ function getVizNamesFromHash() {
 
   return hash.slice(1)
       .split(',')
-      .filter(x => vizNames.indexOf(x) !== -1);
+      .filter(x => activeVizNames.indexOf(x) !== -1);
 }
 
 function setupCheckboxes() {

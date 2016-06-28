@@ -346,8 +346,9 @@ text.axis-text {
 
 .viz.table .row {
   cursor: pointer;
-  transition: all .2s ease-in-out;
+  transition: all .3s ease-in;
 }
+
 
 .viz.table .row.highlighted {
   background-color: #F8ECB6;

@@ -1,4 +1,4 @@
-window.location.hash = `#${vizNames.join(',')}`;
+window.location.hash = `#${activeVizNames.join(',')}`;
 
 document.addEventListener('DOMContentLoaded', (event) => {
   if (window.d3) {
