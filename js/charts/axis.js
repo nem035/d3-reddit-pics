@@ -5,6 +5,7 @@ window.redditChart.axis = function() {
   let data;
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
+  let offset = 0;
 
   function chart(container) {
     g = container;
@@ -32,7 +33,10 @@ window.redditChart.axis = function() {
     const xScale = d3.time
       .scale()
       .domain(xDomain)
-      .range(xRange);
+      .range([
+        xRange[0] + offset,
+        xRange[1] - offset
+      ]);
 
     const [ min, max ] = xDomain;
     const xAxis = d3.svg
@@ -59,7 +63,10 @@ window.redditChart.axis = function() {
     const yScale = d3.scale
       .linear()
       .domain(yDomain)
-      .range(yRange);
+      .range([
+        yRange[0] + offset,
+        yRange[1] - offset
+      ]);
 
     const yAxis = d3.svg
       .axis()

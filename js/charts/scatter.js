@@ -4,6 +4,7 @@ window.redditChart.scatter = function() {
   let xRange = [ 0, 600 ];
   let yRange = [ 0, 300 ];
   let radiusRange = [ 3, 15 ];
+  let strokeWidth = 1;
   let circles;
 
   const dispatch = d3.dispatch('mouseOver', 'mouseOut');
@@ -15,7 +16,7 @@ window.redditChart.scatter = function() {
   }
 
   chart.render = function() {
-    const maxRadius = radiusRange[1];
+    const offset = radiusRange[1] + strokeWidth;
 
     // create x scale from the data
     const xDomain = d3.extent(data, d => d.created);
@@ -23,8 +24,8 @@ window.redditChart.scatter = function() {
       .scale()
       .domain(xDomain)
       .range([
-        xRange[0] + maxRadius,
-        xRange[1] - maxRadius
+        xRange[0] + offset,
+        xRange[1] - offset
       ]);
 
     // create the y scale from the data
@@ -33,8 +34,8 @@ window.redditChart.scatter = function() {
       .linear()
       .domain(yDomain)
       .range([
-        yRange[0] + maxRadius,
-        yRange[1] - maxRadius
+        yRange[0] + offset,
+        yRange[1] - offset
       ]);
 
     const commentScale = d3.scale
